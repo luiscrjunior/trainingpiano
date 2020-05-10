@@ -21,3 +21,9 @@ Just another react boilerplate. Very simple.
 `npm run dev:server` run webpack dev server (with hot module) to `localhost:8080`
 
 `npm run prod:build` build production build to `./output`.
+
+## Bundles size (gzipped production build)
+
+`vendor.js`: 96kB
+
+`app.js`: 3.11kB
