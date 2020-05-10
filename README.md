@@ -1,6 +1,8 @@
 # react-boilerplate
 
-Just another react boilerplate. Very simple.
+Just another react boilerplate. Very simple and lightweight.
+
+Demo: https://luiscrjunior.github.io/react-boilerplate/
 
 ## Included
 
