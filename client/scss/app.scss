@@ -1,0 +1,51 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-width: 960px;
+  height: 100%;
+}
+
+body {
+  background-color: transparent;
+  font-family: 'Roboto', sans-serif;
+  font-size: 13px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a, a:link, a:visited, a:hover, a:active {
+  text-decoration: none;
+  font-weight: normal;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+li {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+input, textarea {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 7px 12px 7px 12px;
+  font-size: 13px;
+  color: #333333;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  box-shadow: none;
+  -webkit-appearance: none;
+}
+
+@import '~@trendmicro/react-buttons/dist/react-buttons.css';
