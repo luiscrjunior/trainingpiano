@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 import { Context } from 'store';
 import { Paragraph, Button } from 'components/shared';
-import NotesLabel from 'components/NotesLabel';
+
 import { generateRandomNotes } from 'app/utils';
 
 const Content = styled.div`
@@ -55,8 +55,6 @@ const App = () => {
   return <Content>
 
     <Clef />
-
-    <NotesLabel />
 
     <Button btnStyle='primary' btnSize='lg' label='Outra nota' onClick={drawAnotherNotes}/>
 

@@ -1,6 +1,6 @@
 import React, { useRef, useContext, useEffect } from 'react';
 import Vex, { drawDot } from 'vexflow';
-
+import { translateNote } from 'app/utils';
 import styled from 'styled-components';
 
 import { Context } from 'store';
@@ -60,6 +60,33 @@ const App = () => {
     group.current = context.current.openGroup();
     voice.draw(context.current, stave.current);
     context.current.closeGroup();
+
+    /* print label */
+    printNotesLabel(voice);
+  };
+
+  const printNotesLabel = (voice) => {
+    /* console.log(voice.getTickables()[0]); */
+
+    const staveNote = voice.getTickables()[0];
+    const notes = staveNote.keys.map(item => ({ key: item }));
+
+    staveNote.note_heads.forEach((noteHead, idx) => {
+      notes[idx].x = noteHead.x;
+      notes[idx].y = noteHead.y;
+    });
+
+    notes.forEach(note => {
+      const svgNS = 'http://www.w3.org/2000/svg';
+      const newText = document.createElementNS(svgNS, 'text');
+      newText.setAttributeNS(null, 'x', 205);
+      newText.setAttributeNS(null, 'y', note.y + 3);
+      newText.setAttributeNS(null, 'font-size', '8');
+      const textNode = document.createTextNode(translateNote(note.key));
+      newText.appendChild(textNode);
+      group.current.appendChild(newText);
+    });
+
   };
 
   useEffect(() => {

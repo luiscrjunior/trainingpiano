@@ -47,8 +47,8 @@ export const generateRandomNotes = ({
   lowerNote = 'C/4',
   upperNote = 'B/5',
   maxNotes = 4,
-  totalNotes = 1, /* 0 means random from 1 up to maxNotes */
-  includeAccidentals = false,
+  totalNotes = 2, /* 0 means random from 1 up to maxNotes */
+  includeAccidentals = true,
 } = {}) => {
 
   totalNotes = totalNotes === 0 ? randomNumber(1, maxNotes) : totalNotes;
