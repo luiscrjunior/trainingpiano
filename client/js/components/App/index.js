@@ -1,9 +1,12 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 
+import Clef from 'components/Clef';
 import styled from 'styled-components';
 
 import { Context } from 'store';
-import { Paragraph, Span, Button, Icon, SeparatorLabel, Input } from 'components/shared';
+import { Paragraph, Button } from 'components/shared';
+import NotesLabel from 'components/NotesLabel';
+import { generateRandomNotes } from 'app/utils';
 
 const Content = styled.div`
   width: 960px;
@@ -11,45 +14,51 @@ const Content = styled.div`
   text-align: center;
 `;
 
-const Container = styled.div`
-  margin: 40px 0;
-  text-align: left;
-`;
-
 const App = () => {
+
+  useEffect(() => {
+
+    navigator.requestMIDIAccess()
+      .then(function(access) {
+
+        // Get lists of available MIDI controllers
+        const inputs = access.inputs.values();
+
+        function getMIDIMessage(message) {
+          var command = message.data[0];
+          var note = message.data[1];
+          var velocity = message.data[2];
+       
+          switch (command) {
+            case 128: // noteOff
+            case 144: // noteOn
+              console.log('Command: ' + command +
+                ' , Note: ' + note + ' , Velocity: ' + velocity);
+              break;
+            }
+        }	        
+
+        for (var input of inputs) {
+          input.onmidimessage = getMIDIMessage;
+        }
+    });
+
+  }, []);
 
   const [state, dispatch] = useContext(Context);
 
+  const drawAnotherNotes = () => {
+    const newNotes = generateRandomNotes();
+    dispatch({ type: 'GENERATE_NEW_NOTES', value: newNotes });
+  };
+
   return <Content>
 
-    <Paragraph size={32}>react-boilerplate</Paragraph>
+    <Clef />
 
-    <SeparatorLabel>Store</SeparatorLabel>
+    <NotesLabel />
 
-    <Container>
-      <Paragraph>Message from store: <Span bold>{state.message}</Span></Paragraph>
-    </Container>
-
-    <Container>
-      <Input label='New Message' value={state.message} onChange={ (e) => dispatch({ type: 'SET_NEW_MESSAGE', value: e.target.value }) } />
-    </Container>
-
-    <SeparatorLabel>Some components</SeparatorLabel>
-
-    <Container>
-      <Button label='Button' />
-      <Button btnStyle='primary' label='Primary Button'/>
-      <Button icon={['fas', 'fa-edit']} label='Button with icon' />
-    </Container>
-
-    <Container>
-      <Icon icon={['fab', 'fa-fort-awesome']} size={24} color='red' />
-      <Span>(Icon)</Span>
-    </Container>
-
-    <Container>
-      <Input label='Input label' placeholder='Input...' />
-    </Container>
+    <Button btnStyle='primary' btnSize='lg' label='Outra nota' onClick={drawAnotherNotes}/>
 
   </Content>;
 

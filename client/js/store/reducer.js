@@ -1,9 +1,9 @@
 const Reducer = (state, action) => {
   switch (action.type) {
-  case 'SET_NEW_MESSAGE':
+  case 'GENERATE_NEW_NOTES':
     return {
       ...state,
-      message: action.value,
+      notes: action.value,
     };
   default:
     return state;
