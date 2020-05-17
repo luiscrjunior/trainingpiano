@@ -1,7 +1,4 @@
-import notesTable from './notesTable.js';
-
-const lowerNoteFromTable = Math.min(...Object.keys(notesTable).map(note => parseInt(note)));
-const upperNoteFromTable = Math.max(...Object.keys(notesTable).map(note => parseInt(note)));
+import notesTable, { lowerNoteFromTable, upperNoteFromTable, findMidiNote } from './notesTable.js';
 
 /* https://stackoverflow.com/a/1527820/3889043 */
 const randomNumber = (min, max) => {
@@ -12,12 +9,7 @@ const randomNumber = (min, max) => {
 
 const randomItemFromArray = (array) => array[randomNumber(0, array.length - 1)];
 
-const findMidiNote = (noteName) => {
-  for (let k in notesTable) {
-    if (notesTable[k].some(note => note === noteName)) return parseInt(k);
-  }
-  return null;
-};
+
 
 const notesHasAccidentals = (notes) => notes.some(note => /#/.test(note) || /b/.test(note));
 
@@ -53,8 +45,8 @@ export const generateRandomNotes = ({
 
   totalNotes = totalNotes === 0 ? randomNumber(1, maxNotes) : totalNotes;
 
-  const lowerMidiNote = findMidiNote(lowerNote) || lowerNoteFromTable;
-  const upperMidiNote = findMidiNote(upperNote) || upperNoteFromTable;
+  const lowerMidiNote = findMidiNote(lowerNote) || lowerNoteFromTable();
+  const upperMidiNote = findMidiNote(upperNote) || upperNoteFromTable();
 
   let randomNotes = [];
   let attempts = 1;

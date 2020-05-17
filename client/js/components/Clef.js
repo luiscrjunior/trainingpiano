@@ -44,29 +44,46 @@ const App = () => {
       group.current = null;
     }
 
-    if (!state.notes || state.notes.length === 0) return null;
+    const voices = [];
+    //const voice1 = 
+    //const voice2 = new VF.Voice({ num_beats: 4, beat_value: 4 });
 
-    const notes = [
-      new VF.StaveNote({ clef: 'treble', keys: state.notes, duration: 'w', align_center: true }),
-    ];
-    const voice = new VF.Voice({ num_beats: 4, beat_value: 4 });
-    voice.addTickables(notes);
+    /* random notes */
+    if (state.notes && state.notes.length > 0) {
+      const voice = new VF.Voice({ num_beats: 4, beat_value: 4 });
+      const notes = [
+        new VF.StaveNote({ clef: 'treble', keys: state.notes, duration: 'w', align_center: true }),
+      ];
+      voice.addTickables(notes);
+      voices.push(voice);
+    }
+
+    /* midi notes */
+    if (state.midi && state.midi.length > 0) {
+      const voice = new VF.Voice({ num_beats: 4, beat_value: 4 });
+      const midiStaveNote = new VF.StaveNote({ clef: 'treble', keys: state.midi, duration: 'w', align_center: true });
+      midiStaveNote.setStyle({ fillStyle: 'green' });
+      const notes = [midiStaveNote];
+      voice.addTickables(notes);
+      voices.push(voice);
+    }
 
     /* apply accidentals automatically */
-    Vex.Flow.Accidental.applyAccidentals([voice]);
+    Vex.Flow.Accidental.applyAccidentals(voices);
 
-    const formatter = new VF.Formatter().joinVoices([voice]).format([voice], 160);
+    if (voices.length === 0) return null;
+
+    const formatter = new VF.Formatter().joinVoices(voices).format(voices, 160);
 
     group.current = context.current.openGroup();
-    voice.draw(context.current, stave.current);
+    voices.forEach(voice => voice.draw(context.current, stave.current));
     context.current.closeGroup();
 
     /* print label */
-    printNotesLabel(voice);
+    voices.forEach(voice => printNotesLabel(voice));
   };
 
   const printNotesLabel = (voice) => {
-    /* console.log(voice.getTickables()[0]); */
 
     const staveNote = voice.getTickables()[0];
     const notes = staveNote.keys.map(item => ({ key: item }));
@@ -95,7 +112,7 @@ const App = () => {
 
   useEffect(() => {
     renderNotes();
-  }, [state.notes]);
+  }, [state.notes, state.midi]);
 
   return <div ref={containerRef} />;
 

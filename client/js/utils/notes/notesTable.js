@@ -1,4 +1,4 @@
-export default {
+const notesTable = {
   '95': ['B/6'],
   '94': ['A#/6', 'Bb/6'],
   '93': ['A/6'],
@@ -47,4 +47,17 @@ export default {
   '50': ['D/3'],
   '49': ['C#/3', 'Db/3'],
   '48': ['C/3'],
+};
+
+export default notesTable;
+
+export const lowerNoteFromTable = () => Math.min(...Object.keys(notesTable).map(note => parseInt(note)));
+
+export const upperNoteFromTable = () => Math.max(...Object.keys(notesTable).map(note => parseInt(note)));
+
+export const findMidiNote = (noteName) => {
+  for (let k in notesTable) {
+    if (notesTable[k].some(note => note === noteName)) return parseInt(k);
+  }
+  return null;
 };
