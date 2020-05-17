@@ -12,7 +12,7 @@ export const Paragraph = styled.p`
   font-family: 'Roboto', sans-serif;
 `;
 
-export const Span = (props) => <Paragraph as="span" {...props} />;
+export const Span = (props) => <Paragraph className={props.className} as="span" {...props} />;
 
 const CleanAnchor = styled.a`
   display: inline-block;

@@ -7,7 +7,7 @@ import { Context } from 'store';
 import { Paragraph, Button } from 'components/shared';
 
 import { generateRandomNotes } from 'app/utils';
-import MidiConfig from 'components/MidiConfig';
+import ConfigArea from 'components/ConfigArea';
 
 const Content = styled.div`
   width: 960px;
@@ -20,7 +20,7 @@ const App = () => {
   const [state, dispatch] = useContext(Context);
 
   const drawAnotherNotes = () => {
-    const newNotes = generateRandomNotes();
+    const newNotes = generateRandomNotes(state.config);
     dispatch({ type: 'UPDATE_NOTES', value: newNotes });
   };
 
@@ -30,7 +30,7 @@ const App = () => {
 
     <Button btnStyle='primary' btnSize='lg' label='Notas aleatórias' onClick={drawAnotherNotes}/>
 
-    <MidiConfig />
+    <ConfigArea />
 
   </Content>;
 

@@ -34,8 +34,8 @@ li {
 }
 
 input, textarea {
-  display: block;
-  width: 100%;
+  display: inline-block;
+  width: auto;
   margin: 0;
   padding: 7px 12px 7px 12px;
   font-size: 13px;
@@ -48,4 +48,19 @@ input, textarea {
   -webkit-appearance: none;
 }
 
+select {
+  display: inline-block;
+  width: auto;
+  margin: 0;
+  padding: 7px 12px 7px 12px;
+  font-size: 13px;
+  color: #333333;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  box-shadow: none;
+}
+
 @import '~@trendmicro/react-buttons/dist/react-buttons.css';
+@import '~react-toggle/style.css';

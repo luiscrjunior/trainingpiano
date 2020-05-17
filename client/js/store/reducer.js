@@ -10,6 +10,14 @@ const Reducer = (state, action) => {
       ...state,
       midi: action.value,
     };
+  case 'UPDATE_CONFIG':
+    return {
+      ...state,
+      config: {
+        ...state.config,
+        ...action.value,
+      },
+    };
   default:
     return state;
   }
