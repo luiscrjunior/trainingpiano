@@ -66,8 +66,8 @@ const App = () => {
       voices.push(voice);
     }
 
-    /* apply accidentals automatically */
-    Vex.Flow.Accidental.applyAccidentals(voices);
+    /* apply accidentals automatically (individually) */
+    voices.forEach(voice => Vex.Flow.Accidental.applyAccidentals([voice]));
 
     if (voices.length === 0) return null;
 
