@@ -28,7 +28,7 @@ const App = () => {
 
     <Clef />
 
-    <Button btnStyle='primary' btnSize='lg' label='Outra nota' onClick={drawAnotherNotes}/>
+    <Button btnStyle='primary' btnSize='lg' label='Notas aleatórias' onClick={drawAnotherNotes}/>
 
     <MidiConfig />
 
