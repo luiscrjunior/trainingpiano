@@ -9,8 +9,6 @@ const randomNumber = (min, max) => {
 
 const randomItemFromArray = (array) => array[randomNumber(0, array.length - 1)];
 
-
-
 const notesHasAccidentals = (notes) => notes.some(note => /#/.test(note) || /b/.test(note));
 
 const getNextRandomNote = (lowerMidiNote, upperMidiNote, includeAccidentals, randomNotes) => {
