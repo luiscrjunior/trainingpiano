@@ -14,6 +14,7 @@ const sortNotes = (notes) => {
 export const addNoteToMidi = (midiNote, notes) => {
   const midiNoteNumber = parseInt(midiNote);
   if (midiNoteNumber < lowerNoteFromTable() || midiNoteNumber > upperNoteFromTable()) return [...notes];
+  if (notes.some(note => findMidiNote(note) === midiNoteNumber)) return [...notes]; /* note already exists */
   const newNote = findNoteFromMidiNote(midiNote);
   const newNotes = [...notes, newNote];
   const sortedNotes = sortNotes(newNotes);
