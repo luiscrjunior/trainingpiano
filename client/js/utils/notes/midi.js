@@ -2,6 +2,8 @@ import notesTable, { lowerNoteFromTable, upperNoteFromTable, findMidiNote } from
 
 const findNoteFromMidiNote = (midiNote) => midiNote in notesTable ? notesTable[midiNote][0] : null;
 
+const findAllNotesFromMidiNote = (midiNote) => midiNote in notesTable ? notesTable[midiNote] : null;
+
 const sortNotes = (notes) => {
   return notes.sort((a, b) => {
     const [midiA, midiB] = [findMidiNote(a), findMidiNote(b)];
@@ -11,17 +13,18 @@ const sortNotes = (notes) => {
   });
 };
 
-export const addNoteToMidi = (midiNote, notes) => {
+export const addNoteToMidi = (midiNote, currentMidiNotes, currentNotes) => {
   const midiNoteNumber = parseInt(midiNote);
-  if (midiNoteNumber < lowerNoteFromTable() || midiNoteNumber > upperNoteFromTable()) return [...notes];
-  if (notes.some(note => findMidiNote(note) === midiNoteNumber)) return [...notes]; /* note already exists */
-  const newNote = findNoteFromMidiNote(midiNote);
-  const newNotes = [...notes, newNote];
+  if (midiNoteNumber < lowerNoteFromTable() || midiNoteNumber > upperNoteFromTable()) return [...currentMidiNotes]; /* note exceed app bounds */
+  if (currentMidiNotes.some(note => findMidiNote(note) === midiNoteNumber)) return [...currentMidiNotes]; /* note already exists */
+  const matchedNote = currentNotes.find(note => findMidiNote(note) === midiNoteNumber); /* if match with a random note, consider it */
+  const newNote = matchedNote || findNoteFromMidiNote(midiNote); /* otherwise, choose first from array, normally # */
+  const newNotes = [...currentMidiNotes, newNote];
   const sortedNotes = sortNotes(newNotes);
   return sortedNotes;
 };
 
 export const removeNoteFromMidi = (midiNote, notes) => {
-  const newNote = findNoteFromMidiNote(midiNote);
-  return notes.filter(note => note !== newNote);
+  const allNotesFromMidiNote = findAllNotesFromMidiNote(midiNote);
+  return notes.filter(note => !allNotesFromMidiNote.includes(note));
 };

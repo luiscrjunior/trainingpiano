@@ -20,7 +20,7 @@ export default () => {
       break;
     }
     case 144: {
-      const newNotes = addNoteToMidi(midiNote, state.midi);
+      const newNotes = addNoteToMidi(midiNote, state.midi, state.notes);
       dispatch({ type: 'UPDATE_MIDI', value: newNotes });
       break;
     }
