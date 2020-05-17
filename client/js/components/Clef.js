@@ -45,8 +45,6 @@ const App = () => {
     }
 
     const voices = [];
-    //const voice1 = 
-    //const voice2 = new VF.Voice({ num_beats: 4, beat_value: 4 });
 
     /* random notes */
     if (state.notes && state.notes.length > 0) {
