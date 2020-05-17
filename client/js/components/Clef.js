@@ -73,7 +73,8 @@ const App = () => {
 
     if (voices.length === 0) return null;
 
-    const formatter = new VF.Formatter().joinVoices(voices).format(voices, 160);
+    /* format each voice individually to overlap them */
+    voices.forEach(voice => new VF.Formatter().joinVoices([voice]).format([voice], 160));
 
     group.current = context.current.openGroup();
     voices.forEach(voice => voice.draw(context.current, stave.current));
