@@ -44,42 +44,42 @@ const App = () => {
       group.current = null;
     }
 
-    const voices = [];
+    let voiceNotes = null;
+    let voiceMidi = null;
 
     /* random notes */
     if (state.notes && state.notes.length > 0) {
-      const voice = new VF.Voice({ num_beats: 4, beat_value: 4 });
+      voiceNotes = new VF.Voice({ num_beats: 4, beat_value: 4 });
       const notes = [
         new VF.StaveNote({ clef: 'treble', keys: state.notes, duration: 'w', align_center: true }),
       ];
-      voice.addTickables(notes);
-      voices.push(voice);
+      voiceNotes.addTickables(notes);
     }
 
     /* midi notes */
     if (state.midi && state.midi.length > 0) {
-      const voice = new VF.Voice({ num_beats: 4, beat_value: 4 });
+      voiceMidi = new VF.Voice({ num_beats: 4, beat_value: 4 });
       const midiStaveNote = new VF.StaveNote({ clef: 'treble', keys: state.midi, duration: 'w', align_center: true });
-      midiStaveNote.setStyle({ fillStyle: 'green' });
+      midiStaveNote.setStyle({ fillStyle: '#aaa' });
       const notes = [midiStaveNote];
-      voice.addTickables(notes);
-      voices.push(voice);
+      voiceMidi.addTickables(notes);
     }
 
     /* apply accidentals automatically (individually) */
-    voices.forEach(voice => Vex.Flow.Accidental.applyAccidentals([voice]));
-
-    if (voices.length === 0) return null;
+    if (voiceNotes) Vex.Flow.Accidental.applyAccidentals([voiceNotes]);
+    if (voiceMidi) Vex.Flow.Accidental.applyAccidentals([voiceMidi]);
 
     /* format each voice individually to overlap them */
-    voices.forEach(voice => new VF.Formatter().joinVoices([voice]).format([voice], 160));
+    if (voiceNotes) new VF.Formatter().joinVoices([voiceNotes]).format([voiceNotes], 160);
+    if (voiceMidi) new VF.Formatter().joinVoices([voiceMidi]).format([voiceMidi], 160);
 
     group.current = context.current.openGroup();
-    voices.forEach(voice => voice.draw(context.current, stave.current));
+    if (voiceNotes) voiceNotes.draw(context.current, stave.current);
+    if (voiceMidi) voiceMidi.draw(context.current, stave.current);
     context.current.closeGroup();
 
     /* print label */
-    voices.forEach(voice => printNotesLabel(voice));
+    if (voiceNotes) printNotesLabel(voiceNotes);
   };
 
   const printNotesLabel = (voice) => {
