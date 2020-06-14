@@ -1,6 +1,6 @@
 import React, { useRef, useContext, useEffect } from 'react';
 import Vex, { drawDot } from 'vexflow';
-import { translateNote } from 'app/utils';
+import { translateNote, notesThatMatch } from 'app/utils';
 import styled from 'styled-components';
 
 import { Context } from 'store';
@@ -46,6 +46,7 @@ const App = () => {
 
     let voiceNotes = null;
     let voiceMidi = null;
+    const matchNotes = notesThatMatch(state.midi, state.notes);
 
     /* random notes */
     if (state.notes && state.notes.length > 0) {
@@ -61,6 +62,9 @@ const App = () => {
       voiceMidi = new VF.Voice({ num_beats: 4, beat_value: 4 });
       const midiStaveNote = new VF.StaveNote({ clef: 'treble', keys: state.midi, duration: 'w', align_center: true });
       midiStaveNote.setStyle({ fillStyle: '#aaa' });
+      matchNotes.forEach(matchNoteIdx => {
+        midiStaveNote.setKeyStyle(matchNoteIdx, { fillStyle: 'green' });
+      });
       const notes = [midiStaveNote];
       voiceMidi.addTickables(notes);
     }

@@ -28,3 +28,11 @@ export const removeNoteFromMidi = (midiNote, notes) => {
   const allNotesFromMidiNote = findAllNotesFromMidiNote(midiNote);
   return notes.filter(note => !allNotesFromMidiNote.includes(note));
 };
+
+export const notesThatMatch = (currentMidiNotes, currentNotes) => {
+  const notes = [];
+  currentMidiNotes.forEach((currentMidiNote, idx) => {
+    if (currentNotes.some(currentNote => currentNote === currentMidiNote)) notes.push(idx);
+  });
+  return notes;
+};
