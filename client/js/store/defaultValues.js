@@ -4,8 +4,8 @@ export default {
   config: {
     lowerNote: 'C/4',
     upperNote: 'B/5',
-    maxNotes: 3,
     totalNotes: 0, /* 0 means random from 1 up to maxNotes */
+    maxNotes: 2, /* in random mode */
     includeAccidentals: true,
   },
 };
