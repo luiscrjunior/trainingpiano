@@ -105,7 +105,7 @@ const App = () => {
 
     { state.status === 'configuring' && <StartPanel /> }
 
-    <Section><Paragraph size={14}><em>Still in <strong>beta</strong>. Soon, we will add C Clef, score system and other features... Feedback? <a href='mailto:contact@trainingpiano.com'>contact@trainingpiano.com</a></em></Paragraph></Section>
+    <Section><Paragraph size={14}><em>Still in <strong>beta</strong>. Soon, we will add F Clef, score system and other features... Feedback? <a href='mailto:contact@trainingpiano.com'>contact@trainingpiano.com</a></em></Paragraph></Section>
 
     <MidiController />
 
