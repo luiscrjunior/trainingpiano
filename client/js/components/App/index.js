@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useCallback } from 'react';
+import React, { useContext, useEffect } from 'react';
 
 import Clef from 'components/Clef';
 import styled from 'styled-components';
@@ -9,6 +9,7 @@ import { ActionButton, CancelButton } from 'components/shared';
 import StartPanel from 'components/StartPanel';
 import Countdown from 'components/Countdown';
 import Statistics from 'components/Statistics';
+import MidiController from 'components/MidiController';
 
 import { generateRandomNotes } from 'app/utils';
 
@@ -96,6 +97,8 @@ const App = () => {
     </Section>
 
     { state.status === 'configuring' && <StartPanel /> }
+
+    <MidiController />
 
   </Page>;
 

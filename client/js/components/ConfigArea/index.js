@@ -1,5 +1,4 @@
-import React, { useContext } from 'react';
-import MidiConfig from 'components/MidiConfig';
+import React, { useContext, useEffect, useState } from 'react';
 import { Context } from 'store';
 
 import { FormItem, Span, Toggle } from 'components/shared';
@@ -7,7 +6,6 @@ import { FormItem, Span, Toggle } from 'components/shared';
 import NotesSelector from './NotesSelector.js';
 
 import styled from 'styled-components';
-import { lowerNoteFromTable } from '../../utils/notes/notesTable.js';
 
 const Area = styled.div``;
 
@@ -20,15 +18,34 @@ const Hint = styled(Span)`
 export default () => {
 
   const [state, dispatch] = useContext(Context);
+  const [midiInputs, setMidiInputs] = useState([]);
 
   const updateConfig = (item) => {
     dispatch({ type: 'UPDATE_CONFIG', value: item });
   };
 
+  useEffect(() => {
+    navigator.requestMIDIAccess()
+      .then(access => {
+        const inputs = access.inputs.values();
+        setMidiInputs(Array.from(inputs));
+      });
+  }, []);
+
+  const selectMidiInput = (inputId) => {
+    const inputToSelect = midiInputs.find(input => input.id === inputId) || null;
+    updateConfig({ 'midiInput': inputToSelect });
+  };
+
+  const onSelectMidiInput = (e) => selectMidiInput(e.target.value);
+
   return <Area>
 
     <FormItem label='Dispositivo de entrada' >
-      <MidiConfig />
+      <select value={state.config.midiInput ? state.config.midiInput.id : ''} onChange={onSelectMidiInput}>
+        <option>Escolha um dispositivo...</option>
+        {midiInputs.map(midiInput => <option key={midiInput.id} value={midiInput.id}>{midiInput.name}</option>)}
+      </select>
     </FormItem>
 
     <FormItem label='Mostrar nome das notas?' >
