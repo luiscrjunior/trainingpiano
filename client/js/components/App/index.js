@@ -4,10 +4,12 @@ import Clef from 'components/Clef';
 import styled from 'styled-components';
 
 import { Context } from 'store';
-import { ActionButton } from 'components/shared';
+import { ActionButton, CancelButton } from 'components/shared';
 
 import StartPanel from 'components/StartPanel';
 import Countdown from 'components/Countdown';
+
+import { generateRandomNotes } from 'app/utils';
 
 const Content = styled.div`
   width: 960px;
@@ -19,21 +21,43 @@ const App = () => {
 
   const [state, dispatch] = useContext(Context);
 
-  const drawAnotherNotes = () => {
-    dispatch({ type: 'SHOW_START_PANEL', value: true });
-    /* const newNotes = generateRandomNotes(state.config);
-    dispatch({ type: 'UPDATE_NOTES', value: newNotes }); */
+  useEffect(() => {
+
+    if (state.status === 'running') {
+      const newNotes = generateRandomNotes(state.config);
+      dispatch({ type: 'UPDATE_NOTES', value: newNotes });
+    };
+
+    if (state.status === 'idle') {
+      dispatch({ type: 'UPDATE_NOTES', value: [] });
+    };
+
+  }, [state.status]);
+
+  const startSequence = () => {
+    dispatch({ type: 'UPDATE_STATUS', value: 'configuring' });
+  };
+
+  const cancelSequence = () => {
+    dispatch({ type: 'UPDATE_STATUS', value: 'idle' });
   };
 
   return <Content>
 
     <Clef />
 
-    <Countdown />
+    { state.status === 'running' &&
+      <>
+        <Countdown />
+        <CancelButton size={14} label='Cancelar' onClick={cancelSequence}/>
+      </>
+    }
 
-    <ActionButton size={22} label='Iniciar Sequência' icon={['fas', 'fa-play-circle']}/>
+    { state.status === 'idle' &&
+      <ActionButton size={22} label='Iniciar Sequência...' icon={['fas', 'fa-play-circle']} onClick={startSequence}/>
+    }
 
-    { state.showStartPanel && <StartPanel /> }
+    { state.status === 'configuring' && <StartPanel /> }
 
   </Content>;
 

@@ -1,5 +1,9 @@
 export default {
-  showStartPanel: false,
+  status: 'idle', /* idle, configuring, running */
+  stats: { /* current statistics */
+    notes: 0,
+    hits: 0,
+  },
   notes: [],
   midi: [],
   config: {

@@ -18,10 +18,10 @@ const Reducer = (state, action) => {
         ...action.value,
       },
     };
-  case 'SHOW_START_PANEL':
+  case 'UPDATE_STATUS':
     return {
       ...state,
-      showStartPanel: action.value,
+      status: action.value,
     };
   default:
     return state;

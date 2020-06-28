@@ -20,13 +20,17 @@ export default () => {
   const [state, dispatch] = useContext(Context);
 
   const onClose = () => {
-    dispatch({ type: 'SHOW_START_PANEL', value: false });
+    dispatch({ type: 'UPDATE_STATUS', value: 'idle' });
+  };
+
+  const onStart = () => {
+    dispatch({ type: 'UPDATE_STATUS', value: 'running' });
   };
 
   return <FloatingPanel onClose={onClose} title='Iniciar Sequência'>
     <ConfigArea />
     <ButtonArea>
-      <ActionButton size={20} label='Iniciar' icon={['fas', 'fa-play-circle']} />
+      <ActionButton size={20} label='Iniciar' onClick={onStart}/>
     </ButtonArea>
   </FloatingPanel>;
 
