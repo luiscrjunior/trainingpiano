@@ -42,12 +42,21 @@ export default ({ onChange }) => {
     updateNotes();
   };
 
+  const isSelectable = (note, idx) => {
+    if (!note.selected) return true;
+    if (notes.filter(note => note.selected).length === 1) return false;
+    const idxLeft = idx - 1;
+    const idxRight = idx + 1;
+    return !(notes[idxLeft] && notes[idxRight] && notes[idxLeft].selected && notes[idxRight].selected);
+  };
+
   return <Selector>
     { notes && notes.map((note, idx) => <OctaveButton
       key={note.lower}
       lower={note.lower}
       upper={note.upper}
       selected={note.selected}
+      selectable={isSelectable(note, idx)}
       onClick={onClick.bind(this, idx)}
     />
     )}
