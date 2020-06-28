@@ -27,10 +27,10 @@ export default () => {
     dispatch({ type: 'UPDATE_STATUS', value: 'running' });
   };
 
-  return <FloatingPanel onClose={onClose} title='Iniciar Exercício'>
+  return <FloatingPanel onClose={onClose} title='Start Exercise'>
     <ConfigArea />
     <ButtonArea>
-      <ActionButton size={20} label='Iniciar' onClick={onStart}/>
+      <ActionButton size={20} label='Start' onClick={onStart}/>
     </ButtonArea>
   </FloatingPanel>;
 

@@ -41,20 +41,20 @@ export default () => {
 
   return <Area>
 
-    <FormItem label='Dispositivo de entrada' >
+    <FormItem label='Input Device' >
       <select value={state.config.midiInput ? state.config.midiInput.id : ''} onChange={onSelectMidiInput}>
         <option>Escolha um dispositivo...</option>
         {midiInputs.map(midiInput => <option key={midiInput.id} value={midiInput.id}>{midiInput.name}</option>)}
       </select>
     </FormItem>
 
-    <FormItem label='Mostrar nome das notas?' >
+    <FormItem label='Show note names?' >
       <Toggle checked={state.config.showNotesName} onChange={ (e) => updateConfig({ 'showNotesName': e.target.checked })} />
     </FormItem>
 
-    <FormItem label='Quantas notas simultâneas?' >
+    <FormItem label='How many notes simultaneously?' >
       <select value={state.config.totalNotes} onChange={ (e) => updateConfig({ 'totalNotes': parseInt(e.target.value) })}>
-        <option value={0}>Aleatório</option>
+        <option value={0}>Random</option>
         <option value={1}>1</option>
         <option value={2}>2</option>
         <option value={3}>3</option>
@@ -63,23 +63,23 @@ export default () => {
       </select>
       { state.config.totalNotes === 0 &&
         <>
-          <Hint><strong>1</strong> nota até</Hint>
+          <Hint><strong>1</strong> note up to</Hint>
           <select value={state.config.maxNotes} onChange={ (e) => updateConfig({ 'maxNotes': parseInt(e.target.value) })}>
             <option value={2}>2</option>
             <option value={3}>3</option>
             <option value={4}>4</option>
             <option value={5}>5</option>
           </select>
-          <Hint>nota(s).</Hint>
+          <Hint>notes.</Hint>
         </>
       }
     </FormItem>
 
-    <FormItem label='Incluir sustenido e bemol?' >
+    <FormItem label='Include sharp (#) and flat (b) ?' >
       <Toggle checked={state.config.includeAccidentals} onChange={ (e) => updateConfig({ 'includeAccidentals': e.target.checked })} />
     </FormItem>
 
-    <FormItem label='Notas:' >
+    <FormItem label='Notes:' >
       <NotesSelector
         onChange={ (lowerNote, upperNote) => updateConfig({ 'lowerNote': lowerNote, 'upperNote': upperNote })}
       />

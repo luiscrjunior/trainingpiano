@@ -53,7 +53,7 @@ export default () => {
 
   return <Board>
 
-    <Title>Resultado</Title>
+    <Title>Results</Title>
 
     <BadgeLine>
 
@@ -65,10 +65,10 @@ export default () => {
     </BadgeLine>
 
     <GameStatus>
-      { state.stats.status === 'not_started' && 'Jogo Não iniciado' }
-      { state.stats.status === 'in_progress' && 'Jogo em andamento' }
-      { state.stats.status === 'canceled' && 'Jogo cancelado' }
-      { state.stats.status === 'completed' && 'Jogo encerrado' }
+      { state.stats.status === 'not_started' && 'Exercise not started' }
+      { state.stats.status === 'in_progress' && 'Exercise in progress' }
+      { state.stats.status === 'canceled' && 'Exercise canceled' }
+      { state.stats.status === 'completed' && 'Exercise complete' }
     </GameStatus>
 
   </Board>;

@@ -4,7 +4,7 @@ import Clef from 'components/Clef';
 import styled from 'styled-components';
 
 import { Context } from 'store';
-import { ActionButton, CancelButton } from 'components/shared';
+import { ActionButton, CancelButton, Paragraph } from 'components/shared';
 
 import StartPanel from 'components/StartPanel';
 import Countdown from 'components/Countdown';
@@ -25,6 +25,7 @@ const Section = styled.div`
   display: flex;
   width: 960px;
   justify-content: center;
+  margin-bottom: 15px;
 `;
 
 const LeftCol = styled.div`
@@ -75,6 +76,8 @@ const App = () => {
 
     <Section><img src='images/logo_full.png' width='300px'/></Section>
 
+    <Section><Paragraph size={14}><em>Plug your MIDI keyboard/piano and improve your skills.</em></Paragraph></Section>
+
     <Section>
       <LeftCol>
         <Clef />
@@ -94,13 +97,15 @@ const App = () => {
         }
 
         { state.status === 'idle' &&
-          <ActionButton size={22} label='Iniciar exercício...' icon={['fas', 'fa-play-circle']} block onClick={startSequence}/>
+          <ActionButton size={22} label='Start exercise...' icon={['fas', 'fa-play-circle']} block onClick={startSequence}/>
         }
 
       </RightCol>
     </Section>
 
     { state.status === 'configuring' && <StartPanel /> }
+
+    <Section><Paragraph size={14}><em>Still in <strong>beta</strong>. Soon, we will add C Clef, score system and other features... Feedback? <a href='mailto:contact@trainingpiano.com'>contact@trainingpiano.com</a></em></Paragraph></Section>
 
     <MidiController />
 
