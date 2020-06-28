@@ -36,6 +36,10 @@ export default () => {
       <MidiConfig />
     </FormItem>
 
+    <FormItem label='Mostrar nome das notas?' >
+      <Toggle checked={state.config.showNotesName} onChange={ (e) => updateConfig({ 'showNotesName': e.target.checked })} />
+    </FormItem>
+
     <FormItem label='Quantas notas simultâneas?' >
       <select value={state.config.totalNotes} onChange={ (e) => updateConfig({ 'totalNotes': parseInt(e.target.value) })}>
         <option value={0}>Aleatório</option>

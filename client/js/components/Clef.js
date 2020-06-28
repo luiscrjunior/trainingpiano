@@ -83,7 +83,7 @@ const App = () => {
     context.current.closeGroup();
 
     /* print label */
-    if (voiceNotes) printNotesLabel(voiceNotes);
+    if (voiceNotes && state.config.showNotesName) printNotesLabel(voiceNotes);
   };
 
   const printNotesLabel = (voice) => {
