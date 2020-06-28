@@ -37,7 +37,7 @@ export default () => {
   return <Area>
     <Icon icon={['fas', 'fa-clock']} size={30} color='#0096cc' right={15} />
     <Countdown
-      date={Date.now() + 6000}
+      date={Date.now() + 30000}
       renderer={renderer}
       onComplete={onComplete}
     />
