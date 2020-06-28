@@ -15,8 +15,10 @@ import { generateRandomNotes } from 'app/utils';
 
 const Page = styled.div`
   display: flex;
+  flex-direction: column;
   width: 100%;
-  justify-content: center;
+  justify-content: flex-start;
+  align-items: center;
 `;
 
 const Section = styled.div`
@@ -30,7 +32,7 @@ const LeftCol = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: center;
+  align-items: flex-start;
 `;
 
 const RightCol = styled.div`
@@ -70,6 +72,8 @@ const App = () => {
   };
 
   return <Page>
+
+    <Section><img src='images/logo_full.png' width='300px'/></Section>
 
     <Section>
       <LeftCol>
