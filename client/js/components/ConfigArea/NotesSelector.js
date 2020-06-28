@@ -32,22 +32,28 @@ export default ({ onChange }) => {
     setNotes(notes.map(note => ({...note, selected: isSelected(note)})));
   };
 
-  const onClick = (idx, note) => {
+  const onClick = (idx) => {
     if (!onChange) return;
     const newNotes = JSON.parse(JSON.stringify(notes)); /* deep clone */
     newNotes[idx].selected = !newNotes[idx].selected;
-    const selectedOctaves = newNotes.filter(note => note.selected);
-    if (selectedOctaves.length === 0) return;
-    onChange(selectedOctaves[0].lower, selectedOctaves[selectedOctaves.length - 1].upper);
+    const isAdding = newNotes[idx].selected;
+    let lower, upper;
+    const firstSelectedIdx = newNotes.findIndex(note => note.selected);
+    if (firstSelectedIdx === -1) return; /* no octave selected */
+    lower = newNotes[firstSelectedIdx].lower;
+    if (!isAdding) { /* is removing octave */
+      for (let i = firstSelectedIdx; i < newNotes.length; i++) {
+        if (newNotes[i].selected) {
+          upper = newNotes[i].upper;
+        } else {
+          break;
+        }
+      }
+    } else { /* is adding octave */
+      upper = [...newNotes].reverse().find(note => note.selected).upper;
+    }
+    onChange(lower, upper);
     updateNotes();
-  };
-
-  const isSelectable = (note, idx) => {
-    if (!note.selected) return true;
-    if (notes.filter(note => note.selected).length === 1) return false;
-    const idxLeft = idx - 1;
-    const idxRight = idx + 1;
-    return !(notes[idxLeft] && notes[idxRight] && notes[idxLeft].selected && notes[idxRight].selected);
   };
 
   return <Selector>
@@ -56,7 +62,6 @@ export default ({ onChange }) => {
       lower={note.lower}
       upper={note.upper}
       selected={note.selected}
-      selectable={isSelectable(note, idx)}
       onClick={onClick.bind(this, idx)}
     />
     )}

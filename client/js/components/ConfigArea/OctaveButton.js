@@ -24,15 +24,14 @@ const Label = styled(Span)`
 
 const Octave = styled.img`
   width: 60px;
-  cursor: ${props => props.selectable ? 'pointer' : 'default'};
+  cursor: pointer;
   opacity: ${props => props.selected ? 1 : 0.2};
 `;
 
-export default ({ lower, upper, selected, selectable, onClick }) => {
+export default ({ lower, upper, selected, onClick }) => {
 
   const onSelectOctave = (e) => {
     if (!onClick) return;
-    if (selectable === false) return;
     onClick({ lower, upper, selected });
     e.preventDefault();
   };
@@ -43,7 +42,7 @@ export default ({ lower, upper, selected, selectable, onClick }) => {
       <Label>~</Label>
       <Label>{upper}</Label>
     </Header>
-    <Octave src='images/piano_octave.png' selected={selected} selectable={selectable} onClick={onSelectOctave}/>
+    <Octave src='images/piano_octave.png' selected={selected} onClick={onSelectOctave}/>
   </Button>;
 
 };
