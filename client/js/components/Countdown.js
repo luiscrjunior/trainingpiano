@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import Countdown from 'react-countdown';
 import { Span, Icon } from 'components/shared';
@@ -24,6 +24,11 @@ const CountdownLabel = styled(Span)`
 export default () => {
 
   const [state, dispatch] = useContext(Context);
+  const [date, setDate] = useState(Date.now());
+
+  useEffect(() => {
+    setDate(Date.now() + 30000);
+  }, []);
 
   const onComplete = () => {
     dispatch({ type: 'UPDATE_STATUS', value: 'idle' });
@@ -37,7 +42,8 @@ export default () => {
   return <Area>
     <Icon icon={['fas', 'fa-clock']} size={30} color='#0096cc' right={15} />
     <Countdown
-      date={Date.now() + 30000}
+      autoStart={true}
+      date={date}
       renderer={renderer}
       onComplete={onComplete}
     />

@@ -1,7 +1,6 @@
 import React, { useRef, useContext, useEffect } from 'react';
 import Vex, { drawDot } from 'vexflow';
-import { translateNote, notesThatMatch } from 'app/utils';
-import styled from 'styled-components';
+import { translateNote, notesThatMatch, generateRandomNotes } from 'app/utils';
 
 import { Context } from 'store';
 
@@ -33,6 +32,12 @@ const App = () => {
     // Connect it to the rendering context and draw!
     stave.current.setContext(context.current).draw();
 
+  };
+
+  const onNotesMatched = () => {
+    const newNotes = generateRandomNotes(state.config);
+    dispatch({ type: 'UPDATE_NOTES', value: newNotes });
+    dispatch({ type: 'UPDATE_STATS', value: { hits: state.stats.hits + 1 } });
   };
 
   const renderNotes = () => {
@@ -84,6 +89,9 @@ const App = () => {
 
     /* print label */
     if (voiceNotes && state.config.showNotesName) printNotesLabel(voiceNotes);
+
+    /* after printed, check score */
+    if (state.notes.length > 0 && matchNotes.length === state.notes.length) onNotesMatched();
   };
 
   const printNotesLabel = (voice) => {

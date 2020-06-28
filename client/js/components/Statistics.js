@@ -58,11 +58,6 @@ export default () => {
     <BadgeLine>
 
       <Badge>
-        <Icon icon={['fab', 'fa-itunes-note']} size={20} color='#fff' right={10}/>
-        <Span size={20} color='#fff' bold>{state.stats.times}</Span>
-      </Badge>
-
-      <Badge>
         <Icon icon={['fas', 'fa-thumbs-up']} size={20} color='#fff' right={10}/>
         <Span size={20} color='#fff' bold>{state.stats.hits}</Span>
       </Badge>
