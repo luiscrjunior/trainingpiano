@@ -4,10 +4,10 @@ import Clef from 'components/Clef';
 import styled from 'styled-components';
 
 import { Context } from 'store';
-import { Paragraph, Button } from 'components/shared';
+import { ActionButton } from 'components/shared';
 
-import { generateRandomNotes } from 'app/utils';
 import StartPanel from 'components/StartPanel';
+import Countdown from 'components/Countdown';
 
 const Content = styled.div`
   width: 960px;
@@ -29,7 +29,9 @@ const App = () => {
 
     <Clef />
 
-    <Button btnStyle='primary' btnSize='lg' label='Iniciar Sequência' onClick={drawAnotherNotes}/>
+    <Countdown />
+
+    <ActionButton size={22} label='Iniciar Sequência' icon={['fas', 'fa-play-circle']}/>
 
     { state.showStartPanel && <StartPanel /> }
 

@@ -37,6 +37,7 @@
     "postcss-cli": "^7.1.1",
     "postcss-loader": "^3.0.0",
     "react": "^16.13.1",
+    "react-countdown": "^2.2.1",
     "react-dom": "^16.13.1",
     "react-toggle": "^4.1.1",
     "sass-loader": "^8.0.2",
