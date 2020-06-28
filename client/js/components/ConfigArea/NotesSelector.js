@@ -34,7 +34,7 @@ export default ({ onChange }) => {
 
   const onClick = (idx, note) => {
     if (!onChange) return;
-    const newNotes = [...notes];
+    const newNotes = JSON.parse(JSON.stringify(notes)); /* deep clone */
     newNotes[idx].selected = !newNotes[idx].selected;
     const selectedOctaves = newNotes.filter(note => note.selected);
     if (selectedOctaves.length === 0) return;
