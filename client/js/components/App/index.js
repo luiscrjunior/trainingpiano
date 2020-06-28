@@ -8,13 +8,37 @@ import { ActionButton, CancelButton } from 'components/shared';
 
 import StartPanel from 'components/StartPanel';
 import Countdown from 'components/Countdown';
+import Statistics from 'components/Statistics';
 
 import { generateRandomNotes } from 'app/utils';
 
-const Content = styled.div`
+const Page = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: center;
+`;
+
+const Section = styled.div`
+  display: flex;
   width: 960px;
-  margin: 30px auto 0 auto;
-  text-align: center;
+  justify-content: center;
+`;
+
+const LeftCol = styled.div`
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+`;
+
+const RightCol = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 300px;
+  padding-top: 80px;
 `;
 
 const App = () => {
@@ -26,6 +50,7 @@ const App = () => {
     if (state.status === 'running') {
       const newNotes = generateRandomNotes(state.config);
       dispatch({ type: 'UPDATE_NOTES', value: newNotes });
+      dispatch({ type: 'UPDATE_STATS', value: { times: 1, hits: 0, status: 'in_progress' } });
     };
 
     if (state.status === 'idle') {
@@ -40,26 +65,39 @@ const App = () => {
 
   const cancelSequence = () => {
     dispatch({ type: 'UPDATE_STATUS', value: 'idle' });
+    dispatch({ type: 'UPDATE_STATS', value: { status: 'canceled' } });
   };
 
-  return <Content>
+  return <Page>
 
-    <Clef />
+    <Section>
+      <LeftCol>
+        <Clef />
+      </LeftCol>
 
-    { state.status === 'running' &&
-      <>
-        <Countdown />
-        <CancelButton size={14} label='Cancelar' onClick={cancelSequence}/>
-      </>
-    }
+      <RightCol>
 
-    { state.status === 'idle' &&
-      <ActionButton size={22} label='Iniciar Sequência...' icon={['fas', 'fa-play-circle']} onClick={startSequence}/>
-    }
+        { (state.status === 'idle' || state.status === 'running') &&
+          <Statistics />
+        }
+
+        { state.status === 'running' &&
+          <>
+            <Countdown />
+            <CancelButton size={14} label='Cancelar' onClick={cancelSequence}/>
+          </>
+        }
+
+        { state.status === 'idle' &&
+          <ActionButton size={22} label='Iniciar Sequência...' icon={['fas', 'fa-play-circle']} block onClick={startSequence}/>
+        }
+
+      </RightCol>
+    </Section>
 
     { state.status === 'configuring' && <StartPanel /> }
 
-  </Content>;
+  </Page>;
 
 };
 

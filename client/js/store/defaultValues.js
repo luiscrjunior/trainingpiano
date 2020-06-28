@@ -1,8 +1,9 @@
 export default {
   status: 'idle', /* idle, configuring, running */
   stats: { /* current statistics */
-    notes: 0,
+    times: 0,
     hits: 0,
+    status: 'not_started', /* not_started, in_progress, canceled, completed */
   },
   notes: [],
   midi: [],

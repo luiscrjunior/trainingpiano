@@ -27,6 +27,7 @@ export default () => {
 
   const onComplete = () => {
     dispatch({ type: 'UPDATE_STATUS', value: 'idle' });
+    dispatch({ type: 'UPDATE_STATS', value: { status: 'completed' } });
   };
 
   const renderer = ({ formatted: { minutes, seconds }, completed }) => {
@@ -36,7 +37,7 @@ export default () => {
   return <Area>
     <Icon icon={['fas', 'fa-clock']} size={30} color='#0096cc' right={15} />
     <Countdown
-      date={Date.now() + 5000}
+      date={Date.now() + 6000}
       renderer={renderer}
       onComplete={onComplete}
     />

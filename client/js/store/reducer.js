@@ -23,6 +23,23 @@ const Reducer = (state, action) => {
       ...state,
       status: action.value,
     };
+  case 'RESET_STATS':
+    return {
+      ...state,
+      stats: {
+        times: 0,
+        hits: 0,
+        status: 'not_started',
+      },
+    };
+  case 'UPDATE_STATS':
+    return {
+      ...state,
+      stats: {
+        ...state.stats,
+        ...action.value,
+      },
+    };
   default:
     return state;
   }
