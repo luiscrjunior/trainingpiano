@@ -90,7 +90,7 @@ const App = () => {
         }
 
         { state.status === 'idle' &&
-          <ActionButton size={22} label='Iniciar teste...' icon={['fas', 'fa-play-circle']} block onClick={startSequence}/>
+          <ActionButton size={22} label='Iniciar exercício...' icon={['fas', 'fa-play-circle']} block onClick={startSequence}/>
         }
 
       </RightCol>
