@@ -64,3 +64,11 @@ select {
 
 @import '~@trendmicro/react-buttons/dist/react-buttons.css';
 @import '~react-toggle/style.css';
+
+.react-toggle--checked .react-toggle-track {
+  background-color: #0096cc;
+}
+
+.react-toggle--checked:hover:not(.react-toggle--disabled) .react-toggle-track {
+  background-color: #167ba7;
+}
