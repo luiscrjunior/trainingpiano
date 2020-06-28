@@ -9,12 +9,7 @@ import NotesSelector from './NotesSelector.js';
 import styled from 'styled-components';
 import { lowerNoteFromTable } from '../../utils/notes/notesTable.js';
 
-const Area = styled.div`
-  margin-top: 30px;
-  border: 1px solid #ddd;
-  padding: 15px;
-  text-align: left;
-`;
+const Area = styled.div``;
 
 const Hint = styled(Span)`
   margin-left: 10px;

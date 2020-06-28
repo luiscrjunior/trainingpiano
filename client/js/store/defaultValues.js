@@ -1,4 +1,5 @@
 export default {
+  showStartPanel: false,
   notes: [],
   midi: [],
   config: {
