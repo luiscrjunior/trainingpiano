@@ -1,11 +1,11 @@
 const notes = {
-  'A': 'Lá',
-  'B': 'Si',
-  'C': 'Dó',
-  'D': 'Ré',
-  'E': 'Mi',
-  'F': 'Fá',
-  'G': 'Sol',
+  'A': 'A',
+  'B': 'B',
+  'C': 'C',
+  'D': 'D',
+  'E': 'E',
+  'F': 'F',
+  'G': 'G',
 };
 
 export const translateNote = (note) => {
