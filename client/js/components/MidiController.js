@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState, useCallback } from 'react';
 
-import { addNoteToMidi, removeNoteFromMidi } from 'app/utils';
+import { addNoteToMidi, removeNoteFromMidi, generateRandomNotes } from 'app/utils';
 
 import { Context } from 'store';
 
@@ -24,6 +24,32 @@ export default () => {
     }
     }
   });
+
+  const handleKeyDown = useCallback((e) => {
+    if (e.key === 'a') { /* correct notes */
+      dispatch({ type: 'UPDATE_MIDI', value: [...state.notes] });
+    } else if (e.key === 's') { /* random notes (wrong) */
+      dispatch({ type: 'UPDATE_MIDI', value: generateRandomNotes(state.config) });
+    }
+  });
+
+  const handleKeyUp = useCallback((e) => {
+    if (e.key === 'a' || e.key === 's') {
+      dispatch({ type: 'UPDATE_MIDI', value: [] });
+    }
+  });
+
+  /* only in development: hack to hit or miss the notes */
+  if (process.env.NODE_ENV !== 'production') {
+    useEffect(() => {
+      document.addEventListener('keydown', handleKeyDown);
+      document.addEventListener('keyup', handleKeyUp);
+      return () => {
+        document.removeEventListener('keydown', handleKeyDown);
+        document.removeEventListener('keyup', handleKeyUp);
+      };
+    }, [state.notes]);
+  }
 
   useEffect(() => {
     /* load input device from localStorage */
