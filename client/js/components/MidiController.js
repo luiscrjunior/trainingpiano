@@ -29,6 +29,7 @@ export default () => {
     /* load input device from localStorage */
     const savedMidiDevice = window.localStorage.getItem('midiDevice');
     if (!savedMidiDevice) return;
+    if (typeof navigator['requestMIDIAccess'] === 'undefined') return;
     navigator.requestMIDIAccess()
       .then(access => {
         const inputs = access.inputs.values();

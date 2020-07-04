@@ -25,6 +25,7 @@ export default () => {
   };
 
   useEffect(() => {
+    if (typeof navigator['requestMIDIAccess'] === 'undefined') return;
     navigator.requestMIDIAccess()
       .then(access => {
         const inputs = access.inputs.values();
