@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import Clef from 'components/Clef';
 import styled from 'styled-components';
@@ -7,11 +7,12 @@ import { Context } from 'store';
 import { ActionButton, CancelButton, Paragraph } from 'components/shared';
 
 import StartPanel from 'components/StartPanel';
+import NotSupportedPanel from 'components/NotSupportedPanel';
 import Countdown from 'components/Countdown';
 import Statistics from 'components/Statistics';
 import MidiController from 'components/MidiController';
 
-import { generateRandomNotes, notesThatMatch, getNotesScore } from 'app/utils';
+import { isSupported, generateRandomNotes, notesThatMatch, getNotesScore } from 'app/utils';
 
 const Page = styled.div`
   display: flex;
@@ -48,6 +49,7 @@ const RightCol = styled.div`
 const App = () => {
 
   const [state, dispatch] = useContext(Context);
+  const [showNotSupportedPanel, setShowNotSupportedPanel] = useState(true);
 
   useEffect(() => {
 
@@ -121,6 +123,8 @@ const App = () => {
     <Section><Paragraph size={14}><em>Still in <strong>beta</strong>. Soon, we will add F Clef, score system and other features... Feedback? <a href='mailto:contact@trainingpiano.com'>contact@trainingpiano.com</a></em></Paragraph></Section>
 
     <MidiController />
+
+    { !isSupported() && showNotSupportedPanel && <NotSupportedPanel onClose={ () => setShowNotSupportedPanel(false) } /> }
 
   </Page>;
 

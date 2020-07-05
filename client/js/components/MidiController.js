@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState, useCallback } from 'react';
 
-import { addNoteToMidi, removeNoteFromMidi, generateRandomNotes } from 'app/utils';
+import { isSupported, addNoteToMidi, removeNoteFromMidi, generateRandomNotes } from 'app/utils';
 
 import { Context } from 'store';
 
@@ -55,7 +55,7 @@ export default () => {
     /* load input device from localStorage */
     const savedMidiDevice = window.localStorage.getItem('midiDevice');
     if (!savedMidiDevice) return;
-    if (typeof navigator['requestMIDIAccess'] === 'undefined') return;
+    if (!isSupported()) return;
     navigator.requestMIDIAccess()
       .then(access => {
         const inputs = access.inputs.values();

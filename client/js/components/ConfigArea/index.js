@@ -4,6 +4,7 @@ import { Context } from 'store';
 import { FormItem, Span, Toggle } from 'components/shared';
 
 import NotesSelector from './NotesSelector.js';
+import { isSupported } from 'app/utils';
 
 import styled from 'styled-components';
 
@@ -25,7 +26,7 @@ export default () => {
   };
 
   useEffect(() => {
-    if (typeof navigator['requestMIDIAccess'] === 'undefined') return;
+    if (!isSupported()) return;
     navigator.requestMIDIAccess()
       .then(access => {
         const inputs = access.inputs.values();

@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 
-import FloatingPanel from 'components/FloatingPanel';
+import FloatingPanel, { ButtonArea } from 'components/FloatingPanel';
 import ConfigArea from 'components/ConfigArea';
 
 import { Context } from 'store';
@@ -8,12 +8,6 @@ import { Context } from 'store';
 import { ActionButton } from 'components/shared';
 
 import styled from 'styled-components';
-
-const ButtonArea = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 40px;
-`;
 
 export default () => {
 

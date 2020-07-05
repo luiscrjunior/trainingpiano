@@ -62,6 +62,12 @@ const CloseButton = styled(props => <BaseAnchor {...props}><CloseIcon /></BaseAn
   right: 13px;
 `;
 
+export const ButtonArea = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 40px;
+`;
+
 export default ({ title, onClose, children }) => {
 
   const [state, dispatch] = useContext(Context);
