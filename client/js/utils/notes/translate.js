@@ -9,7 +9,7 @@ const notes = {
 };
 
 export const translateNote = (note) => {
-  let noteParts = note.match(/([ABCDEFG])([#b])?(\/\d)?/);
+  let noteParts = note.match(/([ABCDEFG])([#b])?\/(\d)?/);
   if (!noteParts) return '(sem tradução)';
   const noteName = noteParts[1];
   const accidental = noteParts[2] || null;

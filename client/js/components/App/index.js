@@ -11,7 +11,7 @@ import Countdown from 'components/Countdown';
 import Statistics from 'components/Statistics';
 import MidiController from 'components/MidiController';
 
-import { generateRandomNotes, notesThatMatch } from 'app/utils';
+import { generateRandomNotes, notesThatMatch, getNotesScore } from 'app/utils';
 
 const Page = styled.div`
   display: flex;
@@ -54,7 +54,7 @@ const App = () => {
     if (state.status === 'running') {
       const newNotes = generateRandomNotes(state.config);
       dispatch({ type: 'UPDATE_NOTES', value: newNotes });
-      dispatch({ type: 'UPDATE_STATS', value: { times: 1, hits: 0, status: 'in_progress' } });
+      dispatch({ type: 'UPDATE_STATS', value: { times: 1, hits: 0, score: 0, status: 'in_progress' } });
     };
 
     if (state.status === 'idle') {
@@ -68,9 +68,10 @@ const App = () => {
     const matchNotes = notesThatMatch(state.midi, state.notes);
     if (state.status === 'running' && state.notes.length > 0 && matchNotes.length === state.notes.length) { /* notes matched: hit */
       const newNotes = generateRandomNotes(state.config);
+      const score = getNotesScore(state.notes, state.config);
       dispatch({ type: 'UPDATE_NOTES', value: newNotes });
       dispatch({ type: 'UPDATE_MIDI', value: [] });
-      dispatch({ type: 'UPDATE_STATS', value: { hits: state.stats.hits + 1 } });
+      dispatch({ type: 'UPDATE_STATS', value: { hits: state.stats.hits + 1, score: state.stats.score + score } });
     }
 
   }, [state.midi]);

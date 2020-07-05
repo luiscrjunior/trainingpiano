@@ -62,6 +62,11 @@ export default () => {
         <Span size={20} color='#fff' bold>{state.stats.hits}</Span>
       </Badge>
 
+      <Badge>
+        <Icon icon={['fas', 'fa-star']} size={20} color='#fff' right={10}/>
+        <Span size={20} color='#fff' bold>{state.stats.score}</Span>
+      </Badge>
+
     </BadgeLine>
 
     <GameStatus>

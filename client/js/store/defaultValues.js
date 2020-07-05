@@ -2,6 +2,7 @@ export default {
   status: 'idle', /* idle, configuring, running */
   stats: { /* current statistics */
     hits: 0,
+    score: 0,
     status: 'not_started', /* not_started, in_progress, canceled, completed */
   },
   notes: [],
