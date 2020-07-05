@@ -13,6 +13,8 @@ import Countdown from 'components/Countdown';
 import Statistics from 'components/Statistics';
 import MidiController from 'components/MidiController';
 
+import ReactGA from 'react-ga';
+
 import { isSupported, generateRandomNotes, notesThatMatch, getNotesScore } from 'app/utils';
 
 const Page = styled.div`
@@ -81,6 +83,15 @@ const App = () => {
 
   }, [state.midi]);
 
+  /* initialize google analytics */
+  useEffect(() => {
+    ReactGA.initialize('UA-171111912-1');
+    ReactGA.pageview('/');
+
+    if (!isSupported()) ReactGA.event({ category: 'App', action: 'Unsupported Browser', nonInteraction: true });
+
+  }, []);
+
   const startSequence = () => {
     dispatch({ type: 'UPDATE_STATUS', value: 'configuring' });
   };
@@ -91,6 +102,7 @@ const App = () => {
   };
 
   const resetSequence = () => {
+    ReactGA.event({ category: 'App', action: `Exercise ${state.stats.status}`, nonInteraction: false, value: state.stats.score });
     dispatch({ type: 'UPDATE_STATS', value: { hits: 0, score: 0, status: 'not_started' } });
     setShowFinishedPanel(false);
   };
