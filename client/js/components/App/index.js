@@ -91,7 +91,7 @@ const App = () => {
 
     <Section><img src='images/logo_full.png' width='300px'/></Section>
 
-    <Section><Paragraph size={14}><em>Plug your MIDI keyboard/piano and improve your skills.</em></Paragraph></Section>
+    <Section><Paragraph size={14}><em>Plug your MIDI keyboard/piano and improve your skills hitting the correct notes.</em></Paragraph></Section>
 
     <Section>
       <LeftCol>
@@ -120,7 +120,7 @@ const App = () => {
 
     { state.status === 'configuring' && <StartPanel /> }
 
-    <Section><Paragraph size={14}><em>Still in <strong>beta</strong>. Soon, we will add F Clef, score system and other features... Feedback? <a href='mailto:contact@trainingpiano.com'>contact@trainingpiano.com</a></em></Paragraph></Section>
+    <Section><Paragraph size={14}><em>Still in <strong>beta</strong>. Soon, we will add F Clef, user ranking and other features... Feedback? <a href='mailto:contact@trainingpiano.com'>contact@trainingpiano.com</a></em></Paragraph></Section>
 
     <MidiController />
 
