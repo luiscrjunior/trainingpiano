@@ -26,9 +26,9 @@ export default () => {
   });
 
   const handleKeyDown = useCallback((e) => {
-    if (e.key === 'a') { /* correct notes */
+    if (e.key === 'a' && !e.repeat) { /* correct notes */
       dispatch({ type: 'UPDATE_MIDI', value: [...state.notes] });
-    } else if (e.key === 's') { /* random notes (wrong) */
+    } else if (e.key === 's' && !e.repeat) { /* random notes (wrong) */
       dispatch({ type: 'UPDATE_MIDI', value: generateRandomNotes(state.config) });
     }
   });
