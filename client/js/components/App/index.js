@@ -8,6 +8,7 @@ import { ActionButton, CancelButton, Paragraph } from 'components/shared';
 
 import StartPanel from 'components/StartPanel';
 import NotSupportedPanel from 'components/NotSupportedPanel';
+import FinishedPanel from 'components/FinishedPanel';
 import Countdown from 'components/Countdown';
 import Statistics from 'components/Statistics';
 import MidiController from 'components/MidiController';
@@ -49,18 +50,20 @@ const RightCol = styled.div`
 const App = () => {
 
   const [state, dispatch] = useContext(Context);
-  const [showNotSupportedPanel, setShowNotSupportedPanel] = useState(true);
+  const [showNotSupportedPanel, setShowNotSupportedPanel] = useState(!isSupported());
+  const [showFinishedPanel, setShowFinishedPanel] = useState(false);
 
   useEffect(() => {
 
     if (state.status === 'running') {
       const newNotes = generateRandomNotes(state.config);
       dispatch({ type: 'UPDATE_NOTES', value: newNotes });
-      dispatch({ type: 'UPDATE_STATS', value: { times: 1, hits: 0, score: 0, status: 'in_progress' } });
+      dispatch({ type: 'UPDATE_STATS', value: { hits: 0, score: 0, status: 'in_progress' } });
     };
 
     if (state.status === 'idle') {
       dispatch({ type: 'UPDATE_NOTES', value: [] });
+      if (state.stats.status === 'canceled' || state.stats.status === 'completed') setShowFinishedPanel(true);
     };
 
   }, [state.status]);
@@ -124,7 +127,9 @@ const App = () => {
 
     <MidiController />
 
-    { !isSupported() && showNotSupportedPanel && <NotSupportedPanel onClose={ () => setShowNotSupportedPanel(false) } /> }
+    { showFinishedPanel && <FinishedPanel onClose={ () => setShowFinishedPanel(false) } /> }
+
+    { showNotSupportedPanel && <NotSupportedPanel onClose={ () => setShowNotSupportedPanel(false) } /> }
 
   </Page>;
 
