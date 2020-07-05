@@ -37,7 +37,15 @@ const App = () => {
   const onNotesMatched = () => {
     const newNotes = generateRandomNotes(state.config);
     dispatch({ type: 'UPDATE_NOTES', value: newNotes });
+    dispatch({ type: 'UPDATE_MIDI', value: [] });
     dispatch({ type: 'UPDATE_STATS', value: { hits: state.stats.hits + 1 } });
+  };
+
+  const drawGhostNotes = (hit, groupToClone) => {
+    const clonedGroup = groupToClone.cloneNode(true);
+    group.current.parentNode.appendChild(clonedGroup);
+    clonedGroup.classList.add('ghost_notes', hit ? 'hit' : 'miss');
+    clonedGroup.addEventListener('animationend', e => e.target.remove());
   };
 
   const renderNotes = () => {
@@ -91,7 +99,12 @@ const App = () => {
     if (voiceNotes && state.config.showNotesName) printNotesLabel(voiceNotes);
 
     /* after printed, check score */
-    if (state.notes.length > 0 && matchNotes.length === state.notes.length) onNotesMatched();
+    if (state.notes.length > 0 && matchNotes.length === state.notes.length) { /* notes matched: hit */
+      onNotesMatched();
+      drawGhostNotes(true, voiceNotes.getTickables()[0].attrs.el);
+    } else if (state.notes.length > 0 && state.midi.length > 0 && state.midi.length === state.notes.length) { /* same length, but notes don't match: miss */
+      drawGhostNotes(false, voiceNotes.getTickables()[0].attrs.el);
+    }
   };
 
   const printNotesLabel = (voice) => {
