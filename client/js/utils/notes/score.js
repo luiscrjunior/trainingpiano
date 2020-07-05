@@ -37,7 +37,6 @@ export const getNotesScore = (notes, config) => {
     score = Math.round(score * 4);
   }
 
-
   return score;
 
 };
