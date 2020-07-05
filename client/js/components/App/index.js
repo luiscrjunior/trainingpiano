@@ -14,6 +14,7 @@ import Statistics from 'components/Statistics';
 import MidiController from 'components/MidiController';
 
 import ReactGA from 'react-ga';
+import ReactPixel from 'react-facebook-pixel';
 
 import { isSupported, generateRandomNotes, notesThatMatch, getNotesScore } from 'app/utils';
 
@@ -83,12 +84,18 @@ const App = () => {
 
   }, [state.midi]);
 
-  /* initialize google analytics */
+  /* initialize Google Analytics and Facebook Pixel */
   useEffect(() => {
     ReactGA.initialize('UA-171111912-1');
     ReactGA.pageview('/');
 
-    if (!isSupported()) ReactGA.event({ category: 'App', action: 'Unsupported Browser', nonInteraction: true });
+    ReactPixel.init('1475213622668870');
+    ReactPixel.pageView();
+
+    if (!isSupported()) {
+      ReactGA.event({ category: 'App', action: 'Unsupported Browser', nonInteraction: true });
+      ReactPixel.trackCustom('Unsupported Browser');
+    }
 
   }, []);
 
@@ -103,6 +110,7 @@ const App = () => {
 
   const resetSequence = () => {
     ReactGA.event({ category: 'App', action: `Exercise ${state.stats.status}`, nonInteraction: false, value: state.stats.score });
+    ReactPixel.trackCustom(`Exercise ${state.stats.status}`, state.stats);
     dispatch({ type: 'UPDATE_STATS', value: { hits: 0, score: 0, status: 'not_started' } });
     setShowFinishedPanel(false);
   };
