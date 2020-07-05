@@ -90,6 +90,11 @@ const App = () => {
     dispatch({ type: 'UPDATE_STATS', value: { status: 'canceled' } });
   };
 
+  const resetSequence = () => {
+    dispatch({ type: 'UPDATE_STATS', value: { hits: 0, score: 0, status: 'not_started' } });
+    setShowFinishedPanel(false);
+  };
+
   return <Page>
 
     <Section><img src='images/logo_full.png' width='300px'/></Section>
@@ -127,7 +132,7 @@ const App = () => {
 
     <MidiController />
 
-    { showFinishedPanel && <FinishedPanel onClose={ () => setShowFinishedPanel(false) } /> }
+    { showFinishedPanel && <FinishedPanel onClose={resetSequence} /> }
 
     { showNotSupportedPanel && <NotSupportedPanel onClose={ () => setShowNotSupportedPanel(false) } /> }
 
