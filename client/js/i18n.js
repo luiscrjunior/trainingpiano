@@ -1,20 +1,28 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
+import LanguageDetector from 'i18next-browser-languagedetector';
 
 const resources = {
   en: {
     translation: require('./locales/en.json'),
   },
-  ptBR: {
-    translation: require('./locales/ptBR.json'),
+  'pt-BR': {
+    translation: require('./locales/pt-BR.json'),
   },
 };
 
+const languageDetector = new LanguageDetector(null, {
+  order: ['querystring', 'localStorage', 'navigator'],
+  lookupQuerystring: 'lang',
+  lookupCookie: 'lang',
+  lookupLocalStorage: 'lang',
+});
+
 i18n
+  .use(languageDetector)
   .use(initReactI18next)
   .init({
     resources,
-    lng: 'en',
     fallbackLng: 'en',
     keySeparator: false,
     interpolation: {
