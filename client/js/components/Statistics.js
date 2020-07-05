@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 
 import { Context } from 'store';
-
+import { useTranslation } from 'react-i18next';
 import { Icon, Span, Paragraph } from 'components/shared';
 
 import styled from 'styled-components';
@@ -50,10 +50,11 @@ const GameStatus = styled(Title)`
 export default () => {
 
   const [state, dispatch] = useContext(Context);
+  const { t } = useTranslation();
 
   return <Board>
 
-    <Title>Results</Title>
+    <Title>{t('lbl_results')}</Title>
 
     <BadgeLine>
 
@@ -70,10 +71,10 @@ export default () => {
     </BadgeLine>
 
     <GameStatus>
-      { state.stats.status === 'not_started' && 'Exercise not started' }
-      { state.stats.status === 'in_progress' && 'Exercise in progress' }
-      { state.stats.status === 'canceled' && 'Exercise canceled' }
-      { state.stats.status === 'completed' && 'Exercise complete' }
+      { state.stats.status === 'not_started' && t('lbl_exercise_not_started') }
+      { state.stats.status === 'in_progress' && t('lbl_exercise_in_progress') }
+      { state.stats.status === 'canceled' && t('lbl_exercise_canceled') }
+      { state.stats.status === 'completed' && t('lbl_exercise_completed') }
     </GameStatus>
 
   </Board>;

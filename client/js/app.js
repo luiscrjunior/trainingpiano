@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 
 import Store from './store';
 import App from 'components/App';
+import './i18n';
 
 /* https://www.thebasement.be/updating-to-babel-7.4/ */
 import 'core-js/stable';

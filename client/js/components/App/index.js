@@ -16,6 +16,8 @@ import MidiController from 'components/MidiController';
 import ReactGA from 'react-ga';
 import ReactPixel from 'react-facebook-pixel';
 
+import { Trans, useTranslation } from 'react-i18next';
+
 import { isSupported, generateRandomNotes, notesThatMatch, getNotesScore } from 'app/utils';
 
 const Page = styled.div`
@@ -55,6 +57,7 @@ const App = () => {
   const [state, dispatch] = useContext(Context);
   const [showNotSupportedPanel, setShowNotSupportedPanel] = useState(!isSupported());
   const [showFinishedPanel, setShowFinishedPanel] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
 
@@ -119,7 +122,7 @@ const App = () => {
 
     <Section><img src='images/logo_full.png' width='300px'/></Section>
 
-    <Section><Paragraph size={14}><em>Plug your MIDI keyboard/piano and improve your skills hitting the correct notes.</em></Paragraph></Section>
+    <Section><Paragraph size={14}><em><Trans i18nKey='msg_header'>Plug your MIDI keyboard/piano and improve your skills hitting the correct notes.</Trans></em></Paragraph></Section>
 
     <Section>
       <LeftCol>
@@ -135,12 +138,12 @@ const App = () => {
         { state.status === 'running' &&
           <>
             <Countdown />
-            <CancelButton size={14} label='Cancelar' onClick={cancelSequence}/>
+            <CancelButton size={14} label={t('btn_cancel')} onClick={cancelSequence}/>
           </>
         }
 
         { state.status === 'idle' &&
-          <ActionButton size={22} label='Start exercise...' icon={['fas', 'fa-play-circle']} block onClick={startSequence}/>
+          <ActionButton size={22} label={t('btn_start_exercise')} icon={['fas', 'fa-play-circle']} block onClick={startSequence}/>
         }
 
       </RightCol>
@@ -148,7 +151,7 @@ const App = () => {
 
     { state.status === 'configuring' && <StartPanel /> }
 
-    <Section><Paragraph size={14}><em>Still in <strong>beta</strong>. Soon, we will add F Clef, user ranking and other features... Feedback? <a href='mailto:contact@trainingpiano.com'>contact@trainingpiano.com</a></em></Paragraph></Section>
+    <Section><Paragraph size={14}><em><Trans i18nKey='msg_footer'>Still in <strong>beta</strong>. Soon, we will add F Clef, user ranking and other features... Feedback? <a href='mailto:contact@trainingpiano.com'>contact@trainingpiano.com</a></Trans></em></Paragraph></Section>
 
     <MidiController />
 

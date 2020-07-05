@@ -2,6 +2,7 @@ import React, { useRef, useContext, useEffect } from 'react';
 import Vex, { drawDot } from 'vexflow';
 import { translateNote, notesThatMatch, generateRandomNotes } from 'app/utils';
 
+import { useTranslation } from 'react-i18next';
 import { Context } from 'store';
 
 const VF = Vex.Flow;
@@ -13,6 +14,7 @@ const App = () => {
   let context = useRef();
   let stave = useRef();
   let group = useRef();
+  const { t } = useTranslation();
 
   const renderStave = () => {
 
@@ -115,7 +117,7 @@ const App = () => {
       newText.setAttributeNS(null, 'x', 205);
       newText.setAttributeNS(null, 'y', note.y + 3);
       newText.setAttributeNS(null, 'font-size', '8');
-      const textNode = document.createTextNode(translateNote(note.key));
+      const textNode = document.createTextNode(translateNote(note.key, t('notes')));
       newText.appendChild(textNode);
       group.current.appendChild(newText);
     });

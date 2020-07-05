@@ -4,6 +4,7 @@ import FloatingPanel, { ButtonArea } from 'components/FloatingPanel';
 
 import { Button, Paragraph } from 'components/shared';
 
+import { useTranslation } from 'react-i18next';
 import { Context } from 'store';
 
 import styled from 'styled-components';
@@ -16,31 +17,32 @@ const Text = styled(Paragraph)`
 export default ({ onClose }) => {
 
   const [state, dispatch] = useContext(Context);
+  const { t } = useTranslation();
 
   let title;
   switch (state.stats.status) {
   case 'completed':
-    title = 'Finished';
+    title = t('lbl_finished');
     break;
   case 'canceled':
-    title = 'Canceled';
+    title = t('lbl_canceled');
     break;
   default:
-    title = 'Finished';
+    title = t('lbl_finished');
   }
 
   return <FloatingPanel onClose={onClose} title={title}>
 
     <Text>
-      <strong>Correct notes: </strong>{state.stats.hits}
+      <strong>{t('lbl_correct_notes')}: </strong>{state.stats.hits}
     </Text>
 
     <Text>
-      <strong>Score: </strong>{state.stats.score}
+      <strong>{t('lbl_score')}: </strong>{state.stats.score}
     </Text>
 
     <ButtonArea>
-      <Button btnSize='lg' btnStyle='primary' label='Close' onClick={onClose}/>
+      <Button btnSize='lg' btnStyle='primary' label={t('btn_close')} onClick={onClose}/>
     </ButtonArea>
 
   </FloatingPanel>;

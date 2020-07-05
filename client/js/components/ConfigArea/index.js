@@ -6,6 +6,8 @@ import { FormItem, Span, Toggle } from 'components/shared';
 import NotesSelector from './NotesSelector.js';
 import { isSupported } from 'app/utils';
 
+import { useTranslation } from 'react-i18next';
+
 import styled from 'styled-components';
 
 const Area = styled.div``;
@@ -20,6 +22,7 @@ export default () => {
 
   const [state, dispatch] = useContext(Context);
   const [midiInputs, setMidiInputs] = useState([]);
+  const { t } = useTranslation();
 
   const updateConfig = (item) => {
     dispatch({ type: 'UPDATE_CONFIG', value: item });
@@ -43,20 +46,20 @@ export default () => {
 
   return <Area>
 
-    <FormItem label='Input Device' >
+    <FormItem label={t('lbl_config_input_device')} >
       <select value={state.config.midiInput ? state.config.midiInput.id : ''} onChange={onSelectMidiInput}>
-        <option>Escolha um dispositivo...</option>
+        <option>{t('lbl_config_choose_device')}</option>
         {midiInputs.map(midiInput => <option key={midiInput.id} value={midiInput.id}>{midiInput.name}</option>)}
       </select>
     </FormItem>
 
-    <FormItem label='Show note names?' >
+    <FormItem label={t('lbl_config_show_note_names')} >
       <Toggle checked={state.config.showNotesName} onChange={ (e) => updateConfig({ 'showNotesName': e.target.checked })} />
     </FormItem>
 
-    <FormItem label='How many notes simultaneously?' >
+    <FormItem label={t('lbl_config_how_many_notes')} >
       <select value={state.config.totalNotes} onChange={ (e) => updateConfig({ 'totalNotes': parseInt(e.target.value) })}>
-        <option value={0}>Random</option>
+        <option value={0}>{t('lbl_config_random')}</option>
         <option value={1}>1</option>
         <option value={2}>2</option>
         <option value={3}>3</option>
@@ -65,23 +68,23 @@ export default () => {
       </select>
       { state.config.totalNotes === 0 &&
         <>
-          <Hint><strong>1</strong> note up to</Hint>
+          <Hint><strong>1</strong> {t('lbl_config_note_up_to')}</Hint>
           <select value={state.config.maxNotes} onChange={ (e) => updateConfig({ 'maxNotes': parseInt(e.target.value) })}>
             <option value={2}>2</option>
             <option value={3}>3</option>
             <option value={4}>4</option>
             <option value={5}>5</option>
           </select>
-          <Hint>notes.</Hint>
+          <Hint>{t('lbl_config_up_to_notes')}.</Hint>
         </>
       }
     </FormItem>
 
-    <FormItem label='Include sharp (#) and flat (b) ?' >
+    <FormItem label={t('lbl_config_include_accidentals')} >
       <Toggle checked={state.config.includeAccidentals} onChange={ (e) => updateConfig({ 'includeAccidentals': e.target.checked })} />
     </FormItem>
 
-    <FormItem label='Notes:' >
+    <FormItem label={t('lbl_config_notes')} >
       <NotesSelector
         onChange={ (lowerNote, upperNote) => updateConfig({ 'lowerNote': lowerNote, 'upperNote': upperNote })}
       />
