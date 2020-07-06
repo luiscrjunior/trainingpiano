@@ -4,7 +4,7 @@
   "btn_cancel": "Cancelar",
   "btn_start_exercise": "Iniciar exercício...",
   "btn_close": "Fechar",
-  "lbl_config_input_device": "Dispositivo",
+  "lbl_config_input_device": "Dispositivo de entrada",
   "lbl_config_choose_device": "Escolha um dispositivo...",
   "lbl_config_show_note_names": "Mostrar o nome das notas?",
   "lbl_config_how_many_notes": "Quantas notas simultâneas?",
