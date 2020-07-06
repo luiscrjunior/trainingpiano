@@ -4,9 +4,11 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 
 const resources = {
   en: {
+    name: 'English',
     translation: require('./locales/en.json'),
   },
   'pt-BR': {
+    name: 'Português (Brasil)',
     translation: require('./locales/pt-BR.json'),
   },
 };

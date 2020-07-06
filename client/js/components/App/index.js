@@ -12,6 +12,7 @@ import FinishedPanel from 'components/FinishedPanel';
 import Countdown from 'components/Countdown';
 import Statistics from 'components/Statistics';
 import MidiController from 'components/MidiController';
+import LanguageSelector from 'components/LanguageSelector';
 
 import ReactGA from 'react-ga';
 import ReactPixel from 'react-facebook-pixel';
@@ -30,6 +31,7 @@ const Page = styled.div`
 
 const Section = styled.div`
   display: flex;
+  position: relative;
   width: 960px;
   justify-content: center;
   margin-bottom: 15px;
@@ -153,7 +155,10 @@ const App = () => {
 
     <Section><Paragraph size={14}><em><Trans i18nKey='msg_footer'>Still in <strong>beta</strong>. Soon, we will add F Clef, user ranking and other features... Feedback? <a href='mailto:contact@trainingpiano.com'>contact@trainingpiano.com</a></Trans></em></Paragraph></Section>
 
+    <Section><LanguageSelector /></Section>
+
     <MidiController />
+
 
     { showFinishedPanel && <FinishedPanel onClose={resetSequence} /> }
 
