@@ -1,3 +1,5 @@
+import { notesThatMatch } from 'app/utils';
+
 export default {
   status: 'idle', /* idle, configuring, running */
   stats: { /* current statistics */
@@ -15,5 +17,15 @@ export default {
     maxNotes: 2, /* in random mode */
     includeAccidentals: true,
     showNotesName: false,
+  },
+
+  userHasScored: function () {
+    const matchNotes = notesThatMatch(this.midi, this.notes);
+    return (
+      this.status === 'running' &&
+      this.notes.length > 0 &&
+      this.notes.length === this.midi.length &&
+      matchNotes.length === this.notes.length
+    );
   },
 };
