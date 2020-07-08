@@ -15,6 +15,7 @@ export default () => {
     if (state.status === 'running') {
       const newNotes = generateRandomNotes(state.config);
       dispatch({ type: 'UPDATE_NOTES', value: newNotes });
+      dispatch({ type: 'UPDATE_MIDI', value: [] });
       dispatch({ type: 'UPDATE_STATS', value: { hits: 0, score: 0, status: 'in_progress' } });
     };
 
