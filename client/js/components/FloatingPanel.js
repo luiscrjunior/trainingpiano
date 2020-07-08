@@ -14,7 +14,7 @@ const Overlay = styled.div`
   height: 100%;
   background-color: #424242;
   opacity: 0.4;
-  z-index: 1;
+  z-index: 10;
 `;
 
 const Panel = styled.div`
@@ -32,7 +32,7 @@ const Panel = styled.div`
   outline: none;
   box-shadow: 0 4px 8px -4px rgba(9,30,66,.25), 0 0 0 1px rgba(9,30,66,.08);
   text-align: left;
-  z-index: 2;
+  z-index: 20;
 
   &:focus { outline: none; }
 `;
