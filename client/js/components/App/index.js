@@ -14,12 +14,11 @@ import Statistics from 'components/Statistics';
 import MidiController from 'components/MidiController';
 import LanguageSelector from 'components/LanguageSelector';
 
-import ReactGA from 'react-ga';
-import ReactPixel from 'react-facebook-pixel';
-
 import { Trans, useTranslation } from 'react-i18next';
+import useAnalytics from './useAnalytics';
+import useGameLogic from './useGameLogic';
 
-import { isSupported, generateRandomNotes, notesThatMatch, getNotesScore } from 'app/utils';
+import { isSupported } from 'app/utils';
 
 const Page = styled.div`
   display: flex;
@@ -58,67 +57,16 @@ const App = () => {
 
   const [state, dispatch] = useContext(Context);
   const [showNotSupportedPanel, setShowNotSupportedPanel] = useState(!isSupported());
-  const [showFinishedPanel, setShowFinishedPanel] = useState(false);
   const { t } = useTranslation();
+  const { setupAnalytics, trackEvent } = useAnalytics();
+  const [startSequence, cancelSequence, resetSequence, showFinishedPanel] = useGameLogic();
+
+  /* setup Google Analytics and Facebook Pixel */
+  setupAnalytics();
 
   useEffect(() => {
-
-    if (state.status === 'running') {
-      const newNotes = generateRandomNotes(state.config);
-      dispatch({ type: 'UPDATE_NOTES', value: newNotes });
-      dispatch({ type: 'UPDATE_STATS', value: { hits: 0, score: 0, status: 'in_progress' } });
-    };
-
-    if (state.status === 'idle') {
-      dispatch({ type: 'UPDATE_NOTES', value: [] });
-      if (state.stats.status === 'canceled' || state.stats.status === 'completed') setShowFinishedPanel(true);
-    };
-
-  }, [state.status]);
-
-  useEffect(() => {
-
-    const matchNotes = notesThatMatch(state.midi, state.notes);
-    if (state.status === 'running' && state.notes.length > 0 && matchNotes.length === state.notes.length) { /* notes matched: hit */
-      const newNotes = generateRandomNotes(state.config);
-      const score = getNotesScore(state.notes, state.config);
-      dispatch({ type: 'UPDATE_NOTES', value: newNotes });
-      dispatch({ type: 'UPDATE_MIDI', value: [] });
-      dispatch({ type: 'UPDATE_STATS', value: { hits: state.stats.hits + 1, score: state.stats.score + score } });
-    }
-
-  }, [state.midi]);
-
-  /* initialize Google Analytics and Facebook Pixel */
-  useEffect(() => {
-    ReactGA.initialize('UA-171111912-1');
-    ReactGA.pageview('/');
-
-    ReactPixel.init('1475213622668870');
-    ReactPixel.pageView();
-
-    if (!isSupported()) {
-      ReactGA.event({ category: 'App', action: 'Unsupported Browser', nonInteraction: true });
-      ReactPixel.trackCustom('Unsupported Browser');
-    }
-
+    if (!isSupported()) trackEvent({ action: 'Unsupported Browser', nonInteraction: true });
   }, []);
-
-  const startSequence = () => {
-    dispatch({ type: 'UPDATE_STATUS', value: 'configuring' });
-  };
-
-  const cancelSequence = () => {
-    dispatch({ type: 'UPDATE_STATUS', value: 'idle' });
-    dispatch({ type: 'UPDATE_STATS', value: { status: 'canceled' } });
-  };
-
-  const resetSequence = () => {
-    ReactGA.event({ category: 'App', action: `Exercise ${state.stats.status}`, nonInteraction: false, value: state.stats.score });
-    ReactPixel.trackCustom(`Exercise ${state.stats.status}`, state.stats);
-    dispatch({ type: 'UPDATE_STATS', value: { hits: 0, score: 0, status: 'not_started' } });
-    setShowFinishedPanel(false);
-  };
 
   return <Page>
 
@@ -158,7 +106,6 @@ const App = () => {
     <Section><LanguageSelector /></Section>
 
     <MidiController />
-
 
     { showFinishedPanel && <FinishedPanel onClose={resetSequence} /> }
 
