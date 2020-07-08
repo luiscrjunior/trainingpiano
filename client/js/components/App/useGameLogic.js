@@ -21,6 +21,7 @@ export default () => {
 
     if (state.status === 'idle') {
       dispatch({ type: 'UPDATE_NOTES', value: [] });
+      dispatch({ type: 'UPDATE_MIDI', value: [] });
       if (state.stats.status === 'canceled' || state.stats.status === 'completed') setShowFinishedPanel(true);
     };
 
