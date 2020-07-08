@@ -94,7 +94,8 @@ const App = () => {
     if (voiceNotes && state.config.showNotesName) printNotesLabel(voiceNotes);
 
     /* print ghost notes to be animated */
-    if (state.notes.length > 0 && matchNotes.length === state.notes.length) { /* notes matched: hit */
+    if (
+      state.notes.length > 0 && state.notes.length === state.midi.length && matchNotes.length === state.notes.length) { /* notes matched: hit */
       drawGhostNotes(true, voiceNotes.getTickables()[0].attrs.el);
     } else if (state.notes.length > 0 && state.midi.length > 0 && state.midi.length === state.notes.length) { /* same length, but notes don't match: miss */
       drawGhostNotes(false, voiceNotes.getTickables()[0].attrs.el);

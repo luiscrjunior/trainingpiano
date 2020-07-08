@@ -28,7 +28,12 @@ export default () => {
   useEffect(() => {
 
     const matchNotes = notesThatMatch(state.midi, state.notes);
-    if (state.status === 'running' && state.notes.length > 0 && matchNotes.length === state.notes.length) { /* notes matched: hit */
+    if (
+      state.status === 'running' &&
+      state.notes.length > 0 &&
+      state.notes.length === state.midi.length &&
+      matchNotes.length === state.notes.length
+    ) { /* notes matched: hit */
       const newNotes = generateRandomNotes(state.config);
       const score = getNotesScore(state.notes, state.config);
       dispatch({ type: 'UPDATE_NOTES', value: newNotes });
