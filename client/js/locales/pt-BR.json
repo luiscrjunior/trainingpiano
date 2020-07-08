@@ -25,6 +25,7 @@
   "lbl_finished": "Encerrado",
   "lbl_canceled": "Cancelado",
   "lbl_correct_notes": "Notas corretas",
+  "lbl_missed_notes": "Notas erradas",
   "lbl_score": "Pontuação",
   "lbl_not_supported": "Não consigo conectar a um dispositivo MIDI",
   "msg_unsupported_1": "Infelizmente, seu navegador não possui suporte à Web MIDI API. Então, nós não podemos acessar seu dispositivo MIDI. Mas você ainda pode usar o piano virtual.",

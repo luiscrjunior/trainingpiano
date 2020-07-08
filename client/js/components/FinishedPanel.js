@@ -38,6 +38,10 @@ export default ({ onClose }) => {
     </Text>
 
     <Text>
+      <strong>{t('lbl_missed_notes')}: </strong>{state.stats.miss}
+    </Text>
+
+    <Text>
       <strong>{t('lbl_score')}: </strong>{state.stats.score}
     </Text>
 

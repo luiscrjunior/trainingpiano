@@ -41,7 +41,7 @@ const LeftCol = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: flex-start;
+  align-items: center;
 `;
 
 const RightCol = styled.div`
@@ -49,7 +49,7 @@ const RightCol = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  width: 300px;
+  width: 380px;
   padding-top: 80px;
 `;
 

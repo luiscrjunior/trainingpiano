@@ -16,7 +16,7 @@ export default () => {
       const newNotes = generateRandomNotes(state.config);
       dispatch({ type: 'UPDATE_NOTES', value: newNotes });
       dispatch({ type: 'UPDATE_MIDI', value: [] });
-      dispatch({ type: 'UPDATE_STATS', value: { hits: 0, score: 0, status: 'in_progress' } });
+      dispatch({ type: 'UPDATE_STATS', value: { hits: 0, miss: 0, score: 0, status: 'in_progress' } });
     };
 
     if (state.status === 'idle') {
@@ -35,6 +35,8 @@ export default () => {
       dispatch({ type: 'UPDATE_NOTES', value: newNotes });
       dispatch({ type: 'UPDATE_MIDI', value: [] });
       dispatch({ type: 'UPDATE_STATS', value: { hits: state.stats.hits + 1, score: state.stats.score + score } });
+    } else if (state.userHasMissed()) {
+      dispatch({ type: 'UPDATE_STATS', value: { miss: state.stats.miss + 1 } });
     }
 
   }, [state.midi]);
@@ -50,7 +52,7 @@ export default () => {
 
   const resetSequence = () => {
     trackEvent({ action: `Exercise ${state.stats.status}`, value: state.stats, numericValue: state.stats.score });
-    dispatch({ type: 'UPDATE_STATS', value: { hits: 0, score: 0, status: 'not_started' } });
+    dispatch({ type: 'UPDATE_STATS', value: { hits: 0, miss: 0, score: 0, status: 'not_started' } });
     setShowFinishedPanel(false);
   };
 

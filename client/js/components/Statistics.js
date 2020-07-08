@@ -64,6 +64,11 @@ export default () => {
       </Badge>
 
       <Badge>
+        <Icon icon={['fas', 'fa-times']} size={20} color='#fff' right={10}/>
+        <Span size={20} color='#fff' bold>{state.stats.miss}</Span>
+      </Badge>
+
+      <Badge>
         <Icon icon={['fas', 'fa-star']} size={20} color='#fff' right={10}/>
         <Span size={20} color='#fff' bold>{state.stats.score}</Span>
       </Badge>

@@ -4,6 +4,7 @@ export default {
   status: 'idle', /* idle, configuring, running */
   stats: { /* current statistics */
     hits: 0,
+    miss: 0,
     score: 0,
     status: 'not_started', /* not_started, in_progress, canceled, completed */
   },
@@ -26,6 +27,14 @@ export default {
       this.notes.length > 0 &&
       this.notes.length === this.midi.length &&
       matchNotes.length === this.notes.length
+    );
+  },
+
+  userHasMissed: function () {
+    return (
+      this.notes.length > 0 &&
+      this.midi.length > 0 &&
+      this.midi.length >= this.notes.length
     );
   },
 };
