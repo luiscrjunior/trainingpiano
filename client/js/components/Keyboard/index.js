@@ -1,8 +1,17 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 
 import { Context } from 'store';
 
+import classNames from 'classnames';
+import { findMidiNote, addNoteToMidi, removeNoteFromMidi } from 'app/utils';
+
 import styled from 'styled-components';
+
+const Wrapper = styled.div.attrs({ className: styles.wrapper })``;
+const Keyboard = styled.ul.attrs({ className: styles.piano })``;
+const KeyGroup = styled.li``;
+const WhiteKey = styled.div.attrs(props => ({ className: classNames(styles.anchor, { [styles.active]: props.pressed }) }))``;
+const BlackKey = styled.span.attrs(props => ({ className: classNames({ [styles.active]: props.pressed }) }))``;
 
 import styles from './styles.scss';
 
@@ -45,17 +54,30 @@ const pianoKeys = [
 export default () => {
 
   const [state, dispatch] = useContext(Context);
+  const [keysPressed, setKeysPressed] = useState([]);
 
-  return <div className={styles.wrapper}>
-    <ul className={styles.piano}>
+  useEffect(() => setKeysPressed(state.midi.map(midiKey => findMidiNote(midiKey))), [state.midi]);
+
+  const isKeyPressed = key => keysPressed.some(keyPressed => keyPressed === key);
+
+  const onKeyPressed = key => {
+    const newNotes = isKeyPressed(key)
+      ? removeNoteFromMidi(key.toString(), state.midi)
+      : addNoteToMidi(key.toString(), state.midi, state.notes);
+    dispatch({ type: 'UPDATE_MIDI', value: newNotes });
+
+  };
+
+  return <Wrapper>
+    <Keyboard>
       { pianoKeys.map((key) =>
-        <li key={key.whiteKeyId}>
-          <div className={styles.anchor}></div>
-          {key.blackKeyId && <span></span>}
-        </li>
+        <KeyGroup key={key.whiteKeyId}>
+          <WhiteKey pressed={isKeyPressed(key.whiteKeyId)} onClick={() => onKeyPressed(key.whiteKeyId)}/>
+          {key.blackKeyId && <BlackKey pressed={isKeyPressed(key.blackKeyId)} onClick={() => onKeyPressed(key.blackKeyId)} />}
+        </KeyGroup>
       )}
-    </ul>
-  </div>;
+    </Keyboard>
+  </Wrapper>;
 
 };
 
