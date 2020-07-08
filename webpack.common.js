@@ -15,8 +15,13 @@ module.exports = {
   optimization: {
     splitChunks: {
       cacheGroups: {
+        vexflow: {
+          test: /node_modules\/vexflow\/(.*)\.js/,
+          name: 'vexflow',
+          chunks: 'all',
+        },
         vendor: {
-          test: /node_modules\/(.*)\.js/,
+          test: /node_modules\/(?!vexflow)(.*)\.js/,
           name: 'vendor',
           chunks: 'all',
         },
