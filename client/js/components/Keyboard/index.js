@@ -105,9 +105,11 @@ export default ({ onOpenSupport }) => {
       )}
     </Keyboard>
     <Label>
-      { isSupported()
-        ? <Trans i18nKey='piano_msg_supported'></Trans>
-        : <Trans i18nKey='piano_msg_unsupported'>Infelizmente, seu navegador não <Link onClick={onOpenSupport}>suporta</Link> acesso aos dispositivos MIDI's, mas você poderá usar esse piano virtual.</Trans>
+      { state.config.midiInput
+        ? state.config.midiInput.name
+        : isSupported()
+          ? <Trans i18nKey='piano_msg_supported'></Trans>
+          : <Trans i18nKey='piano_msg_unsupported'>Infelizmente, seu navegador não <Link onClick={onOpenSupport}>suporta</Link> acesso aos dispositivos MIDI's, mas você poderá usar esse piano virtual.</Trans>
       }
     </Label>
   </Wrapper>;
