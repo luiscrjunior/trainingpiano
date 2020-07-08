@@ -3,7 +3,9 @@ import React, { useContext, useState, useEffect } from 'react';
 import { Context } from 'store';
 
 import classNames from 'classnames';
-import { findMidiNote, addNoteToMidi, removeNoteFromMidi } from 'app/utils';
+import { findMidiNote, addNoteToMidi, removeNoteFromMidi, isSupported } from 'app/utils';
+import { Paragraph, Anchor } from 'components/shared';
+import { Trans, useTranslation } from 'react-i18next';
 
 import styled from 'styled-components';
 
@@ -12,6 +14,23 @@ const Keyboard = styled.ul.attrs({ className: styles.piano })``;
 const KeyGroup = styled.li``;
 const WhiteKey = styled.div.attrs(props => ({ className: classNames(styles.anchor, { [styles.active]: props.pressed }) }))``;
 const BlackKey = styled.span.attrs(props => ({ className: classNames({ [styles.active]: props.pressed }) }))``;
+
+const Label = styled(Paragraph)`
+  color: #f2f2f2;
+  text-align: center;
+  margin: 15px 0 5px 0;
+  font-size: 11px;
+`;
+
+const Link = styled(Anchor)`
+  color: #fff;
+  text-decoration: underline;
+  font-size: 11px;
+
+  &:link, &:visited, &:hover, &:active {
+    text-decoration: underline;
+  }
+`;
 
 import styles from './styles.scss';
 
@@ -51,10 +70,11 @@ const pianoKeys = [
 
 ];
 
-export default () => {
+export default ({ onOpenSupport }) => {
 
   const [state, dispatch] = useContext(Context);
   const [keysPressed, setKeysPressed] = useState([]);
+  const { t } = useTranslation();
 
   useEffect(() => setKeysPressed(state.midi.map(midiKey => findMidiNote(midiKey))), [state.midi]);
 
@@ -72,11 +92,24 @@ export default () => {
     <Keyboard>
       { pianoKeys.map((key) =>
         <KeyGroup key={key.whiteKeyId}>
-          <WhiteKey pressed={isKeyPressed(key.whiteKeyId)} onClick={() => onKeyPressed(key.whiteKeyId)}/>
-          {key.blackKeyId && <BlackKey pressed={isKeyPressed(key.blackKeyId)} onClick={() => onKeyPressed(key.blackKeyId)} />}
+          <WhiteKey
+            pressed={isKeyPressed(key.whiteKeyId)}
+            onClick={() => onKeyPressed(key.whiteKeyId)}
+          />
+          {key.blackKeyId &&
+            <BlackKey
+              pressed={isKeyPressed(key.blackKeyId)}
+              onClick={() => onKeyPressed(key.blackKeyId)}
+            />}
         </KeyGroup>
       )}
     </Keyboard>
+    <Label>
+      { isSupported()
+        ? <Trans i18nKey='piano_msg_supported'></Trans>
+        : <Trans i18nKey='piano_msg_unsupported'>Infelizmente, seu navegador não <Link onClick={onOpenSupport}>suporta</Link> acesso aos dispositivos MIDI's, mas você poderá usar esse piano virtual.</Trans>
+      }
+    </Label>
   </Wrapper>;
 
 };

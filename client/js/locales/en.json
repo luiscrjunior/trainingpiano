@@ -26,14 +26,16 @@
   "lbl_canceled": "Canceled",
   "lbl_correct_notes": "Correct notes",
   "lbl_score": "Score",
-  "lbl_not_supported": "Browser not supported",
-  "msg_unsupported_1": "Unfortunately, your browser does not support Web MIDI API. So, we can't access your MIDI device.",
-  "msg_unsupported_2": "Actually, our app runs in <1>Google Chrome</1> (> 43), <3>Edge</3> (> 79) and <5>Opera</5> (> 33). But, please, check the compatible browsers <7>here</7>.",
+  "lbl_not_supported": "Can't connect to MIDI device",
+  "msg_unsupported_1": "Unfortunately, your browser does not support Web MIDI API. So, we can't access your MIDI device. But you can still use the virtual piano.",
+  "msg_unsupported_2": "Actually, the connection with MIDI devices works in <1>Google Chrome</1> (> 43), <3>Edge</3> (> 79) and <5>Opera</5> (> 33). You can check the compatible browsers <7>here</7>.",
   "lbl_start_exercise": "Start Exercise",
   "btn_start": "Start",
   "lbl_results": "Results",
   "lbl_exercise_not_started": "Exercise not started",
   "lbl_exercise_in_progress": "Exercise in progress",
   "lbl_exercise_canceled": "Exercise canceled",
-  "lbl_exercise_completed": "Exercise complete"
+  "lbl_exercise_completed": "Exercise complete",
+  "piano_msg_unsupported": "Unfortunately, your browser does not <1>support</1> access to midi devices, but you can use the virtual piano.",
+  "piano_msg_supported": "You can connect a MIDI piano/keyboard or use the virtual piano."
 }

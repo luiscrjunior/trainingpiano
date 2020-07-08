@@ -21,7 +21,6 @@ const CleanAnchor = styled.a`
   color: #424242;
   pointer-events: ${props => props.disabled ? 'none' : 'auto'};
   cursor: ${props => props.disabled ? 'default' : 'pointer'};
-  vertical-align: middle;
 
   &:link, &:visited, &:hover, &:active {
     text-decoration: none;

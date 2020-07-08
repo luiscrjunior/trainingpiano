@@ -26,14 +26,16 @@
   "lbl_canceled": "Cancelado",
   "lbl_correct_notes": "Notas corretas",
   "lbl_score": "Pontuação",
-  "lbl_not_supported": "Navegador sem suporte",
-  "msg_unsupported_1": "Infelizmente, seu navegador não possui suporte à Web MIDI API. Então, nós não podemos acessar seu dispositivo MIDI.",
-  "msg_unsupported_2": "Atualmente, nosso site funciona no <1>Google Chrome</1> (> 43), <3>Edge</3> (> 79) e <5>Opera</5> (> 33).Mas, por favor, verifique os navegadores compatíveis <7>aqui</7>.",
+  "lbl_not_supported": "Não consigo conectar a um dispositivo MIDI",
+  "msg_unsupported_1": "Infelizmente, seu navegador não possui suporte à Web MIDI API. Então, nós não podemos acessar seu dispositivo MIDI. Mas você ainda pode usar o piano virtual.",
+  "msg_unsupported_2": "Atualmente, a conexão com dispositivos MIDI funciona no <1>Google Chrome</1> (> 43), <3>Edge</3> (> 79) e <5>Opera</5> (> 33). Você pode verificar os navegadores compatíveis <7>aqui</7>.",
   "lbl_start_exercise": "Iniciar Exercício",
   "btn_start": "Iniciar",
   "lbl_results": "Resultado",
   "lbl_exercise_not_started": "Exercício não iniciado",
   "lbl_exercise_in_progress": "Exercício em andamento",
   "lbl_exercise_canceled": "Exercício cancelado",
-  "lbl_exercise_completed": "Exercício concluído"
+  "lbl_exercise_completed": "Exercício concluído",
+  "piano_msg_unsupported": "Infelizmente, seu navegador não <1>suporta</1> acesso aos dispositivos MIDI's, mas você poderá usar esse piano virtual.",
+  "piano_msg_supported": "Você pode conectar um teclado/piano MIDI ou usar esse piano virtual."
 }

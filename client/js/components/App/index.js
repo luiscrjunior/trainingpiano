@@ -57,17 +57,13 @@ const RightCol = styled.div`
 const App = () => {
 
   const [state, dispatch] = useContext(Context);
-  const [showNotSupportedPanel, setShowNotSupportedPanel] = useState(!isSupported());
+  const [showNotSupportedPanel, setShowNotSupportedPanel] = useState(false);
   const { t } = useTranslation();
   const { setupAnalytics, trackEvent } = useAnalytics();
   const [startSequence, cancelSequence, resetSequence, showFinishedPanel] = useGameLogic();
 
   /* setup Google Analytics and Facebook Pixel */
   setupAnalytics();
-
-  useEffect(() => {
-    if (!isSupported()) trackEvent({ action: 'Unsupported Browser', nonInteraction: true });
-  }, []);
 
   return <Page>
 
@@ -102,7 +98,7 @@ const App = () => {
 
     { state.status === 'configuring' && <StartPanel /> }
 
-    <Section><Keyboard /></Section>
+    <Section><Keyboard onOpenSupport={ () => setShowNotSupportedPanel(true) } /></Section>
 
     <Section><Paragraph size={14}><em><Trans i18nKey='msg_footer'>Still in <strong>beta</strong>. Soon, we will add F Clef, user ranking and other features... Feedback? <a href='mailto:contact@trainingpiano.com'>contact@trainingpiano.com</a></Trans></em></Paragraph></Section>
 
