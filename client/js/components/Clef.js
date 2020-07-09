@@ -1,6 +1,6 @@
 import React, { useRef, useContext, useEffect } from 'react';
-import Vex, { drawDot } from 'vexflow';
-import { translateNote, notesThatMatch, generateRandomNotes } from 'app/utils';
+import Vex from 'vexflow';
+import { translateNote, notesThatMatch } from 'app/utils';
 
 import { useTranslation } from 'react-i18next';
 import { Context } from 'store';

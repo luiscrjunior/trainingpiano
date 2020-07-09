@@ -7,8 +7,6 @@ import { Context } from 'store';
 
 import { ActionButton } from 'components/shared';
 
-import styled from 'styled-components';
-
 export default () => {
 
   const [state, dispatch] = useContext(Context);

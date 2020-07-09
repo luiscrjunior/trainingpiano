@@ -2,7 +2,7 @@ import React, { useEffect, useContext, useState } from 'react';
 
 import { Context } from 'store';
 import useAnalytics from './useAnalytics';
-import { generateRandomNotes, notesThatMatch, getNotesScore } from 'app/utils';
+import { generateRandomNotes, getNotesScore } from 'app/utils';
 
 export default () => {
 
