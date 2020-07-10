@@ -26,15 +26,15 @@ export default () => {
   });
 
   const handleKeyDown = useCallback((e) => {
-    if (e.key === 'a' && !e.repeat) { /* correct notes */
+    if (e.key === 'ArrowRight' && !e.repeat) { /* correct notes */
       dispatch({ type: 'UPDATE_MIDI', value: [...state.notes] });
-    } else if (e.key === 's' && !e.repeat) { /* random notes (wrong) */
+    } else if (e.key === 'ArrowLeft' && !e.repeat) { /* random notes (wrong) */
       dispatch({ type: 'UPDATE_MIDI', value: generateRandomNotes(state.config) });
     }
   });
 
   const handleKeyUp = useCallback((e) => {
-    if (e.key === 'a' || e.key === 's') {
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
       dispatch({ type: 'UPDATE_MIDI', value: [] });
     }
   });
