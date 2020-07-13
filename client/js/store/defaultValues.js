@@ -12,6 +12,7 @@ export default {
   midi: [],
   config: {
     midiInput: null,
+    clef: 'treble',
     lowerNote: 'C/4',
     upperNote: 'B/5',
     totalNotes: 0, /* 0 means random from 1 up to maxNotes */

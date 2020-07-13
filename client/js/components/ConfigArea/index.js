@@ -53,6 +53,13 @@ export default () => {
       </select>
     </FormItem>
 
+    <FormItem label={t('lbl_config_clef')} >
+      <select value={state.config.clef} onChange={ (e) => updateConfig({ 'clef': e.target.value })}>
+        <option value='treble'>{t('lbl_config_clef_treble')}</option>
+        <option value='bass'>{t('lbl_config_clef_bass')}</option>
+      </select>
+    </FormItem>
+
     <FormItem label={t('lbl_config_show_note_names')} >
       <Toggle checked={state.config.showNotesName} onChange={ (e) => updateConfig({ 'showNotesName': e.target.checked })} />
     </FormItem>

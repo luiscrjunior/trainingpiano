@@ -11,29 +11,28 @@ const App = () => {
 
   const [state, dispatch] = useContext(Context);
   const containerRef = useRef();
-  let context = useRef();
-  let stave = useRef();
-  let group = useRef();
+  let context = useRef(null);
+  let stave = useRef(null);
+  let group = useRef(null);
   const { t } = useTranslation();
 
-  const renderStave = () => {
-
+  const renderContainer = () => {
     const renderer = new VF.Renderer(containerRef.current, VF.Renderer.Backends.SVG);
     renderer.resize(460, 360);
     context.current = renderer.getContext();
     context.current.setFont('Arial', 10, '').setBackgroundFillStyle('#eed');
-
-    // Create a stave of width 400 at position 10, 40 on the canvas.
-    stave.current = new VF.Stave(0, 30, 200);
-
-    // Add a clef and time signature.
-    stave.current.addClef('treble');
-
     context.current.scale(2, 2); //size
+  };
 
-    // Connect it to the rendering context and draw!
-    stave.current.setContext(context.current).draw();
-
+  const renderStave = () => {
+    if (stave.current) {
+      context.current.clear();
+      if (group.current) group.current = null;
+    }
+    stave.current = new VF.Stave(0, 30, 200);
+    stave.current.addClef(state.config.clef);
+    stave.current.setContext(context.current);
+    stave.current.draw();
   };
 
   const drawGhostNotes = (hit, groupToClone) => {
@@ -60,7 +59,7 @@ const App = () => {
     if (state.notes && state.notes.length > 0) {
       voiceNotes = new VF.Voice({ num_beats: 4, beat_value: 4 });
       const notes = [
-        new VF.StaveNote({ clef: 'treble', keys: state.notes, duration: 'w', align_center: true }),
+        new VF.StaveNote({ clef: state.config.clef, keys: state.notes, duration: 'w', align_center: true }),
       ];
       voiceNotes.addTickables(notes);
     }
@@ -68,7 +67,7 @@ const App = () => {
     /* midi notes */
     if (state.midi && state.midi.length > 0) {
       voiceMidi = new VF.Voice({ num_beats: 4, beat_value: 4 });
-      const midiStaveNote = new VF.StaveNote({ clef: 'treble', keys: state.midi, duration: 'w', align_center: true });
+      const midiStaveNote = new VF.StaveNote({ clef: state.config.clef, keys: state.midi, duration: 'w', align_center: true });
       midiStaveNote.setStyle({ fillStyle: '#aaa' });
       matchNotes.forEach(matchNoteIdx => {
         midiStaveNote.setKeyStyle(matchNoteIdx, { fillStyle: 'green' });
@@ -125,8 +124,12 @@ const App = () => {
   };
 
   useEffect(() => {
-    renderStave();
+    renderContainer();
   }, []);
+
+  useEffect(() => {
+    renderStave();
+  }, [state.config.clef]);
 
   useEffect(() => {
     renderNotes();
