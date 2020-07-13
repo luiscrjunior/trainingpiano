@@ -87,15 +87,16 @@ export default ({ onOpenSupport }) => {
           <WhiteKey
             pressed={isKeyPressed(key.whiteKeyId)}
             onClick={() => onKeyPressed(key.whiteKeyId)}
-          />
+          >
+            { (idx === 0 || idx === pianoKeys.length - 1) &&
+              <KeyLabel>{findNotes(key.whiteKeyId)}</KeyLabel>
+            }
+          </WhiteKey>
           {key.blackKeyId &&
             <BlackKey
               pressed={isKeyPressed(key.blackKeyId)}
               onClick={() => onKeyPressed(key.blackKeyId)}
             />}
-          { (idx === 0 || idx === pianoKeys.length - 1) &&
-            <KeyLabel>{findNotes(key.whiteKeyId)}</KeyLabel>
-          }
         </KeyGroup>
       )}
     </Keyboard>
