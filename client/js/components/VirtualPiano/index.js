@@ -3,7 +3,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import { Context } from 'store';
 
 import classNames from 'classnames';
-import { findMidiNote, addNoteToMidi, removeNoteFromMidi, isSupported } from 'app/utils';
+import { findMidiNote, addNoteToMidi, removeNoteFromMidi, isSupported, findNotes } from 'app/utils';
 import { Paragraph, Anchor } from 'components/shared';
 import { Trans, useTranslation } from 'react-i18next';
 
@@ -14,6 +14,7 @@ const Keyboard = styled.ul.attrs({ className: styles.piano })``;
 const KeyGroup = styled.li``;
 const WhiteKey = styled.div.attrs(props => ({ className: classNames(styles.whiteKey, { [styles.active]: props.pressed }) }))``;
 const BlackKey = styled.span.attrs(props => ({ className: classNames(styles.blackKey, { [styles.active]: props.pressed }) }))``;
+const KeyLabel = styled.span.attrs(props => ({ className: styles.keyLabel }))``;
 
 const Label = styled(Paragraph)`
   color: #f2f2f2;
@@ -34,46 +35,30 @@ const Link = styled(Anchor)`
 
 import styles from './styles.scss';
 
-const pianoKeys = [
-
-  { whiteKeyId: 48 },
-  { blackKeyId: 49, whiteKeyId: 50 },
-  { blackKeyId: 51, whiteKeyId: 52 },
-  { whiteKeyId: 53 },
-  { blackKeyId: 54, whiteKeyId: 55 },
-  { blackKeyId: 56, whiteKeyId: 57 },
-  { blackKeyId: 58, whiteKeyId: 59 },
-
-  { whiteKeyId: 60 },
-  { blackKeyId: 61, whiteKeyId: 62 },
-  { blackKeyId: 63, whiteKeyId: 64 },
-  { whiteKeyId: 65 },
-  { blackKeyId: 66, whiteKeyId: 67 },
-  { blackKeyId: 68, whiteKeyId: 69 },
-  { blackKeyId: 70, whiteKeyId: 71 },
-
-  { whiteKeyId: 72 },
-  { blackKeyId: 73, whiteKeyId: 74 },
-  { blackKeyId: 75, whiteKeyId: 76 },
-  { whiteKeyId: 77 },
-  { blackKeyId: 78, whiteKeyId: 79 },
-  { blackKeyId: 80, whiteKeyId: 81 },
-  { blackKeyId: 82, whiteKeyId: 83 },
-
-  { whiteKeyId: 84 },
-  { blackKeyId: 85, whiteKeyId: 86 },
-  { blackKeyId: 87, whiteKeyId: 88 },
-  { whiteKeyId: 89 },
-  { blackKeyId: 90, whiteKeyId: 91 },
-  { blackKeyId: 92, whiteKeyId: 93 },
-  { blackKeyId: 94, whiteKeyId: 95 },
-
-];
+const createPianoKeys = (lower, upper) => {
+  const lowerMidi = findMidiNote(lower);
+  const upperMidi = findMidiNote(upper);
+  const pianoKeys = [];
+  for (let midi = lowerMidi; midi <= upperMidi;) {
+    pianoKeys.push(
+      { whiteKeyId: midi },
+      { blackKeyId: ++midi, whiteKeyId: ++midi },
+      { blackKeyId: ++midi, whiteKeyId: ++midi },
+      { whiteKeyId: ++midi },
+      { blackKeyId: ++midi, whiteKeyId: ++midi },
+      { blackKeyId: ++midi, whiteKeyId: ++midi },
+      { blackKeyId: ++midi, whiteKeyId: ++midi },
+    );
+    midi++;
+  }
+  return pianoKeys;
+};
 
 export default ({ onOpenSupport }) => {
 
   const [state, dispatch] = useContext(Context);
   const [keysPressed, setKeysPressed] = useState([]);
+  const [pianoKeys, setPianoKeys] = useState([]);
   const { t } = useTranslation();
 
   useEffect(() => setKeysPressed(state.midi.map(midiKey => findMidiNote(midiKey))), [state.midi]);
@@ -88,9 +73,16 @@ export default ({ onOpenSupport }) => {
 
   };
 
+  useEffect(() => {
+    const [lower, upper] = state.config.clef === 'treble'
+      ? ['C/3', 'B/6']
+      : ['C/1', 'B/4'];
+    setPianoKeys(createPianoKeys(lower, upper));
+  }, [state.config.clef]);
+
   return <Wrapper>
     <Keyboard>
-      { pianoKeys.map((key) =>
+      { pianoKeys.map((key, idx) =>
         <KeyGroup key={key.whiteKeyId}>
           <WhiteKey
             pressed={isKeyPressed(key.whiteKeyId)}
@@ -101,6 +93,9 @@ export default ({ onOpenSupport }) => {
               pressed={isKeyPressed(key.blackKeyId)}
               onClick={() => onKeyPressed(key.blackKeyId)}
             />}
+          { (idx === 0 || idx === pianoKeys.length - 1) &&
+            <KeyLabel>{findNotes(key.whiteKeyId)}</KeyLabel>
+          }
         </KeyGroup>
       )}
     </Keyboard>

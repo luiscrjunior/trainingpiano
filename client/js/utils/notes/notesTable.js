@@ -85,3 +85,5 @@ export const findMidiNote = (noteName) => {
   }
   return null;
 };
+
+export const findNotes = midiNote => notesTable[Number.isInteger(midiNote) ? midiNote.toString() : midiNote];
