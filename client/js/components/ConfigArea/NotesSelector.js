@@ -8,20 +8,36 @@ import { Context } from 'store';
 const Selector = styled.div`
 `;
 
+const allNotes = [
+  { octave: '1', lower: 'C/1', upper: 'B/1', selected: false },
+  { octave: '2', lower: 'C/2', upper: 'B/2', selected: false },
+  { octave: '3', lower: 'C/3', upper: 'B/3', selected: false },
+  { octave: '4', lower: 'C/4', upper: 'B/4', selected: false },
+  { octave: '5', lower: 'C/5', upper: 'B/5', selected: false },
+  { octave: '6', lower: 'C/6', upper: 'B/6', selected: false },
+];
+
 export default ({ onChange }) => {
 
   const [state, dispatch] = useContext(Context);
 
-  const [notes, setNotes] = useState([
-    { lower: 'C/3', upper: 'B/3', selected: false },
-    { lower: 'C/4', upper: 'B/4', selected: false },
-    { lower: 'C/5', upper: 'B/5', selected: false },
-    { lower: 'C/6', upper: 'B/6', selected: false },
-  ]);
+  const [notes, setNotes] = useState([]);
 
   useEffect(() => {
     updateNotes();
   }, [state.config.lowerNote, state.config.upperNote]);
+
+  useEffect(() => {
+    /* reset available octaves */
+    const availableClefs = state.config.clef === 'treble'
+      ? ['3', '4', '5', '6']
+      : ['1', '2', '3', '4'];
+    setNotes(allNotes
+      .filter(note => availableClefs.includes(note.octave))
+      .map(note => ({ ...note, selected: isSelected(note) }))
+    );
+    onChange(`C/${availableClefs[1]}`, `B/${availableClefs[2]}`);
+  }, [state.config.clef]);
 
   const isSelected = (note) => (
     findMidiNote(note.lower) >= findMidiNote(state.config.lowerNote) &&
