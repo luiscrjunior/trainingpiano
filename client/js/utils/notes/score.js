@@ -1,8 +1,23 @@
-export const getNotesScore = (notes, config) => {
+const clefPoints = {
+  'treble': {
+    '3': 7,
+    '4': 5,
+    '5': 5,
+    '6': 7,
+  },
+  'bass': {
+    '1': 12,
+    '2': 9,
+    '3': 9,
+    '4': 12,
+  },
+};
+
+export const getNotesScore = (notes, showNotesName, clef) => {
 
   let score = 0;
 
-  if (config.showNotesName) {
+  if (showNotesName) {
     return notes.length;
   }
 
@@ -12,13 +27,9 @@ export const getNotesScore = (notes, config) => {
     if (!noteParts) return;
     const noteName = noteParts[1];
     const accidental = noteParts[2] || null;
-    const octave = parseInt(noteParts[3]) || 0;
+    const octave = noteParts[3] || 0;
 
-    if (octave === 4 || octave === 5) { /* default value per note */
-      score += 5;
-    } else if (octave === 3 || octave === 6) { /* octaves 3 or 6: more valuable */
-      score += 7;
-    };
+    score += clefPoints[clef] && clefPoints[clef][octave] ? clefPoints[clef][octave] : 0;
 
     if (accidental) score += 3;
 

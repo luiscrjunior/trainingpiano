@@ -31,7 +31,7 @@ export default () => {
 
     if (state.userHasScored()) { /* user pressed the correct keys */
       const newNotes = generateRandomNotes(state.config);
-      const score = getNotesScore(state.notes, state.config);
+      const score = getNotesScore(state.notes, state.config.showNotesName, state.config.clef);
       dispatch({ type: 'UPDATE_NOTES', value: newNotes });
       dispatch({ type: 'UPDATE_MIDI', value: [] });
       dispatch({ type: 'UPDATE_STATS', value: { hits: state.stats.hits + 1, score: state.stats.score + score } });
