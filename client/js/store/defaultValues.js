@@ -6,6 +6,7 @@ export default {
     hits: 0,
     miss: 0,
     score: 0,
+    attempts: 0,
     status: 'not_started', /* not_started, in_progress, canceled, completed */
   },
   notes: [],

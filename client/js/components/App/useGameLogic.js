@@ -16,7 +16,7 @@ export default () => {
       const newNotes = generateRandomNotes(state.config);
       dispatch({ type: 'UPDATE_NOTES', value: newNotes });
       dispatch({ type: 'UPDATE_MIDI', value: [] });
-      dispatch({ type: 'UPDATE_STATS', value: { hits: 0, miss: 0, score: 0, status: 'in_progress' } });
+      dispatch({ type: 'UPDATE_STATS', value: { hits: 0, miss: 0, attempts: 0, score: 0, status: 'in_progress' } });
     };
 
     if (state.status === 'idle') {
@@ -31,12 +31,15 @@ export default () => {
 
     if (state.userHasScored()) { /* user pressed the correct keys */
       const newNotes = generateRandomNotes(state.config);
-      const score = getNotesScore(state.notes, state.config.showNotesName, state.config.clef);
+      const notesScore = getNotesScore(state.notes, state.config.showNotesName, state.config.clef);
       dispatch({ type: 'UPDATE_NOTES', value: newNotes });
       dispatch({ type: 'UPDATE_MIDI', value: [] });
-      dispatch({ type: 'UPDATE_STATS', value: { hits: state.stats.hits + 1, score: state.stats.score + score } });
+      const hits = state.stats.attempts === 0 ? 1 : 0;
+      const score = state.stats.attempts === 0 ? notesScore : 0;
+      dispatch({ type: 'UPDATE_STATS', value: { hits: state.stats.hits + hits, attempts: 0, score: state.stats.score + score } });
     } else if (state.userHasMissed()) {
-      dispatch({ type: 'UPDATE_STATS', value: { miss: state.stats.miss + 1 } });
+      const miss = state.stats.attempts === 0 ? 1 : 0;
+      dispatch({ type: 'UPDATE_STATS', value: { miss: state.stats.miss + miss, attempts: state.stats.attempts + 1 } });
     }
 
   }, [state.midi]);
@@ -52,7 +55,7 @@ export default () => {
 
   const resetSequence = () => {
     trackEvent({ action: `Exercise ${state.stats.status}`, value: state.stats, numericValue: state.stats.score });
-    dispatch({ type: 'UPDATE_STATS', value: { hits: 0, miss: 0, score: 0, status: 'not_started' } });
+    dispatch({ type: 'UPDATE_STATS', value: { hits: 0, miss: 0, attempts: 0, score: 0, status: 'not_started' } });
     setShowFinishedPanel(false);
   };
 
