@@ -13,7 +13,7 @@ import Countdown from 'components/Countdown';
 import Statistics from 'components/Statistics';
 import MidiController from 'components/MidiController';
 import LanguageSelector from 'components/LanguageSelector';
-import Keyboard from 'components/Keyboard';
+import VirtualPiano from 'components/VirtualPiano';
 import ShareBar from 'components/ShareBar';
 
 import { Trans, useTranslation } from 'react-i18next';
@@ -97,7 +97,7 @@ const App = () => {
 
     { state.status === 'configuring' && <StartPanel /> }
 
-    <Section><Keyboard onOpenSupport={ () => setShowNotSupportedPanel(true) } /></Section>
+    <Section><VirtualPiano onOpenSupport={ () => setShowNotSupportedPanel(true) } /></Section>
 
     <Section><Paragraph size={14}><em><Trans i18nKey='msg_footer'>Still in <strong>beta</strong>. Soon, we will add F Clef, user ranking and other features... Feedback? <a href='mailto:contact@trainingpiano.com'>contact@trainingpiano.com</a></Trans></em></Paragraph></Section>
 

@@ -7,13 +7,7 @@
  * Good luck!
  */
 
- .wrapper > * {
-  margin:0px;
-  padding:0px;
-  list-style:none;
-}
-
-.wrapper {
+ .wrapper {
   background:#000;
   background:linear-gradient(-60deg,#000,#333,#000,#666,#333 70%);
   width: 867px;
@@ -35,6 +29,7 @@ ul.piano {
   width:100%;
   height:190px;
   border-top:2px solid #222;
+  list-style:none;
 }
 
 ul.piano li {
@@ -45,9 +40,10 @@ ul.piano li {
   width:30px;
   position:relative;
   cursor: pointer;
+  list-style:none;
 }
 
-ul.piano li a,ul.piano li div.anchor {
+ul.piano li div.white-key {
   display:block;
   height:190px;
   background:#fff;
@@ -57,11 +53,7 @@ ul.piano li a,ul.piano li div.anchor {
   border-radius:0 0 3px 3px;
 }
 
-ul.piano li.middlec a,ul.piano li.middlec div.anchor {
-  background: #dddddd;
-}
-
-ul.piano li div.anchor.active {
+ul.piano li div.white-key.active {
   background:linear-gradient(-30deg,#ddd,#fff, #fff, #fff);
   box-shadow:0 2px 2px rgba(0,0,0,0.4);
   position:relative;
@@ -69,7 +61,7 @@ ul.piano li div.anchor.active {
   height:190px;
 }
 
-ul.piano li div.anchor.active:before {
+ul.piano li div.white-key.active:before {
   content:"";
   width:0px;
   height:0px;
@@ -81,7 +73,7 @@ ul.piano li div.anchor.active:before {
   top:0px;
 }
 
-ul.piano li div.anchor.active:after {
+ul.piano li div.white-key.active:after {
   content:"";
   width:0px;
   height:0px;
@@ -94,7 +86,7 @@ ul.piano li div.anchor.active:after {
 }
 
 /* Black Tuts */
-ul.piano li span {
+ul.piano li span.black-key {
   position:absolute;
   top:0px;
   left:-12px;
@@ -110,7 +102,7 @@ ul.piano li span {
   border-radius:0 0 2px 2px;
 }
 
-ul.piano li span.active {
+ul.piano li span.black-key.active {
   border-bottom-width:2px;
   height:118px;
   background:linear-gradient(-20deg,#ddd,#000,#333);

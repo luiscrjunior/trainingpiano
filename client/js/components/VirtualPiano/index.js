@@ -12,8 +12,8 @@ import styled from 'styled-components';
 const Wrapper = styled.div.attrs({ className: styles.wrapper })``;
 const Keyboard = styled.ul.attrs({ className: styles.piano })``;
 const KeyGroup = styled.li``;
-const WhiteKey = styled.div.attrs(props => ({ className: classNames(styles.anchor, { [styles.active]: props.pressed }) }))``;
-const BlackKey = styled.span.attrs(props => ({ className: classNames({ [styles.active]: props.pressed }) }))``;
+const WhiteKey = styled.div.attrs(props => ({ className: classNames(styles.whiteKey, { [styles.active]: props.pressed }) }))``;
+const BlackKey = styled.span.attrs(props => ({ className: classNames(styles.blackKey, { [styles.active]: props.pressed }) }))``;
 
 const Label = styled(Paragraph)`
   color: #f2f2f2;
