@@ -1,5 +1,5 @@
 {
-  "msg_header": "Plug your MIDI keyboard/piano and improve your skills hitting the correct notes.",
+  "msg_welcome": "Click below to start the exercise. Try to hit maximum notes in 30 seconds. The greater the difficulty, the higher the score.",
   "msg_footer": "Still in <1>beta</1>. Soon, we will add key signatures, ranking and other features... Feedback? <3>contact@trainingpiano.com</3>",
   "btn_cancel": "Cancel",
   "btn_start_exercise": "Start exercise...",

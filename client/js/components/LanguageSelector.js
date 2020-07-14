@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 
 const LanguageSelector = styled.select`
-  margin-top: 20px;
   padding: 3px 8px 3px 8px;
   font-size: 12px;
   background-color: #fff;

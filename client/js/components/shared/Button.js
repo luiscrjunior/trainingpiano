@@ -25,10 +25,12 @@ export const Button = (props) => {
 
 };
 
-export const ActionButton = ({ size, label, icon, ...props }) => <Button btnStyle='primary' btnSize='lg' {...props}>
-  <Icon icon={icon || ['fas', 'fa-play-circle']} color='#fff' size={size || 24} right={10}/>
-  <Span color='#fff' size={size || 24} bold>{label}</Span>
-</Button>;
+export const ActionButton = styled(({ size, label, icon, ...props }) => <Button btnStyle='primary' btnSize='md' {...props}>
+  <Icon icon={icon || ['fas', 'fa-play-circle']} color='#fff' size={size || 16} right={10}/>
+  <Span color='#fff' size={size || 16} bold>{label}</Span>
+</Button>)`
+  padding: 10px 20px;
+`;
 
 export const CancelButton = styled(ActionButton).attrs(props => ({
   btnStyle: 'danger',

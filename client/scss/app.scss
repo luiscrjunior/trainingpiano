@@ -1,4 +1,4 @@
-html, body {
+html, body, #app {
   margin: 0;
   padding: 0;
   width: 100%;
@@ -64,4 +64,5 @@ select {
 
 @import '~@trendmicro/react-buttons/dist/react-buttons.css';
 @import 'react-toggle.scss';
+@import 'react-buttons.scss';
 @import 'animations.scss';

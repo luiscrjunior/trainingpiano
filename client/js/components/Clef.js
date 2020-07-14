@@ -5,6 +5,10 @@ import { translateNote, notesThatMatch } from 'app/utils';
 import { useTranslation } from 'react-i18next';
 import { Context } from 'store';
 
+import styled from 'styled-components';
+
+const Container = styled.div``;
+
 const VF = Vex.Flow;
 
 const App = () => {
@@ -18,10 +22,10 @@ const App = () => {
 
   const renderContainer = () => {
     const renderer = new VF.Renderer(containerRef.current, VF.Renderer.Backends.SVG);
-    renderer.resize(460, 360);
+    renderer.resize(550, 330);
     context.current = renderer.getContext();
     context.current.setFont('Arial', 10, '').setBackgroundFillStyle('#eed');
-    context.current.scale(2, 2); //size
+    context.current.scale(2, 2); //zoom
   };
 
   const renderStave = () => {
@@ -29,7 +33,7 @@ const App = () => {
       context.current.clear();
       if (group.current) group.current = null;
     }
-    stave.current = new VF.Stave(0, 30, 200);
+    stave.current = new VF.Stave(25, 20, 230);
     stave.current.addClef(state.config.clef);
     stave.current.setContext(context.current);
     stave.current.draw();
@@ -81,8 +85,8 @@ const App = () => {
     if (voiceMidi) Vex.Flow.Accidental.applyAccidentals([voiceMidi]);
 
     /* format each voice individually to overlap them */
-    if (voiceNotes) new VF.Formatter().joinVoices([voiceNotes]).format([voiceNotes], 160);
-    if (voiceMidi) new VF.Formatter().joinVoices([voiceMidi]).format([voiceMidi], 160);
+    if (voiceNotes) new VF.Formatter().joinVoices([voiceNotes]).format([voiceNotes], 130);
+    if (voiceMidi) new VF.Formatter().joinVoices([voiceMidi]).format([voiceMidi], 130);
 
     group.current = context.current.openGroup();
     if (voiceNotes) voiceNotes.draw(context.current, stave.current);
@@ -135,7 +139,7 @@ const App = () => {
     renderNotes();
   }, [state.notes, state.midi]);
 
-  return <div ref={containerRef} />;
+  return <Container ref={containerRef} />;
 
 };
 

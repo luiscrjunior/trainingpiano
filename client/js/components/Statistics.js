@@ -7,44 +7,51 @@ import { Icon, Span, Paragraph } from 'components/shared';
 import styled from 'styled-components';
 
 const Board = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   width: 100%;
   padding: 0;
-  margin-bottom: 30px;
-  border: 3px solid #0096cc;
-  border-radius: 10px;
-`;
-
-const BadgeLine = styled.div`
-  display: flex;
-  justify-content: center;
+  margin: 0;
 `;
 
 const Badge = styled.div`
-  display: inline-block;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-basis: 33.33%;
+  margin-left: 5px;
   padding: 10px;
-  border-radius: 5px;
-  background-color: #0096cc;
-  margin: 0 20px;
+  background-color: ${props => props.bgColor};
+  box-shadow: 1px 1px 1px 0 #ddd;
+  border-radius: 3px;
+
+  &:first-child { margin-left: 0; }
 `;
 
-const Title = styled(Paragraph)`
-  font-size: 16px;
-  text-transform: uppercase;
-  margin-top: 0;
-  margin-bottom: 30px;
-  padding: 10px 0;
-  background-color: #0096cc;
+const ScoreHeader = styled(Paragraph)`
+  font-size: 14px;
   color: #fff;
-  text-align: center;
 `;
 
-const GameStatus = styled(Title)`
-  margin-top: 20px;
-  margin-bottom: 0;
-  font-size: 12px;
-  padding: 10px;
-  background-color: transparent;
-  color: #0096cc;
+const ScoreContent = styled.div`
+  display: flex;
+  margin-top: 5px;
+  flex-direction: row;
+  align-items: center;
+`;
+
+const ScoreIcon = styled(Icon)`
+  font-size: 18px;
+  color: #fff;
+`;
+
+const ScorePoints = styled(Span)`
+  margin-left: 10px;
+  font-size: 24px;
+  font-weight: 700;
+  color: #fff;
 `;
 
 export default () => {
@@ -54,33 +61,29 @@ export default () => {
 
   return <Board>
 
-    <Title>{t('lbl_results')}</Title>
+    <Badge bgColor='green'>
+      <ScoreHeader>{t('lbl_correct_notes')}</ScoreHeader>
+      <ScoreContent>
+        <ScoreIcon icon={['fas', 'fa-thumbs-up']} />
+        <ScorePoints>{state.stats.hits}</ScorePoints>
+      </ScoreContent>
+    </Badge>
 
-    <BadgeLine>
+    <Badge bgColor='red'>
+      <ScoreHeader>{t('lbl_missed_notes')}</ScoreHeader>
+      <ScoreContent>
+        <ScoreIcon icon={['fas', 'fa-times']} />
+        <ScorePoints>{state.stats.miss}</ScorePoints>
+      </ScoreContent>
+    </Badge>
 
-      <Badge>
-        <Icon icon={['fas', 'fa-thumbs-up']} size={20} color='#fff' right={10}/>
-        <Span size={20} color='#fff' bold>{state.stats.hits}</Span>
-      </Badge>
-
-      <Badge>
-        <Icon icon={['fas', 'fa-times']} size={20} color='#fff' right={10}/>
-        <Span size={20} color='#fff' bold>{state.stats.miss}</Span>
-      </Badge>
-
-      <Badge>
-        <Icon icon={['fas', 'fa-star']} size={20} color='#fff' right={10}/>
-        <Span size={20} color='#fff' bold>{state.stats.score}</Span>
-      </Badge>
-
-    </BadgeLine>
-
-    <GameStatus>
-      { state.stats.status === 'not_started' && t('lbl_exercise_not_started') }
-      { state.stats.status === 'in_progress' && t('lbl_exercise_in_progress') }
-      { state.stats.status === 'canceled' && t('lbl_exercise_canceled') }
-      { state.stats.status === 'completed' && t('lbl_exercise_completed') }
-    </GameStatus>
+    <Badge bgColor='#0091EA'>
+      <ScoreHeader>{t('lbl_score')}</ScoreHeader>
+      <ScoreContent>
+        <ScoreIcon icon={['fas', 'fa-star']} />
+        <ScorePoints>{state.stats.score}</ScorePoints>
+      </ScoreContent>
+    </Badge>
 
   </Board>;
 

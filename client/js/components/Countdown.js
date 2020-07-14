@@ -11,14 +11,13 @@ const Area = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 20px;
-  margin-bottom: 20px;
 `;
 
 const CountdownLabel = styled(Span)`
-  font-size: 60px;
-  color: #0096cc;
+  font-size: 70px;
+  color: #424242;
   font-weight: 300;
+  letter-spacing: -3px;
 `;
 
 export default () => {
@@ -40,9 +39,8 @@ export default () => {
   };
 
   return <Area>
-    <Icon icon={['fas', 'fa-clock']} size={30} color='#0096cc' right={15} />
     <Countdown
-      autoStart={true}
+      autoStart={false}
       date={date}
       renderer={renderer}
       onComplete={onComplete}
