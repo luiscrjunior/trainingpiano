@@ -40,7 +40,7 @@ export default () => {
 
   return <Area>
     <Countdown
-      autoStart={false}
+      autoStart={true}
       date={date}
       renderer={renderer}
       onComplete={onComplete}
