@@ -53,7 +53,7 @@ const CloseIcon = styled(Icon).attrs(props => ({
   icon: ['fas', 'fa-window-close'],
 }))`
   font-size: 26px;
-  color: #0096cc;
+  color: #0091EA;
 `;
 
 const CloseButton = styled(props => <BaseAnchor {...props}><CloseIcon /></BaseAnchor>)`

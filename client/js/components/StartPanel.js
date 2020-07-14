@@ -23,7 +23,7 @@ export default () => {
   return <FloatingPanel onClose={onClose} title={t('lbl_start_exercise')}>
     <ConfigArea />
     <ButtonArea>
-      <ActionButton size={20} label={t('btn_start')} onClick={onStart}/>
+      <ActionButton size={16} label={t('btn_start')} onClick={onStart}/>
     </ButtonArea>
   </FloatingPanel>;
 

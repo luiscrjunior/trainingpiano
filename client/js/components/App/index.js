@@ -12,13 +12,12 @@ import FinishedPanel from 'components/FinishedPanel';
 import Countdown from 'components/Countdown';
 import Statistics from 'components/Statistics';
 import MidiController from 'components/MidiController';
-import LanguageSelector from 'components/LanguageSelector';
 import VirtualPiano from 'components/VirtualPiano';
-import ShareBar from 'components/ShareBar';
 
 import { Trans, useTranslation } from 'react-i18next';
 import useAnalytics from './useAnalytics';
 import useGameLogic from './useGameLogic';
+import Footer from './Footer';
 
 const Page = styled.div`
   display: flex;
@@ -117,26 +116,6 @@ const WelcomeMessage = styled(Paragraph)`
   font-weight: 300;
 `;
 
-const Footer = styled.div`
-  display: flex;
-  width: 867px;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  margin-top: 70px;
-`;
-
-const FooterLeft = styled.div`
-`;
-
-const FooterCenter = styled.div`
-  margin-left: 70px;
-`;
-
-const FooterRight = styled.div`
-  margin-left: 70px;
-`;
-
 const App = () => {
 
   const [state, dispatch] = useContext(Context);
@@ -183,17 +162,7 @@ const App = () => {
       <VirtualPiano onOpenSupport={ () => setShowNotSupportedPanel(true) } />
     </GamePanel>
 
-    <Footer>
-      <FooterLeft>
-        <ShareBar />
-      </FooterLeft>
-      <FooterCenter>
-        <Paragraph color={'#aaa'}>© Copyright 2020</Paragraph>
-      </FooterCenter>
-      <FooterRight>
-        <LanguageSelector />
-      </FooterRight>
-    </Footer>
+    <Footer />
 
     <MidiController />
 
@@ -204,10 +173,6 @@ const App = () => {
     { showNotSupportedPanel && <NotSupportedPanel onClose={ () => setShowNotSupportedPanel(false) } /> }
 
   </Page>;
-
-  //   <Section><Paragraph size={14}><em><Trans i18nKey='msg_footer'>Still in <strong>beta</strong>. Soon, we will add F Clef, user ranking and other features... Feedback? <a href='mailto:contact@trainingpiano.com'>contact@trainingpiano.com</a></Trans></em></Paragraph></Section>
-  //   <Section></Section>
-  //   <Section></Section>
 
 };
 
