@@ -63,8 +63,10 @@ const GameHeader = styled.div`
 `;
 
 const Logo = styled(Paragraph)`
-  font-size: 18px;
+  margin-left: 10px;
+  font-size: 22px;
   color: #f2f2f2;
+  font-weight: 300;
 `;
 
 const GameContent = styled.div`
@@ -132,7 +134,8 @@ const App = () => {
     <GamePanel>
 
       <GameHeader>
-        <Logo>trainingpiano.com</Logo>
+        <img src='images/piano.png' width={26} />
+        <Logo>training<strong>piano</strong></Logo>
       </GameHeader>
 
       <GameContent>
