@@ -33,7 +33,7 @@ const App = () => {
       context.current.clear();
       if (group.current) group.current = null;
     }
-    stave.current = new VF.Stave(25, 20, 230);
+    stave.current = new VF.Stave(30, 20, 210);
     stave.current.addClef(state.config.clef);
     stave.current.setContext(context.current);
     stave.current.draw();
@@ -117,7 +117,7 @@ const App = () => {
     notes.forEach(note => {
       const svgNS = 'http://www.w3.org/2000/svg';
       const newText = document.createElementNS(svgNS, 'text');
-      newText.setAttributeNS(null, 'x', 205);
+      newText.setAttributeNS(null, 'x', 245);
       newText.setAttributeNS(null, 'y', note.y + 3);
       newText.setAttributeNS(null, 'font-size', '8');
       const textNode = document.createTextNode(translateNote(note.key, t('notes')));
