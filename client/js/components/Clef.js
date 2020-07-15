@@ -13,7 +13,11 @@ const VF = Vex.Flow;
 
 const App = () => {
 
-  const [state, dispatch] = useContext(Context);
+  const midi = useSelector(state => state.midi);
+  const notes = useSelector(state => state.notes);
+  const config = useSelector(state => state.config);
+  const userHasScored = useSelector(state => state.userHasScored());
+  const userHasMissed = useSelector(state => state.userHasMissed());
   const containerRef = useRef();
   let context = useRef(null);
   let stave = useRef(null);
@@ -34,7 +38,7 @@ const App = () => {
       if (group.current) group.current = null;
     }
     stave.current = new VF.Stave(30, 20, 210);
-    stave.current.addClef(state.config.clef);
+    stave.current.addClef(config.clef);
     stave.current.setContext(context.current);
     stave.current.draw();
   };
@@ -57,27 +61,27 @@ const App = () => {
 
     let voiceNotes = null;
     let voiceMidi = null;
-    const matchNotes = notesThatMatch(state.midi, state.notes);
+    const matchNotes = notesThatMatch(midi, notes);
 
     /* random notes */
-    if (state.notes && state.notes.length > 0) {
+    if (notes && notes.length > 0) {
       voiceNotes = new VF.Voice({ num_beats: 4, beat_value: 4 });
-      const notes = [
-        new VF.StaveNote({ clef: state.config.clef, keys: state.notes, duration: 'w', align_center: true }),
+      const staveNotes = [
+        new VF.StaveNote({ clef: config.clef, keys: notes, duration: 'w', align_center: true }),
       ];
-      voiceNotes.addTickables(notes);
+      voiceNotes.addTickables(staveNotes);
     }
 
     /* midi notes */
-    if (state.midi && state.midi.length > 0) {
+    if (midi && midi.length > 0) {
       voiceMidi = new VF.Voice({ num_beats: 4, beat_value: 4 });
-      const midiStaveNote = new VF.StaveNote({ clef: state.config.clef, keys: state.midi, duration: 'w', align_center: true });
+      const midiStaveNote = new VF.StaveNote({ clef: config.clef, keys: midi, duration: 'w', align_center: true });
       midiStaveNote.setStyle({ fillStyle: '#aaa' });
       matchNotes.forEach(matchNoteIdx => {
         midiStaveNote.setKeyStyle(matchNoteIdx, { fillStyle: 'green' });
       });
-      const notes = [midiStaveNote];
-      voiceMidi.addTickables(notes);
+      const staveNotes = [midiStaveNote];
+      voiceMidi.addTickables(staveNotes);
     }
 
     /* apply accidentals automatically (individually) */
@@ -94,12 +98,13 @@ const App = () => {
     context.current.closeGroup();
 
     /* print label */
-    if (voiceNotes && state.config.showNotesName) printNotesLabel(voiceNotes);
+    if (voiceNotes && config.showNotesName) printNotesLabel(voiceNotes);
 
     /* print ghost notes to be animated */
-    if (state.userHasScored()) {
+    if (userHasScored) {
       drawGhostNotes(true, voiceNotes.getTickables()[0].attrs.el);
-    } else if (state.userHasMissed()) {
+    }
+    if (userHasMissed) {
       drawGhostNotes(false, voiceNotes.getTickables()[0].attrs.el);
     }
   };
@@ -133,11 +138,11 @@ const App = () => {
 
   useEffect(() => {
     renderStave();
-  }, [state.config.clef]);
+  }, [config.clef]);
 
   useEffect(() => {
     renderNotes();
-  }, [state.notes, state.midi]);
+  }, [notes, midi]);
 
   return <Container ref={containerRef} />;
 

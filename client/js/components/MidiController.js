@@ -6,19 +6,22 @@ import { useSelector, useDispatch } from 'react-redux';
 
 export default () => {
 
-  const [state, dispatch] = useContext(Context);
+  const midi = useSelector(state => state.midi);
+  const notes = useSelector(state => state.notes);
+  const config = useSelector(state => state.config);
+  const dispatch = useDispatch();
 
   const handleMidiInput = useCallback((message) => {
     const [ command, midiNote ] = message.data;
 
     switch (command) {
     case 128: {
-      const newNotes = removeNoteFromMidi(midiNote, state.midi);
+      const newNotes = removeNoteFromMidi(midiNote, midi);
       dispatch({ type: 'UPDATE_MIDI', value: newNotes });
       break;
     }
     case 144: {
-      const newNotes = addNoteToMidi(midiNote, state.midi, state.notes);
+      const newNotes = addNoteToMidi(midiNote, midi, notes);
       dispatch({ type: 'UPDATE_MIDI', value: newNotes });
       break;
     }
@@ -27,9 +30,9 @@ export default () => {
 
   const handleKeyDown = useCallback((e) => {
     if (e.key === 'ArrowRight' && !e.repeat) { /* correct notes */
-      dispatch({ type: 'UPDATE_MIDI', value: [...state.notes] });
+      dispatch({ type: 'UPDATE_MIDI', value: [...notes] });
     } else if (e.key === 'ArrowLeft' && !e.repeat) { /* random notes (wrong) */
-      dispatch({ type: 'UPDATE_MIDI', value: generateRandomNotes(state.config) });
+      dispatch({ type: 'UPDATE_MIDI', value: generateRandomNotes(config) });
     }
   });
 
@@ -48,7 +51,7 @@ export default () => {
         document.removeEventListener('keydown', handleKeyDown);
         document.removeEventListener('keyup', handleKeyUp);
       };
-    }, [state.notes]);
+    }, [notes]);
   }
 
   useEffect(() => {
@@ -66,14 +69,14 @@ export default () => {
   }, []);
 
   useEffect(() => {
-    if (state.config.midiInput !== null) {
-      state.config.midiInput.addEventListener('midimessage', handleMidiInput);
-      window.localStorage.setItem('midiDevice', state.config.midiInput.id);
+    if (config.midiInput !== null) {
+      config.midiInput.addEventListener('midimessage', handleMidiInput);
+      window.localStorage.setItem('midiDevice', config.midiInput.id);
       return () => {
-        state.config.midiInput.removeEventListener('midimessage', handleMidiInput);
+        config.midiInput.removeEventListener('midimessage', handleMidiInput);
       };
     }
-  }, [state.config.midiInput, handleMidiInput]);
+  }, [config.midiInput, handleMidiInput]);
 
   return null;
 

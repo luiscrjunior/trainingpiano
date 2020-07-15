@@ -19,17 +19,16 @@ const allNotes = [
 
 export default ({ onChange }) => {
 
-  const [state, dispatch] = useContext(Context);
-
+  const config = useSelector(state => state.config);
   const [notes, setNotes] = useState([]);
 
   useEffect(() => {
     updateNotes();
-  }, [state.config.lowerNote, state.config.upperNote]);
+  }, [config.lowerNote, config.upperNote]);
 
   useEffect(() => {
     /* reset available octaves */
-    const availableClefs = state.config.clef === 'treble'
+    const availableClefs = config.clef === 'treble'
       ? ['3', '4', '5', '6']
       : ['1', '2', '3', '4'];
     setNotes(allNotes
@@ -37,11 +36,11 @@ export default ({ onChange }) => {
       .map(note => ({ ...note, selected: isSelected(note) }))
     );
     onChange(`C/${availableClefs[1]}`, `B/${availableClefs[2]}`);
-  }, [state.config.clef]);
+  }, [config.clef]);
 
   const isSelected = (note) => (
-    findMidiNote(note.lower) >= findMidiNote(state.config.lowerNote) &&
-    findMidiNote(note.upper) <= findMidiNote(state.config.upperNote)
+    findMidiNote(note.lower) >= findMidiNote(config.lowerNote) &&
+    findMidiNote(note.upper) <= findMidiNote(config.upperNote)
   );
 
   const updateNotes = () => {

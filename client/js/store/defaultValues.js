@@ -33,10 +33,13 @@ export default {
   },
 
   userHasMissed: function () {
+    const matchNotes = notesThatMatch(this.midi, this.notes);
     return (
+      this.status === 'running' &&
       this.notes.length > 0 &&
       this.midi.length > 0 &&
-      this.midi.length >= this.notes.length
+      this.midi.length >= this.notes.length &&
+      matchNotes.length !== this.notes.length
     );
   },
 };

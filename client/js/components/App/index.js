@@ -129,7 +129,6 @@ const App = () => {
   /* setup Google Analytics and Facebook Pixel */
   setupAnalytics();
 
-
   return <Page>
 
     <GamePanel>

@@ -51,11 +51,11 @@ const ScorePoints = styled(Paragraph)`
 
 export default ({ onClose }) => {
 
-  const [state, dispatch] = useContext(Context);
+  const stats = useSelector(state => state.stats);
   const { t } = useTranslation();
 
   let title;
-  switch (state.stats.status) {
+  switch (stats.status) {
   case 'completed':
     title = t('lbl_finished');
     break;
@@ -73,19 +73,19 @@ export default ({ onClose }) => {
       <Metric bgColor='green'>
         <ScoreHeader>{t('lbl_correct_notes')}</ScoreHeader>
         <ScoreIcon icon={['fas', 'fa-thumbs-up']} />
-        <ScorePoints>{state.stats.hits}</ScorePoints>
+        <ScorePoints>{stats.hits}</ScorePoints>
       </Metric>
 
       <Metric bgColor='red'>
         <ScoreHeader>{t('lbl_missed_notes')}</ScoreHeader>
         <ScoreIcon icon={['fas', 'fa-times']} />
-        <ScorePoints>{state.stats.miss}</ScorePoints>
+        <ScorePoints>{stats.miss}</ScorePoints>
       </Metric>
 
       <Metric bgColor='#0091EA'>
         <ScoreHeader>{t('lbl_score')}</ScoreHeader>
         <ScoreIcon icon={['fas', 'fa-star']} />
-        <ScorePoints>{state.stats.score}</ScorePoints>
+        <ScorePoints>{stats.score}</ScorePoints>
       </Metric>
 
     </Wrapper>

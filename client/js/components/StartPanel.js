@@ -9,7 +9,7 @@ import { ActionButton } from 'components/shared';
 
 export default () => {
 
-  const [state, dispatch] = useContext(Context);
+  const dispatch = useDispatch();
   const { t } = useTranslation();
 
   const onClose = () => {

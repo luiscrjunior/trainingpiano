@@ -56,7 +56,7 @@ const ScorePoints = styled(Span)`
 
 export default () => {
 
-  const [state, dispatch] = useContext(Context);
+  const stats = useSelector(state => state.stats);
   const { t } = useTranslation();
 
   return <Board>
@@ -65,7 +65,7 @@ export default () => {
       <ScoreHeader>{t('lbl_correct_notes')}</ScoreHeader>
       <ScoreContent>
         <ScoreIcon icon={['fas', 'fa-thumbs-up']} />
-        <ScorePoints>{state.stats.hits}</ScorePoints>
+        <ScorePoints>{stats.hits}</ScorePoints>
       </ScoreContent>
     </Badge>
 
@@ -73,7 +73,7 @@ export default () => {
       <ScoreHeader>{t('lbl_missed_notes')}</ScoreHeader>
       <ScoreContent>
         <ScoreIcon icon={['fas', 'fa-times']} />
-        <ScorePoints>{state.stats.miss}</ScorePoints>
+        <ScorePoints>{stats.miss}</ScorePoints>
       </ScoreContent>
     </Badge>
 
@@ -81,11 +81,10 @@ export default () => {
       <ScoreHeader>{t('lbl_score')}</ScoreHeader>
       <ScoreContent>
         <ScoreIcon icon={['fas', 'fa-star']} />
-        <ScorePoints>{state.stats.score}</ScorePoints>
+        <ScorePoints>{stats.score}</ScorePoints>
       </ScoreContent>
     </Badge>
 
   </Board>;
 
 };
-

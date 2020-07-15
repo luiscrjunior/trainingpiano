@@ -20,7 +20,8 @@ const Hint = styled(Span)`
 
 export default () => {
 
-  const [state, dispatch] = useContext(Context);
+  const config = useSelector(state => state.config);
+  const dispatch = useDispatch();
   const [midiInputs, setMidiInputs] = useState([]);
   const { t } = useTranslation();
 
@@ -47,25 +48,25 @@ export default () => {
   return <Area>
 
     <FormItem label={t('lbl_config_input_device')} >
-      <select value={state.config.midiInput ? state.config.midiInput.id : ''} onChange={onSelectMidiInput}>
+      <select value={config.midiInput ? config.midiInput.id : ''} onChange={onSelectMidiInput}>
         <option>{t('lbl_config_choose_device')}</option>
         {midiInputs.map(midiInput => <option key={midiInput.id} value={midiInput.id}>{midiInput.name}</option>)}
       </select>
     </FormItem>
 
     <FormItem label={t('lbl_config_clef')} >
-      <select value={state.config.clef} onChange={ (e) => updateConfig({ 'clef': e.target.value })}>
+      <select value={config.clef} onChange={ (e) => updateConfig({ 'clef': e.target.value })}>
         <option value='treble'>{t('lbl_config_clef_treble')}</option>
         <option value='bass'>{t('lbl_config_clef_bass')}</option>
       </select>
     </FormItem>
 
     <FormItem label={t('lbl_config_show_note_names')} >
-      <Toggle checked={state.config.showNotesName} onChange={ (e) => updateConfig({ 'showNotesName': e.target.checked })} />
+      <Toggle checked={config.showNotesName} onChange={ (e) => updateConfig({ 'showNotesName': e.target.checked })} />
     </FormItem>
 
     <FormItem label={t('lbl_config_how_many_notes')} >
-      <select value={state.config.totalNotes} onChange={ (e) => updateConfig({ 'totalNotes': parseInt(e.target.value) })}>
+      <select value={config.totalNotes} onChange={ (e) => updateConfig({ 'totalNotes': parseInt(e.target.value) })}>
         <option value={0}>{t('lbl_config_random')}</option>
         <option value={1}>1</option>
         <option value={2}>2</option>
@@ -73,10 +74,10 @@ export default () => {
         <option value={4}>4</option>
         <option value={5}>5</option>
       </select>
-      { state.config.totalNotes === 0 &&
+      { config.totalNotes === 0 &&
         <>
           <Hint><strong>1</strong> {t('lbl_config_note_up_to')}</Hint>
-          <select value={state.config.maxNotes} onChange={ (e) => updateConfig({ 'maxNotes': parseInt(e.target.value) })}>
+          <select value={config.maxNotes} onChange={ (e) => updateConfig({ 'maxNotes': parseInt(e.target.value) })}>
             <option value={2}>2</option>
             <option value={3}>3</option>
             <option value={4}>4</option>
@@ -88,7 +89,7 @@ export default () => {
     </FormItem>
 
     <FormItem label={t('lbl_config_include_accidentals')} >
-      <Toggle checked={state.config.includeAccidentals} onChange={ (e) => updateConfig({ 'includeAccidentals': e.target.checked })} />
+      <Toggle checked={config.includeAccidentals} onChange={ (e) => updateConfig({ 'includeAccidentals': e.target.checked })} />
     </FormItem>
 
     <FormItem label={t('lbl_config_notes')} >

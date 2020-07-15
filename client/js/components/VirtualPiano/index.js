@@ -56,29 +56,32 @@ const createPianoKeys = (lower, upper) => {
 
 export default ({ onOpenSupport }) => {
 
-  const [state, dispatch] = useContext(Context);
+  const midi = useSelector(state => state.midi);
+  const notes = useSelector(state => state.notes);
+  const config = useSelector(state => state.config);
+  const dispatch = useDispatch();
   const [keysPressed, setKeysPressed] = useState([]);
   const [pianoKeys, setPianoKeys] = useState([]);
   const { t } = useTranslation();
 
-  useEffect(() => setKeysPressed(state.midi.map(midiKey => findMidiNote(midiKey))), [state.midi]);
+  useEffect(() => setKeysPressed(midi.map(midiKey => findMidiNote(midiKey))), [midi]);
 
   const isKeyPressed = key => keysPressed.some(keyPressed => keyPressed === key);
 
   const onKeyPressed = key => {
     const newNotes = isKeyPressed(key)
-      ? removeNoteFromMidi(key.toString(), state.midi)
-      : addNoteToMidi(key.toString(), state.midi, state.notes);
+      ? removeNoteFromMidi(key.toString(), midi)
+      : addNoteToMidi(key.toString(), midi, notes);
     dispatch({ type: 'UPDATE_MIDI', value: newNotes });
 
   };
 
   useEffect(() => {
-    const [lower, upper] = state.config.clef === 'treble'
+    const [lower, upper] = config.clef === 'treble'
       ? ['C/3', 'B/6']
       : ['C/1', 'B/4'];
     setPianoKeys(createPianoKeys(lower, upper));
-  }, [state.config.clef]);
+  }, [config.clef]);
 
   return <Wrapper>
     <Keyboard>
@@ -101,8 +104,8 @@ export default ({ onOpenSupport }) => {
       )}
     </Keyboard>
     <Label>
-      { state.config.midiInput
-        ? state.config.midiInput.name
+      { config.midiInput
+        ? config.midiInput.name
         : isSupported()
           ? <Trans i18nKey='piano_msg_supported'></Trans>
           : <Trans i18nKey='piano_msg_unsupported'>Infelizmente, seu navegador não <Link onClick={onOpenSupport}>suporta</Link> acesso aos dispositivos MIDI's, mas você poderá usar esse piano virtual.</Trans>
@@ -111,4 +114,3 @@ export default ({ onOpenSupport }) => {
   </Wrapper>;
 
 };
-

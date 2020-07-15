@@ -1,7 +1,5 @@
 import React, { useContext, useRef, useEffect } from 'react';
 
-import { useSelector, useDispatch } from 'react-redux';
-
 import styled from 'styled-components';
 
 import { Paragraph, Icon, BaseAnchor } from 'components/shared';
@@ -69,8 +67,6 @@ export const ButtonArea = styled.div`
 `;
 
 export default ({ title, onClose, children }) => {
-
-  const [state, dispatch] = useContext(Context);
 
   const panelRef = useRef(null);
 

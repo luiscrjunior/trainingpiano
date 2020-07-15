@@ -22,7 +22,7 @@ const CountdownLabel = styled(Span)`
 
 export default () => {
 
-  const [state, dispatch] = useContext(Context);
+  const dispatch = useDispatch();
   const [date, setDate] = useState(Date.now());
 
   useEffect(() => {
