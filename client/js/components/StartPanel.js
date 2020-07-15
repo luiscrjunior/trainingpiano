@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import FloatingPanel, { ButtonArea } from 'components/FloatingPanel';
 import ConfigArea from 'components/ConfigArea';
 import { useTranslation } from 'react-i18next';
-import { Context } from 'store';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { ActionButton } from 'components/shared';
 

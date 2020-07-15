@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
-import Store from './store';
+import { Provider } from 'react-redux';
+import store from 'app/store';
 import App from 'components/App';
 import './i18n';
 
@@ -11,8 +11,8 @@ import 'css/app.scss';
 if (module.hot) module.hot.accept();
 
 ReactDOM.render(
-  <Store>
+  <Provider store={store}>
     <App />
-  </Store>
+  </Provider>
   , document.getElementById('app')
 );

@@ -1,6 +1,6 @@
 import React, { useEffect, useContext, useState } from 'react';
 
-import { Context } from 'store';
+import { useSelector, useDispatch } from 'react-redux';
 import useAnalytics from './useAnalytics';
 import { generateRandomNotes, getNotesScore } from 'app/utils';
 

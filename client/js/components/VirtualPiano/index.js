@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 
-import { Context } from 'store';
+import { useSelector, useDispatch } from 'react-redux';
 
 import classNames from 'classnames';
 import { findMidiNote, addNoteToMidi, removeNoteFromMidi, isSupported, findNotes } from 'app/utils';

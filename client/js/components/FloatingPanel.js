@@ -1,6 +1,6 @@
 import React, { useContext, useRef, useEffect } from 'react';
 
-import { Context } from 'store';
+import { useSelector, useDispatch } from 'react-redux';
 
 import styled from 'styled-components';
 

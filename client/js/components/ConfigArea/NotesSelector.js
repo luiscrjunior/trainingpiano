@@ -3,7 +3,7 @@ import OctaveButton from './OctaveButton';
 import { findMidiNote } from 'app/utils';
 import styled from 'styled-components';
 
-import { Context } from 'store';
+import { useSelector, useDispatch } from 'react-redux';
 
 const Selector = styled.div`
 `;

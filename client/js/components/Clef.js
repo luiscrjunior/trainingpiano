@@ -3,7 +3,7 @@ import Vex from 'vexflow';
 import { translateNote, notesThatMatch } from 'app/utils';
 
 import { useTranslation } from 'react-i18next';
-import { Context } from 'store';
+import { useSelector, useDispatch } from 'react-redux';
 
 import styled from 'styled-components';
 

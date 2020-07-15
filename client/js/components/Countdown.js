@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import Countdown from 'react-countdown';
 import { Span, Icon } from 'components/shared';
 
-import { Context } from 'store';
+import { useSelector, useDispatch } from 'react-redux';
 
 import styled from 'styled-components';
 

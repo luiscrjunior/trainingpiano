@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useCallback } from 'react';
 
 import { isSupported, addNoteToMidi, removeNoteFromMidi, generateRandomNotes } from 'app/utils';
 
-import { Context } from 'store';
+import { useSelector, useDispatch } from 'react-redux';
 
 export default () => {
 

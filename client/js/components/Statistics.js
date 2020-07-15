@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 
-import { Context } from 'store';
+import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Icon, Span, Paragraph } from 'components/shared';
 

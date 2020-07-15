@@ -1,6 +1,4 @@
-import defaultValues from './defaultValues';
-
-export default (state = defaultValues, action) => {
+const Reducer = (state, action) => {
   switch (action.type) {
   case 'UPDATE_NOTES':
     return {
@@ -47,3 +45,4 @@ export default (state = defaultValues, action) => {
   }
 };
 
+export default Reducer;

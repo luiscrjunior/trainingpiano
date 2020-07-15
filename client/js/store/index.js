@@ -1,16 +1,6 @@
-import React, { createContext, useReducer } from 'react';
-import Reducer from './reducer';
+import { createStore } from 'redux';
+import reducer from './reducer';
 
-import defaultValues from './defaultValues';
+const store = createStore(reducer);
 
-const Store = ({ children }) => {
-  const [state, dispatch] = useReducer(Reducer, defaultValues);
-  return (
-    <Context.Provider value={[state, dispatch]}>
-      {children}
-    </Context.Provider>
-  );
-};
-
-export const Context = createContext(defaultValues);
-export default Store;
+export default store;

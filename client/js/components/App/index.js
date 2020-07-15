@@ -3,7 +3,7 @@ import React, { useContext, useState } from 'react';
 import Clef from 'components/Clef';
 import styled from 'styled-components';
 
-import { Context } from 'store';
+import { useSelector, useDispatch } from 'react-redux';
 import { ActionButton, CancelButton, Paragraph } from 'components/shared';
 
 import StartPanel from 'components/StartPanel';
@@ -120,7 +120,7 @@ const WelcomeMessage = styled(Paragraph)`
 
 const App = () => {
 
-  const [state, dispatch] = useContext(Context);
+  const status = useSelector(state => state.status);
   const [showNotSupportedPanel, setShowNotSupportedPanel] = useState(false);
   const { t } = useTranslation();
   const { setupAnalytics, trackEvent } = useAnalytics();
@@ -128,6 +128,7 @@ const App = () => {
 
   /* setup Google Analytics and Facebook Pixel */
   setupAnalytics();
+
 
   return <Page>
 
@@ -144,16 +145,16 @@ const App = () => {
             <Statistics />
           </StatisticsRow>
           <CountdownRow>
-            { state.status === 'running'
+            { status === 'running'
               ? <Countdown />
               : <WelcomeMessage><Trans i18nKey='msg_welcome'></Trans></WelcomeMessage>
             }
           </CountdownRow>
           <ButtonRow>
-            { state.status === 'running' &&
+            { status === 'running' &&
               <CancelButton size={16} label={t('btn_cancel')} onClick={cancelSequence} block/>
             }
-            { state.status === 'idle' &&
+            { status === 'idle' &&
               <ActionButton size={16} label={t('btn_start_exercise')} icon={['fas', 'fa-play-circle']} block onClick={startSequence}/>
             }
           </ButtonRow>
@@ -169,7 +170,7 @@ const App = () => {
 
     <MidiController />
 
-    { state.status === 'configuring' && <StartPanel /> }
+    { status === 'configuring' && <StartPanel /> }
 
     { showFinishedPanel && <FinishedPanel onClose={resetSequence} /> }
 

@@ -5,7 +5,7 @@ import FloatingPanel, { ButtonArea } from 'components/FloatingPanel';
 import { Button, Paragraph, Icon } from 'components/shared';
 
 import { useTranslation } from 'react-i18next';
-import { Context } from 'store';
+import { useSelector, useDispatch } from 'react-redux';
 
 import styled from 'styled-components';
 
