@@ -124,11 +124,8 @@ const App = () => {
   const showFinishedPanel = useSelector(state => state.showFinishedPanel);
   const [showNotSupportedPanel, setShowNotSupportedPanel] = useState(false);
   const { t } = useTranslation();
-  const { setupAnalytics, trackEvent } = useAnalytics();
   const [configureExercise, cancelExercise, resetExercise] = useExercise();
-
-  /* setup Google Analytics and Facebook Pixel */
-  setupAnalytics();
+  useAnalytics({ setup: true });
 
   return <Page>
 
