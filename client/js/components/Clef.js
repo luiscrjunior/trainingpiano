@@ -4,6 +4,7 @@ import { translateNote, notesThatMatch } from 'app/utils';
 
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
+import useScore from 'components/App/useScore';
 
 import styled from 'styled-components';
 
@@ -16,8 +17,7 @@ const App = () => {
   const midi = useSelector(state => state.midi);
   const notes = useSelector(state => state.notes);
   const config = useSelector(state => state.config);
-  const userHasScored = useSelector(state => state.userHasScored());
-  const userHasMissed = useSelector(state => state.userHasMissed());
+  const [userHasScored, userHasMissed] = useScore();
   const containerRef = useRef();
   let context = useRef(null);
   let stave = useRef(null);

@@ -30,8 +30,7 @@ export default () => {
   }, []);
 
   const onComplete = () => {
-    dispatch({ type: 'UPDATE_STATUS', value: 'idle' });
-    dispatch({ type: 'UPDATE_STATS', value: { status: 'completed' } });
+    dispatch({ type: 'FINISH_EXERCISE' });
   };
 
   const renderer = ({ formatted: { minutes, seconds }, completed }) => {

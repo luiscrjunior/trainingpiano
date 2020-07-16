@@ -6,7 +6,6 @@ import { useSelector, useDispatch } from 'react-redux';
 
 export default () => {
 
-  const midi = useSelector(state => state.midi);
   const notes = useSelector(state => state.notes);
   const config = useSelector(state => state.config);
   const dispatch = useDispatch();
@@ -16,13 +15,11 @@ export default () => {
 
     switch (command) {
     case 128: {
-      const newNotes = removeNoteFromMidi(midiNote, midi);
-      dispatch({ type: 'UPDATE_MIDI', value: newNotes });
+      dispatch({ type: 'PIANO_KEY_RELEASE', midiNote: midiNote });
       break;
     }
     case 144: {
-      const newNotes = addNoteToMidi(midiNote, midi, notes);
-      dispatch({ type: 'UPDATE_MIDI', value: newNotes });
+      dispatch({ type: 'PIANO_KEY_PRESS', midiNote: midiNote });
       break;
     }
     }
@@ -30,29 +27,29 @@ export default () => {
 
   const handleKeyDown = useCallback((e) => {
     if (e.key === 'ArrowRight' && !e.repeat) { /* correct notes */
-      dispatch({ type: 'UPDATE_MIDI', value: [...notes] });
+      dispatch({ type: 'SET_CORRECT_MIDI_NOTES' });
     } else if (e.key === 'ArrowLeft' && !e.repeat) { /* random notes (wrong) */
-      dispatch({ type: 'UPDATE_MIDI', value: generateRandomNotes(config) });
+      dispatch({ type: 'SET_RANDOM_MIDI_NOTES' });
     }
   });
 
   const handleKeyUp = useCallback((e) => {
     if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
-      dispatch({ type: 'UPDATE_MIDI', value: [] });
+      dispatch({ type: 'CLEAR_MIDI_NOTES' });
     }
   });
 
   /* only in development: hack to hit or miss the notes */
-  if (process.env.NODE_ENV !== 'production') {
-    useEffect(() => {
+  useEffect(() => {
+    if (process.env.NODE_ENV !== 'production') {
       document.addEventListener('keydown', handleKeyDown);
       document.addEventListener('keyup', handleKeyUp);
       return () => {
         document.removeEventListener('keydown', handleKeyDown);
         document.removeEventListener('keyup', handleKeyUp);
       };
-    }, [notes]);
-  }
+    }
+  }, []);
 
   useEffect(() => {
     /* load input device from localStorage */

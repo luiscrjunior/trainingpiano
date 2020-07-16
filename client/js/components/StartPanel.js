@@ -13,11 +13,11 @@ export default () => {
   const { t } = useTranslation();
 
   const onClose = () => {
-    dispatch({ type: 'UPDATE_STATUS', value: 'idle' });
+    dispatch({ type: 'RESET_EXERCISE' });
   };
 
   const onStart = () => {
-    dispatch({ type: 'UPDATE_STATUS', value: 'running' });
+    dispatch({ type: 'START_EXERCISE' });
   };
 
   return <FloatingPanel onClose={onClose} title={t('lbl_start_exercise')}>

@@ -3,7 +3,7 @@ import React, { useContext, useState } from 'react';
 import Clef from 'components/Clef';
 import styled from 'styled-components';
 
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { ActionButton, CancelButton, Paragraph } from 'components/shared';
 
 import StartPanel from 'components/StartPanel';
@@ -16,7 +16,7 @@ import VirtualPiano from 'components/VirtualPiano';
 
 import { Trans, useTranslation } from 'react-i18next';
 import useAnalytics from './useAnalytics';
-import useGameLogic from './useGameLogic';
+import useExercise from './useExercise';
 import Footer from './Footer';
 
 const Page = styled.div`
@@ -121,10 +121,11 @@ const WelcomeMessage = styled(Paragraph)`
 const App = () => {
 
   const status = useSelector(state => state.status);
+  const showFinishedPanel = useSelector(state => state.showFinishedPanel);
   const [showNotSupportedPanel, setShowNotSupportedPanel] = useState(false);
   const { t } = useTranslation();
   const { setupAnalytics, trackEvent } = useAnalytics();
-  const [startSequence, cancelSequence, resetSequence, showFinishedPanel] = useGameLogic();
+  const [configureExercise, cancelExercise, resetExercise] = useExercise();
 
   /* setup Google Analytics and Facebook Pixel */
   setupAnalytics();
@@ -151,10 +152,10 @@ const App = () => {
           </CountdownRow>
           <ButtonRow>
             { status === 'running' &&
-              <CancelButton size={16} label={t('btn_cancel')} onClick={cancelSequence} block/>
+              <CancelButton size={16} label={t('btn_cancel')} onClick={cancelExercise} block/>
             }
             { status === 'idle' &&
-              <ActionButton size={16} label={t('btn_start_exercise')} icon={['fas', 'fa-play-circle']} block onClick={startSequence}/>
+              <ActionButton size={16} label={t('btn_start_exercise')} icon={['fas', 'fa-play-circle']} block onClick={configureExercise}/>
             }
           </ButtonRow>
         </LeftContent>
@@ -171,7 +172,7 @@ const App = () => {
 
     { status === 'configuring' && <StartPanel /> }
 
-    { showFinishedPanel && <FinishedPanel onClose={resetSequence} /> }
+    { showFinishedPanel && <FinishedPanel onClose={resetExercise} /> }
 
     { showNotSupportedPanel && <NotSupportedPanel onClose={ () => setShowNotSupportedPanel(false) } /> }
 

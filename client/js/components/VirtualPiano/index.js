@@ -57,31 +57,29 @@ const createPianoKeys = (lower, upper) => {
 export default ({ onOpenSupport }) => {
 
   const midi = useSelector(state => state.midi);
-  const notes = useSelector(state => state.notes);
-  const config = useSelector(state => state.config);
+  const chosenClef = useSelector(state => state.config.clef);
+  const midiInput = useSelector(state => state.config.midiInput);
   const dispatch = useDispatch();
-  const [keysPressed, setKeysPressed] = useState([]);
   const [pianoKeys, setPianoKeys] = useState([]);
   const { t } = useTranslation();
 
-  useEffect(() => setKeysPressed(midi.map(midiKey => findMidiNote(midiKey))), [midi]);
-
-  const isKeyPressed = key => keysPressed.some(keyPressed => keyPressed === key);
+  const isKeyPressed = key => midi.map(midiKey => findMidiNote(midiKey))
+    .some(keyPressed => keyPressed === key);
 
   const onKeyPressed = key => {
-    const newNotes = isKeyPressed(key)
-      ? removeNoteFromMidi(key.toString(), midi)
-      : addNoteToMidi(key.toString(), midi, notes);
-    dispatch({ type: 'UPDATE_MIDI', value: newNotes });
-
+    if (isKeyPressed(key)) {
+      dispatch({ type: 'PIANO_KEY_RELEASE', midiNote: key.toString() });
+    } else {
+      dispatch({ type: 'PIANO_KEY_PRESS', midiNote: key.toString() });
+    }
   };
 
   useEffect(() => {
-    const [lower, upper] = config.clef === 'treble'
+    const [lower, upper] = chosenClef === 'treble'
       ? ['C/3', 'B/6']
       : ['C/1', 'B/4'];
     setPianoKeys(createPianoKeys(lower, upper));
-  }, [config.clef]);
+  }, [chosenClef]);
 
   return <Wrapper>
     <Keyboard>
@@ -104,8 +102,8 @@ export default ({ onOpenSupport }) => {
       )}
     </Keyboard>
     <Label>
-      { config.midiInput
-        ? config.midiInput.name
+      { midiInput
+        ? midiInput.name
         : isSupported()
           ? <Trans i18nKey='piano_msg_supported'></Trans>
           : <Trans i18nKey='piano_msg_unsupported'>Infelizmente, seu navegador não <Link onClick={onOpenSupport}>suporta</Link> acesso aos dispositivos MIDI's, mas você poderá usar esse piano virtual.</Trans>

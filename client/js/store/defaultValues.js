@@ -21,25 +21,6 @@ export default {
     includeAccidentals: true,
     showNotesName: false,
   },
+  showFinishedPanel: false,
 
-  userHasScored: function () {
-    const matchNotes = notesThatMatch(this.midi, this.notes);
-    return (
-      this.status === 'running' &&
-      this.notes.length > 0 &&
-      this.notes.length === this.midi.length &&
-      matchNotes.length === this.notes.length
-    );
-  },
-
-  userHasMissed: function () {
-    const matchNotes = notesThatMatch(this.midi, this.notes);
-    return (
-      this.status === 'running' &&
-      this.notes.length > 0 &&
-      this.midi.length > 0 &&
-      this.midi.length >= this.notes.length &&
-      matchNotes.length !== this.notes.length
-    );
-  },
 };
