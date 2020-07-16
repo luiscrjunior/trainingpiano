@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { FormItem, Span, Toggle } from 'components/shared';
@@ -25,9 +25,9 @@ export default () => {
   const [midiInputs, setMidiInputs] = useState([]);
   const { t } = useTranslation();
 
-  const updateConfig = (item) => {
+  const updateConfig = useCallback((item) => {
     dispatch({ type: 'UPDATE_CONFIG', value: item });
-  };
+  }, [dispatch]);
 
   useEffect(() => {
     if (!isSupported()) return;
@@ -44,6 +44,8 @@ export default () => {
   };
 
   const onSelectMidiInput = (e) => selectMidiInput(e.target.value);
+
+  const updateNoteRange = useCallback((lowerNote, upperNote) => updateConfig({ 'lowerNote': lowerNote, 'upperNote': upperNote }), [updateConfig]);
 
   return <Area>
 
@@ -93,9 +95,7 @@ export default () => {
     </FormItem>
 
     <FormItem label={t('lbl_config_notes')} >
-      <NotesSelector
-        onChange={ (lowerNote, upperNote) => updateConfig({ 'lowerNote': lowerNote, 'upperNote': upperNote })}
-      />
+      <NotesSelector onChange={updateNoteRange} />
     </FormItem>
 
   </Area>;

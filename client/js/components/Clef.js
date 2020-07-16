@@ -1,4 +1,4 @@
-import React, { useRef, useContext, useEffect } from 'react';
+import React, { useRef, useContext, useEffect, useCallback } from 'react';
 import Vex from 'vexflow';
 import { translateNote, notesThatMatch } from 'app/utils';
 
@@ -32,7 +32,7 @@ const App = () => {
     context.current.scale(2, 2); //zoom
   };
 
-  const renderStave = () => {
+  const renderStave = useCallback(() => {
     if (stave.current) {
       context.current.clear();
       if (group.current) group.current = null;
@@ -41,7 +41,7 @@ const App = () => {
     stave.current.addClef(config.clef);
     stave.current.setContext(context.current);
     stave.current.draw();
-  };
+  }, [config.clef]);
 
   const drawGhostNotes = (hit, groupToClone) => {
     const clonedGroup = groupToClone.cloneNode(true);
@@ -50,7 +50,7 @@ const App = () => {
     clonedGroup.addEventListener('animationend', e => e.target.remove());
   };
 
-  const renderNotes = () => {
+  const renderNotes = useCallback(() => {
 
     if (!stave.current || !context.current) return null;
 
@@ -107,9 +107,9 @@ const App = () => {
     if (userHasMissed) {
       drawGhostNotes(false, voiceNotes.getTickables()[0].attrs.el);
     }
-  };
+  }, [config.clef, config.showNotesName, midi, notes, printNotesLabel, userHasMissed, userHasScored]);
 
-  const printNotesLabel = (voice) => {
+  const printNotesLabel = useCallback((voice) => {
 
     const staveNote = voice.getTickables()[0];
     const notes = staveNote.keys.map(item => ({ key: item }));
@@ -130,7 +130,7 @@ const App = () => {
       group.current.appendChild(newText);
     });
 
-  };
+  }, [t]);
 
   useEffect(() => {
     renderContainer();
@@ -138,11 +138,11 @@ const App = () => {
 
   useEffect(() => {
     renderStave();
-  }, [config.clef]);
+  }, [renderStave]);
 
   useEffect(() => {
     renderNotes();
-  }, [notes, midi]);
+  }, [renderNotes]);
 
   return <Container ref={containerRef} />;
 

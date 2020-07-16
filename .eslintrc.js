@@ -1,5 +1,8 @@
 module.exports = {
-  'extends': 'standard',
+  'extends': [
+    'standard',
+    'plugin:react-hooks/recommended',
+  ],
   'env': {
     'es6': true,
   },

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useCallback } from 'react';
 import OctaveButton from './OctaveButton';
 import { findMidiNote } from 'app/utils';
 import styled from 'styled-components';
@@ -24,7 +24,7 @@ export default ({ onChange }) => {
 
   useEffect(() => {
     updateNotes();
-  }, [config.lowerNote, config.upperNote]);
+  }, [updateNotes]);
 
   useEffect(() => {
     /* reset available octaves */
@@ -36,16 +36,16 @@ export default ({ onChange }) => {
       .map(note => ({ ...note, selected: isSelected(note) }))
     );
     onChange(`C/${availableClefs[1]}`, `B/${availableClefs[2]}`);
-  }, [config.clef]);
+  }, [config.clef, isSelected, onChange]);
 
-  const isSelected = (note) => (
+  const isSelected = useCallback((note) => (
     findMidiNote(note.lower) >= findMidiNote(config.lowerNote) &&
     findMidiNote(note.upper) <= findMidiNote(config.upperNote)
-  );
+  ), [config.lowerNote, config.upperNote]);
 
-  const updateNotes = () => {
+  const updateNotes = useCallback(() => {
     setNotes(notes.map(note => ({...note, selected: isSelected(note)})));
-  };
+  }, [isSelected, notes]);
 
   const onClick = (idx) => {
     if (!onChange) return;

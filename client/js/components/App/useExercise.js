@@ -18,7 +18,7 @@ export default () => {
     } else if (userHasMissed) {
       dispatch({ type: 'INCORRECT_ANSWER' });
     }
-  }, [userHasScored, userHasMissed]);
+  }, [userHasScored, userHasMissed, dispatch]);
 
   const configureExercise = () => {
     dispatch({ type: 'CONFIGURE_EXERCISE' });

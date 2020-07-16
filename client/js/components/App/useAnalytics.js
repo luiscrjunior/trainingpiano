@@ -15,12 +15,12 @@ export default ({ setup = false } = {}) => {
       ReactGA.initialize('UA-171111912-1');
       ReactPixel.init('1475213622668870', null, { autoConfig: false });
     }
-  }, []);
+  }, [setup]);
 
   useEffect(() => {
     ReactGA.pageview(window.location.pathname);
     ReactPixel.pageView();
-  }, [window.location.pathname]);
+  }, []);
 
   return { trackEvent };
 

@@ -23,7 +23,7 @@ export default () => {
       break;
     }
     }
-  });
+  }, [dispatch]);
 
   const handleKeyDown = useCallback((e) => {
     if (e.key === 'ArrowRight' && !e.repeat) { /* correct notes */
@@ -31,13 +31,13 @@ export default () => {
     } else if (e.key === 'ArrowLeft' && !e.repeat) { /* random notes (wrong) */
       dispatch({ type: 'SET_RANDOM_MIDI_NOTES' });
     }
-  });
+  }, [dispatch]);
 
   const handleKeyUp = useCallback((e) => {
     if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
       dispatch({ type: 'CLEAR_MIDI_NOTES' });
     }
-  });
+  }, [dispatch]);
 
   /* only in development: hack to hit or miss the notes */
   useEffect(() => {
@@ -49,7 +49,7 @@ export default () => {
         document.removeEventListener('keyup', handleKeyUp);
       };
     }
-  }, []);
+  }, [handleKeyDown, handleKeyUp]);
 
   useEffect(() => {
     /* load input device from localStorage */
@@ -63,7 +63,7 @@ export default () => {
         const inputToSelect = midiInputs.find(input => input.id === savedMidiDevice) || null;
         if (inputToSelect) dispatch({ type: 'UPDATE_CONFIG', value: { midiInput: inputToSelect } });
       });
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if (config.midiInput !== null) {
