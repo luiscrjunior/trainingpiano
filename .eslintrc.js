@@ -12,6 +12,11 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 6,
   },
+  settings: {
+    react: {
+      version: 'detect',
+    },
+  },
   rules: {
     'react/prop-types': 'off',
   },
