@@ -6,7 +6,6 @@ import { useSelector, useDispatch } from 'react-redux';
 
 export default () => {
 
-  const notes = useSelector(state => state.notes);
   const config = useSelector(state => state.config);
   const dispatch = useDispatch();
 
