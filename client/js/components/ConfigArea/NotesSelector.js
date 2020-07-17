@@ -8,75 +8,77 @@ import { useSelector, useDispatch } from 'react-redux';
 const Selector = styled.div`
 `;
 
-const allNotes = [
-  { octave: '1', lower: 'C/1', upper: 'B/1', selected: false },
-  { octave: '2', lower: 'C/2', upper: 'B/2', selected: false },
-  { octave: '3', lower: 'C/3', upper: 'B/3', selected: false },
-  { octave: '4', lower: 'C/4', upper: 'B/4', selected: false },
-  { octave: '5', lower: 'C/5', upper: 'B/5', selected: false },
-  { octave: '6', lower: 'C/6', upper: 'B/6', selected: false },
+const allOctaves = [
+  { number: '1', lower: 'C/1', upper: 'B/1', selected: false },
+  { number: '2', lower: 'C/2', upper: 'B/2', selected: false },
+  { number: '3', lower: 'C/3', upper: 'B/3', selected: false },
+  { number: '4', lower: 'C/4', upper: 'B/4', selected: false },
+  { number: '5', lower: 'C/5', upper: 'B/5', selected: false },
+  { number: '6', lower: 'C/6', upper: 'B/6', selected: false },
 ];
 
 export default ({ onChange }) => {
 
-  const config = useSelector(state => state.config);
-  const [notes, setNotes] = useState([]);
+  const lowerNote = useSelector(state => state.config.lowerNote);
+  const upperNote = useSelector(state => state.config.upperNote);
+  const clef = useSelector(state => state.config.clef);
+  const [octaves, setOctaves] = useState([]);
+
+  /* each time notes offset change, update octave buttons */
+  useEffect(() => {
+    updateOctaves();
+  }, [lowerNote, upperNote, updateOctaves]);
 
   useEffect(() => {
-    updateNotes();
-  }, [updateNotes]);
-
-  useEffect(() => {
-    /* reset available octaves */
-    const availableClefs = config.clef === 'treble'
+    /* reset available octaves each time clef changes */
+    const availableClefs = clef === 'treble'
       ? ['3', '4', '5', '6']
       : ['1', '2', '3', '4'];
-    setNotes(allNotes
-      .filter(note => availableClefs.includes(note.octave))
-      .map(note => ({ ...note, selected: isSelected(note) }))
+    setOctaves(allOctaves
+      .filter(octave => availableClefs.includes(octave.number))
+      .map(octave => ({ ...octave, selected: isSelected(octave) }))
     );
     onChange(`C/${availableClefs[1]}`, `B/${availableClefs[2]}`);
-  }, [config.clef, isSelected, onChange]);
+  }, [clef, isSelected, onChange]);
 
   const isSelected = useCallback((note) => (
-    findMidiNote(note.lower) >= findMidiNote(config.lowerNote) &&
-    findMidiNote(note.upper) <= findMidiNote(config.upperNote)
-  ), [config.lowerNote, config.upperNote]);
+    findMidiNote(note.lower) >= findMidiNote(lowerNote) &&
+    findMidiNote(note.upper) <= findMidiNote(upperNote)
+  ), [lowerNote, upperNote]);
 
-  const updateNotes = useCallback(() => {
-    setNotes(notes.map(note => ({...note, selected: isSelected(note)})));
-  }, [isSelected, notes]);
+  const updateOctaves = useCallback(() => {
+    setOctaves(octaves.map(octave => ({...octave, selected: isSelected(octave)})));
+  }, [isSelected, octaves]);
 
   const onClick = (idx) => {
     if (!onChange) return;
-    const newNotes = JSON.parse(JSON.stringify(notes)); /* deep clone */
-    newNotes[idx].selected = !newNotes[idx].selected;
-    const isAdding = newNotes[idx].selected;
+    const newOctaves = JSON.parse(JSON.stringify(octaves)); /* deep clone */
+    newOctaves[idx].selected = !newOctaves[idx].selected;
+    const isAdding = newOctaves[idx].selected;
     let lower, upper;
-    const firstSelectedIdx = newNotes.findIndex(note => note.selected);
+    const firstSelectedIdx = newOctaves.findIndex(note => note.selected);
     if (firstSelectedIdx === -1) return; /* no octave selected */
-    lower = newNotes[firstSelectedIdx].lower;
+    lower = newOctaves[firstSelectedIdx].lower;
     if (!isAdding) { /* is removing octave */
-      for (let i = firstSelectedIdx; i < newNotes.length; i++) {
-        if (newNotes[i].selected) {
-          upper = newNotes[i].upper;
+      for (let i = firstSelectedIdx; i < newOctaves.length; i++) {
+        if (newOctaves[i].selected) {
+          upper = newOctaves[i].upper;
         } else {
           break;
         }
       }
     } else { /* is adding octave */
-      upper = [...newNotes].reverse().find(note => note.selected).upper;
+      upper = [...newOctaves].reverse().find(octave => octave.selected).upper;
     }
     onChange(lower, upper);
-    updateNotes();
   };
 
   return <Selector>
-    { notes && notes.map((note, idx) => <OctaveButton
-      key={note.lower}
-      lower={note.lower}
-      upper={note.upper}
-      selected={note.selected}
+    { octaves && octaves.map((octave, idx) => <OctaveButton
+      key={octave.lower}
+      lower={octave.lower}
+      upper={octave.upper}
+      selected={octave.selected}
       onClick={onClick.bind(this, idx)}
     />
     )}
