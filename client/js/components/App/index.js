@@ -124,7 +124,7 @@ const App = () => {
   const showFinishedPanel = useSelector(state => state.showFinishedPanel);
   const [showNotSupportedPanel, setShowNotSupportedPanel] = useState(false);
   const { t } = useTranslation();
-  const [configureExercise, cancelExercise, resetExercise] = useExercise();
+  const [configureExercise, cancelExercise, finishExercise, resetExercise] = useExercise();
   useAnalytics({ setup: true, pageView: true });
 
   return <Page>
@@ -143,7 +143,7 @@ const App = () => {
           </StatisticsRow>
           <CountdownRow>
             { status === 'running'
-              ? <Countdown />
+              ? <Countdown onCountdown={finishExercise} />
               : <WelcomeMessage><Trans i18nKey='msg_welcome'></Trans></WelcomeMessage>
             }
           </CountdownRow>

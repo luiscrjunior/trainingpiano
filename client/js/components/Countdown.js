@@ -20,7 +20,7 @@ const CountdownLabel = styled(Span)`
   letter-spacing: -3px;
 `;
 
-export default () => {
+export default ({ onCountdown }) => {
 
   const dispatch = useDispatch();
   const [date, setDate] = useState(Date.now());
@@ -28,10 +28,6 @@ export default () => {
   useEffect(() => {
     setDate(Date.now() + 30000);
   }, []);
-
-  const onComplete = () => {
-    dispatch({ type: 'FINISH_EXERCISE' });
-  };
 
   const renderer = ({ formatted: { minutes, seconds }, completed }) => {
     return <CountdownLabel>{minutes}:{seconds}</CountdownLabel>;
@@ -42,7 +38,7 @@ export default () => {
       autoStart={true}
       date={date}
       renderer={renderer}
-      onComplete={onComplete}
+      onComplete={onCountdown}
     />
   </Area>;
 

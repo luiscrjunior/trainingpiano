@@ -25,14 +25,19 @@ export default () => {
   };
 
   const cancelExercise = () => {
+    trackEvent({ action: 'Exercise canceled', value: stats, numericValue: stats.score });
     dispatch({ type: 'CANCEL_EXERCISE' });
   };
 
+  const finishExercise = () => {
+    trackEvent({ action: 'Exercise completed', value: stats, numericValue: stats.score });
+    dispatch({ type: 'FINISH_EXERCISE' });
+  };
+
   const resetExercise = () => {
-    trackEvent({ action: `Exercise ${stats.status}`, value: stats, numericValue: stats.score });
     dispatch({ type: 'RESET_EXERCISE' });
   };
 
-  return [configureExercise, cancelExercise, resetExercise];
+  return [configureExercise, cancelExercise, finishExercise, resetExercise];
 
 };
