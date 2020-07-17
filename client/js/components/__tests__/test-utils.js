@@ -7,8 +7,8 @@ import defaultValues from 'store/defaultValues';
 
 /* recipe from https://redux.js.org/recipes/writing-tests */
 
-function render(ui, { state = {}, ...renderOptions } = {}) {
-  const store = createStore(reducer, { ...defaultValues, ...state });
+function render(ui, state = {}, { ...renderOptions } = {}) {
+  const store = createStore(reducer, state);
   function Wrapper({ children }) {
     return <Provider store={store}>{children}</Provider>;
   }
