@@ -4,9 +4,8 @@ import { isSupported } from 'app/utils';
 
 import { useSelector, useDispatch } from 'react-redux';
 
-// TODO: transform into a Hook
-const MidiController = () => {
-  const config = useSelector((state) => state.config);
+export default () => {
+  const midiInput = useSelector((state) => state.config.midiInput);
   const dispatch = useDispatch();
 
   const handleMidiInput = useCallback(
@@ -80,16 +79,14 @@ const MidiController = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (config.midiInput !== null) {
-      config.midiInput.addEventListener('midimessage', handleMidiInput);
-      window.localStorage.setItem('midiDevice', config.midiInput.id);
+    if (midiInput !== null) {
+      midiInput.addEventListener('midimessage', handleMidiInput);
+      window.localStorage.setItem('midiDevice', midiInput.id);
       return () => {
-        config.midiInput.removeEventListener('midimessage', handleMidiInput);
+        midiInput.removeEventListener('midimessage', handleMidiInput);
       };
+    } else {
+      window.localStorage.removeItem('midiDevice');
     }
-  }, [config.midiInput, handleMidiInput]);
-
-  return null;
+  }, [midiInput, handleMidiInput]);
 };
-
-export default MidiController;

@@ -60,7 +60,7 @@ const ConfigArea = () => {
           value={config.midiInput ? config.midiInput.id : ''}
           onChange={onSelectMidiInput}
         >
-          <option>{t('lbl_config_choose_device')}</option>
+          <option value={-1}>{t('lbl_config_choose_device')}</option>
           {midiInputs.map((midiInput) => (
             <option key={midiInput.id} value={midiInput.id}>
               {midiInput.name}

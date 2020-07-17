@@ -9,12 +9,12 @@ import NotSupportedPanel from 'components/NotSupportedPanel';
 import FinishedPanel from 'components/FinishedPanel';
 import Countdown from 'components/Countdown';
 import Statistics from 'components/Statistics';
-import MidiController from 'components/MidiController';
 import VirtualPiano from 'components/VirtualPiano';
 
 import { Trans, useTranslation } from 'react-i18next';
 import useAnalytics from './useAnalytics';
 import useExercise from './useExercise';
+import useMidiController from './useMidiController';
 import Footer from './Footer';
 
 import {
@@ -43,6 +43,7 @@ const App = () => {
     resetExercise,
   ] = useExercise();
   useAnalytics({ setup: true, pageView: true });
+  useMidiController();
 
   return (
     <Page>
@@ -96,8 +97,6 @@ const App = () => {
       </GamePanel>
 
       <Footer />
-
-      <MidiController />
 
       {status === 'configuring' && <StartPanel />}
 
