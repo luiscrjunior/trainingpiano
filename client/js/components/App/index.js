@@ -27,7 +27,7 @@ const Page = styled.div`
   height: 100%;
   align-items: center;
   padding-top: 70px;
-  background-color: #f2f2f2;
+  background-color: transparent;
 `;
 
 const GamePanel = styled.div`
