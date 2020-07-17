@@ -8,6 +8,7 @@ module.exports = {
   ],
   env: {
     es6: true,
+    jest: true,
   },
   plugins: ['prettier'],
   parserOptions: {
@@ -19,6 +20,7 @@ module.exports = {
     },
   },
   rules: {
+    'no-console': 'error',
     'react/prop-types': 'off',
     'prettier/prettier': 'error',
   },

@@ -7,7 +7,8 @@
     "prod:build": "node_modules/webpack/bin/webpack.js --config webpack.prod.js",
     "dev:build": "node_modules/webpack/bin/webpack.js --config webpack.dev.js",
     "dev:server": "node_modules/webpack-dev-server/bin/webpack-dev-server.js --config webpack.dev.js",
-    "lint": "node_modules/eslint/bin/eslint.js ./client/js"
+    "lint": "node_modules/eslint/bin/eslint.js ./client/js",
+    "test": "node_modules/jest/bin/jest.js"
   },
   "author": "",
   "license": "ISC",
@@ -38,6 +39,7 @@
     "eslint-plugin-standard": "^4.0.1",
     "i18next": "^19.5.4",
     "i18next-browser-languagedetector": "^5.0.0",
+    "jest": "^26.1.0",
     "mini-css-extract-plugin": "^0.9.0",
     "node-sass": "^4.14.1",
     "postcss-cli": "^7.1.1",
