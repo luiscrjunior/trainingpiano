@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import ReactGA from 'react-ga';
 import ReactPixel from 'react-facebook-pixel';
 
-export default ({ setup = false } = {}) => {
+export default ({ setup = false, pageView = false } = {}) => {
 
   const trackEvent = ({ action = '', value = {}, numericValue = 0, nonInteraction = false }) => {
     ReactGA.event({ category: 'App', action: action, value: numericValue, nonInteraction: nonInteraction });
@@ -18,9 +18,11 @@ export default ({ setup = false } = {}) => {
   }, [setup]);
 
   useEffect(() => {
-    ReactGA.pageview(window.location.pathname);
-    ReactPixel.pageView();
-  }, []);
+    if (pageView) {
+      ReactGA.pageview(window.location.pathname);
+      ReactPixel.pageView();
+    }
+  }, [pageView]);
 
   return { trackEvent };
 

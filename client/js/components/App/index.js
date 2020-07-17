@@ -125,7 +125,7 @@ const App = () => {
   const [showNotSupportedPanel, setShowNotSupportedPanel] = useState(false);
   const { t } = useTranslation();
   const [configureExercise, cancelExercise, resetExercise] = useExercise();
-  useAnalytics({ setup: true });
+  useAnalytics({ setup: true, pageView: true });
 
   return <Page>
 
