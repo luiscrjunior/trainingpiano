@@ -9,6 +9,7 @@ module.exports = {
   env: {
     es6: true,
   },
+  plugins: ['prettier'],
   parserOptions: {
     ecmaVersion: 6,
   },
@@ -19,6 +20,7 @@ module.exports = {
   },
   rules: {
     'react/prop-types': 'off',
+    'prettier/prettier': 'error',
   },
   parser: 'babel-eslint',
   globals: {
