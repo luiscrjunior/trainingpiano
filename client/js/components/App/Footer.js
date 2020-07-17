@@ -38,7 +38,7 @@ const Footer = () => {
           <em>
             <Trans i18nKey="msg_footer">
               Still in <strong>beta</strong>. Soon, we will add F Clef, user
-              ranking and other features... Feedback?{' '}
+              ranking and other features... Feedback?
               <a href="mailto:contact@trainingpiano.com">
                 contact@trainingpiano.com
               </a>
