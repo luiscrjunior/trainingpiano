@@ -1,4 +1,4 @@
-import { getNotesScore } from 'utils/notes/score.js';
+import { getNotesScore } from 'app/utils';
 
 describe('midi utility', () => {
   test('generate score', () => {

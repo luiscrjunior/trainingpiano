@@ -1,8 +1,4 @@
-import {
-  addNoteToMidi,
-  removeNoteFromMidi,
-  notesThatMatch,
-} from 'utils/notes/midi.js';
+import { addNoteToMidi, removeNoteFromMidi, notesThatMatch } from 'app/utils';
 
 describe('midi utility', () => {
   test('addNoteToMidi', () => {

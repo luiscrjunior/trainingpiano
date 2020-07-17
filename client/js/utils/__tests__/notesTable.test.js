@@ -3,7 +3,7 @@ import {
   upperNoteFromTable,
   findMidiNote,
   findNotes,
-} from 'utils/notes/notesTable.js';
+} from 'app/utils';
 
 describe('midi utility', () => {
   test('lowerNoteFromTable and upperNoteFromTable', () => {
