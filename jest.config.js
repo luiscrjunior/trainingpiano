@@ -1,5 +1,5 @@
 module.exports = {
-  testEnvironment: 'node',
+  testEnvironment: 'jsdom',
   testMatch: ['<rootDir>/client/**/*.test.js'],
   testPathIgnorePatterns: ['<rootDir>/node_modules/'],
   moduleNameMapper: {
