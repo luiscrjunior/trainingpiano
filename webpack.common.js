@@ -39,13 +39,10 @@ module.exports = {
   },
   module: {
     rules: [
-
       /* styles in this path will be exported to a single .css */
       {
         test: /\.(scss|css)$/,
-        include: [
-          path.resolve(__dirname, 'client/scss'),
-        ],
+        include: [path.resolve(__dirname, 'client/scss')],
         use: [
           {
             loader: MiniCssExtractPlugin.loader,
@@ -64,15 +61,12 @@ module.exports = {
           'postcss-loader',
           'sass-loader',
         ],
-
       },
 
       /* styles in this path will not be exported to file */
       {
         test: /\.(scss|css)$/,
-        include: [
-          path.resolve(__dirname, 'client/js'),
-        ],
+        include: [path.resolve(__dirname, 'client/js')],
         use: [
           {
             loader: 'style-loader',
@@ -94,14 +88,11 @@ module.exports = {
       /* transpile js */
       {
         test: /\.js$/,
-        include: [
-          path.resolve(__dirname, 'client/js'),
-        ],
+        include: [path.resolve(__dirname, 'client/js')],
         use: {
           loader: 'babel-loader',
         },
       },
-
     ],
   },
   plugins: [
@@ -111,8 +102,6 @@ module.exports = {
       ignoreOrder: false,
     }),
     new CleanWebpackPlugin(),
-    new CopyPlugin([
-      { from: 'client/static' },
-    ]),
+    new CopyPlugin([{ from: 'client/static' }]),
   ],
 };
