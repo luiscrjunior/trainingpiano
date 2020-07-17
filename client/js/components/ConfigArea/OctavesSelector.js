@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import OctaveButton from './OctaveButton';
 import { findMidiNote } from 'app/utils';
+import { octavesToSelect } from 'components/ConfigArea';
 import styled from 'styled-components';
 
 import { useSelector } from 'react-redux';
@@ -29,14 +30,12 @@ const OctavesSelector = ({ onChange }) => {
 
   useEffect(() => {
     /* reset available octaves each time clef changes */
-    const availableClefs =
-      clef === 'treble' ? ['3', '4', '5', '6'] : ['1', '2', '3', '4'];
+    const availableClefs = octavesToSelect(clef);
     setOctaves(
       allOctaves
         .filter((octave) => availableClefs.includes(octave.number))
         .map((octave) => ({ ...octave, selected: isSelected(octave) }))
     );
-    onChange(`C/${availableClefs[1]}`, `B/${availableClefs[2]}`);
   }, [clef, isSelected, onChange]);
 
   const isSelected = useCallback(

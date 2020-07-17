@@ -18,6 +18,9 @@ const Hint = styled(Span)`
   font-size: 11px;
 `;
 
+export const octavesToSelect = (clef) =>
+  clef === 'treble' ? ['3', '4', '5', '6'] : ['1', '2', '3', '4'];
+
 const ConfigArea = () => {
   const config = useSelector((state) => state.config);
   const dispatch = useDispatch();
@@ -48,8 +51,9 @@ const ConfigArea = () => {
   const onSelectMidiInput = (e) => selectMidiInput(e.target.value);
 
   const updateNoteRange = useCallback(
-    (lowerNote, upperNote) =>
-      updateConfig({ lowerNote: lowerNote, upperNote: upperNote }),
+    (lowerNote, upperNote) => {
+      updateConfig({ lowerNote: lowerNote, upperNote: upperNote });
+    },
     [updateConfig]
   );
 
