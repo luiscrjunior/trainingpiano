@@ -1,12 +1,21 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 
 import ReactGA from 'react-ga';
 import ReactPixel from 'react-facebook-pixel';
 
 export default ({ setup = false, pageView = false } = {}) => {
-
-  const trackEvent = ({ action = '', value = {}, numericValue = 0, nonInteraction = false }) => {
-    ReactGA.event({ category: 'App', action: action, value: numericValue, nonInteraction: nonInteraction });
+  const trackEvent = ({
+    action = '',
+    value = {},
+    numericValue = 0,
+    nonInteraction = false,
+  }) => {
+    ReactGA.event({
+      category: 'App',
+      action: action,
+      value: numericValue,
+      nonInteraction: nonInteraction,
+    });
     ReactPixel.trackCustom(action, value);
   };
 
@@ -25,5 +34,4 @@ export default ({ setup = false, pageView = false } = {}) => {
   }, [pageView]);
 
   return { trackEvent };
-
 };

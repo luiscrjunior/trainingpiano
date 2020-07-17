@@ -1,13 +1,11 @@
-import { notesThatMatch } from 'app/utils';
-
 export default {
-  status: 'idle', /* idle, configuring, running */
-  stats: { /* current statistics */
-    hits: 0,
+  status: 'idle' /* idle, configuring, running */,
+  stats: {
+    /* current statistics */ hits: 0,
     miss: 0,
     score: 0,
     attempts: 0,
-    status: 'not_started', /* not_started, in_progress, canceled, completed */
+    status: 'not_started' /* not_started, in_progress, canceled, completed */,
   },
   notes: [],
   midi: [],
@@ -16,11 +14,10 @@ export default {
     clef: 'treble',
     lowerNote: 'C/4',
     upperNote: 'B/5',
-    totalNotes: 0, /* 0 means random from 1 up to maxNotes */
-    maxNotes: 2, /* in random mode */
+    totalNotes: 0 /* 0 means random from 1 up to maxNotes */,
+    maxNotes: 2 /* in random mode */,
     includeAccidentals: true,
     showNotesName: false,
   },
   showFinishedPanel: false,
-
 };

@@ -1,4 +1,8 @@
-import notesTable, { lowerNoteFromTable, upperNoteFromTable, findMidiNote } from './notesTable.js';
+import notesTable, {
+  lowerNoteFromTable,
+  upperNoteFromTable,
+  findMidiNote,
+} from './notesTable.js';
 
 /* https://stackoverflow.com/a/1527820/3889043 */
 const randomNumber = (min, max) => {
@@ -9,12 +13,20 @@ const randomNumber = (min, max) => {
 
 const randomItemFromArray = (array) => array[randomNumber(0, array.length - 1)];
 
-const notesHasAccidentals = (notes) => notes.some(note => /#/.test(note) || /b/.test(note));
+const notesHasAccidentals = (notes) =>
+  notes.some((note) => /#/.test(note) || /b/.test(note));
 
-const getNextRandomNote = (lowerMidiNote, upperMidiNote, includeAccidentals, randomNotes) => {
-
-  const lastNote = randomNotes.length >= 1 ? randomNotes[randomNotes.length - 1] : null;
-  const min = lastNote ? lastNote.midi + 3 : lowerMidiNote; /* next note, +3 midi tones above */
+const getNextRandomNote = (
+  lowerMidiNote,
+  upperMidiNote,
+  includeAccidentals,
+  randomNotes
+) => {
+  const lastNote =
+    randomNotes.length >= 1 ? randomNotes[randomNotes.length - 1] : null;
+  const min = lastNote
+    ? lastNote.midi + 3
+    : lowerMidiNote; /* next note, +3 midi tones above */
   const max = lastNote ? lastNote.midi + 7 : upperMidiNote;
 
   const eligibleNotes = [];
@@ -24,7 +36,8 @@ const getNextRandomNote = (lowerMidiNote, upperMidiNote, includeAccidentals, ran
     if (
       includeAccidentals === true ||
       (includeAccidentals === false && !hasAccidentals)
-    ) eligibleNotes.push({ midi: i, notes: notesFromMidiNumber });
+    )
+      eligibleNotes.push({ midi: i, notes: notesFromMidiNumber });
   }
 
   if (eligibleNotes.length === 0) return null;
@@ -37,10 +50,9 @@ export const generateRandomNotes = ({
   lowerNote = 'C/4',
   upperNote = 'B/5',
   maxNotes = 4,
-  totalNotes = 2, /* 0 means random from 1 up to maxNotes */
+  totalNotes = 2 /* 0 means random from 1 up to maxNotes */,
   includeAccidentals = true,
 } = {}) => {
-
   totalNotes = totalNotes === 0 ? randomNumber(1, maxNotes) : totalNotes;
 
   const lowerMidiNote = findMidiNote(lowerNote) || lowerNoteFromTable();
@@ -49,7 +61,12 @@ export const generateRandomNotes = ({
   let randomNotes = [];
   let attempts = 1;
   while (randomNotes.length < totalNotes && attempts < 200) {
-    const randomNote = getNextRandomNote(lowerMidiNote, upperMidiNote, includeAccidentals, randomNotes);
+    const randomNote = getNextRandomNote(
+      lowerMidiNote,
+      upperMidiNote,
+      includeAccidentals,
+      randomNotes
+    );
     if (!randomNote) {
       randomNotes = []; /* restart */
       attempts++;
@@ -57,6 +74,5 @@ export const generateRandomNotes = ({
     }
     randomNotes.push(randomNote);
   }
-  return randomNotes.map(randomNote => randomNote.note);
-
+  return randomNotes.map((randomNote) => randomNote.note);
 };

@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 
 import styled from 'styled-components';
 
@@ -23,16 +23,19 @@ const Panel = styled.div`
   margin: 0 auto;
   padding: 0;
   width: 720px;
-  min-height: 100px;  
+  min-height: 100px;
   height: auto;
   background: #fff;
   border: none;
   outline: none;
-  box-shadow: 0 4px 8px -4px rgba(9,30,66,.25), 0 0 0 1px rgba(9,30,66,.08);
+  box-shadow: 0 4px 8px -4px rgba(9, 30, 66, 0.25),
+    0 0 0 1px rgba(9, 30, 66, 0.08);
   text-align: left;
   z-index: 20;
 
-  &:focus { outline: none; }
+  &:focus {
+    outline: none;
+  }
 `;
 
 const Title = styled(Paragraph)`
@@ -47,14 +50,18 @@ const Content = styled.div`
   padding: 15px;
 `;
 
-const CloseIcon = styled(Icon).attrs(props => ({
+const CloseIcon = styled(Icon).attrs((props) => ({
   icon: ['fas', 'fa-window-close'],
 }))`
   font-size: 26px;
-  color: #0091EA;
+  color: #0091ea;
 `;
 
-const CloseButton = styled(props => <BaseAnchor {...props}><CloseIcon /></BaseAnchor>)`
+const CloseButton = styled((props) => (
+  <BaseAnchor {...props}>
+    <CloseIcon />
+  </BaseAnchor>
+))`
   position: absolute;
   top: 13px;
   right: 13px;
@@ -66,8 +73,7 @@ export const ButtonArea = styled.div`
   margin-top: 40px;
 `;
 
-export default ({ title, onClose, children }) => {
-
+const FloatingPanel = ({ title, onClose, children }) => {
   const panelRef = useRef(null);
 
   useEffect(() => {
@@ -85,14 +91,16 @@ export default ({ title, onClose, children }) => {
     }
   };
 
-  return <>
-    <Overlay onClick={(e) => closePanel()} />
-    <Panel tabIndex="0" onKeyDown={onPanelKeyDown} ref={panelRef}>
-      <Title>{title}</Title>
-      <CloseButton onClick={(e) => closePanel()} />
-      <Content>{children}</Content>
-    </Panel>
-  </>;
-
+  return (
+    <>
+      <Overlay onClick={(e) => closePanel()} />
+      <Panel tabIndex="0" onKeyDown={onPanelKeyDown} ref={panelRef}>
+        <Title>{title}</Title>
+        <CloseButton onClick={(e) => closePanel()} />
+        <Content>{children}</Content>
+      </Panel>
+    </>
+  );
 };
 
+export default FloatingPanel;

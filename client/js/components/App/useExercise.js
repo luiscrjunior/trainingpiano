@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
 import useAnalytics from './useAnalytics';
 import useScore from './useScore';
 
 export default () => {
-
-  const stats = useSelector(state => state.stats);
+  const stats = useSelector((state) => state.stats);
   const [userHasScored, userHasMissed] = useScore();
 
   const dispatch = useDispatch();
@@ -25,12 +24,20 @@ export default () => {
   };
 
   const cancelExercise = () => {
-    trackEvent({ action: 'Exercise canceled', value: stats, numericValue: stats.score });
+    trackEvent({
+      action: 'Exercise canceled',
+      value: stats,
+      numericValue: stats.score,
+    });
     dispatch({ type: 'CANCEL_EXERCISE' });
   };
 
   const finishExercise = () => {
-    trackEvent({ action: 'Exercise completed', value: stats, numericValue: stats.score });
+    trackEvent({
+      action: 'Exercise completed',
+      value: stats,
+      numericValue: stats.score,
+    });
     dispatch({ type: 'FINISH_EXERCISE' });
   };
 
@@ -39,5 +46,4 @@ export default () => {
   };
 
   return [configureExercise, cancelExercise, finishExercise, resetExercise];
-
 };

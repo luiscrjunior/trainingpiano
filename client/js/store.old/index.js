@@ -6,9 +6,7 @@ import defaultValues from './defaultValues';
 const Store = ({ children }) => {
   const [state, dispatch] = useReducer(Reducer, defaultValues);
   return (
-    <Context.Provider value={[state, dispatch]}>
-      {children}
-    </Context.Provider>
+    <Context.Provider value={[state, dispatch]}>{children}</Context.Provider>
   );
 };
 

@@ -25,25 +25,30 @@ const Label = styled(Span)`
 const Octave = styled.img`
   width: 60px;
   cursor: pointer;
-  opacity: ${props => props.selected ? 1 : 0.2};
+  opacity: ${(props) => (props.selected ? 1 : 0.2)};
 `;
 
-export default ({ lower, upper, selected, onClick }) => {
-
+const OctaveButton = ({ lower, upper, selected, onClick }) => {
   const onSelectOctave = (e) => {
     if (!onClick) return;
     onClick({ lower, upper, selected });
     e.preventDefault();
   };
 
-  return <Button>
-    <Header>
-      <Label>{lower}</Label>
-      <Label>~</Label>
-      <Label>{upper}</Label>
-    </Header>
-    <Octave src='images/piano_octave.png' selected={selected} onClick={onSelectOctave}/>
-  </Button>;
-
+  return (
+    <Button>
+      <Header>
+        <Label>{lower}</Label>
+        <Label>~</Label>
+        <Label>{upper}</Label>
+      </Header>
+      <Octave
+        src="images/piano_octave.png"
+        selected={selected}
+        onClick={onSelectOctave}
+      />
+    </Button>
+  );
 };
 
+export default OctaveButton;

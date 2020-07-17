@@ -1,18 +1,13 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
 import FloatingPanel, { ButtonArea } from 'components/FloatingPanel';
 
 import { Button, Paragraph, Icon } from 'components/shared';
 
 import { useTranslation } from 'react-i18next';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import styled from 'styled-components';
-
-const Text = styled(Paragraph)`
-  margin-top: 15px;
-  font-size: 16px;
-`;
 
 const Wrapper = styled.div`
   display: flex;
@@ -24,7 +19,7 @@ const Metric = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 100px;
-  background-color: ${props => props.bgColor};
+  background-color: ${(props) => props.bgColor};
   flex-basis: 33%;
   justify-content: flex-start;
   align-items: center;
@@ -49,52 +44,54 @@ const ScorePoints = styled(Paragraph)`
   color: #fff;
 `;
 
-export default ({ onClose }) => {
-
-  const stats = useSelector(state => state.stats);
+const FinishedPanel = ({ onClose }) => {
+  const stats = useSelector((state) => state.stats);
   const { t } = useTranslation();
 
   let title;
   switch (stats.status) {
-  case 'completed':
-    title = t('lbl_finished');
-    break;
-  case 'canceled':
-    title = t('lbl_canceled');
-    break;
-  default:
-    title = t('lbl_finished');
+    case 'completed':
+      title = t('lbl_finished');
+      break;
+    case 'canceled':
+      title = t('lbl_canceled');
+      break;
+    default:
+      title = t('lbl_finished');
   }
 
-  return <FloatingPanel onClose={onClose} title={title}>
+  return (
+    <FloatingPanel onClose={onClose} title={title}>
+      <Wrapper>
+        <Metric bgColor="green">
+          <ScoreHeader>{t('lbl_correct_notes')}</ScoreHeader>
+          <ScoreIcon icon={['fas', 'fa-thumbs-up']} />
+          <ScorePoints>{stats.hits}</ScorePoints>
+        </Metric>
 
-    <Wrapper>
+        <Metric bgColor="red">
+          <ScoreHeader>{t('lbl_missed_notes')}</ScoreHeader>
+          <ScoreIcon icon={['fas', 'fa-times']} />
+          <ScorePoints>{stats.miss}</ScorePoints>
+        </Metric>
 
-      <Metric bgColor='green'>
-        <ScoreHeader>{t('lbl_correct_notes')}</ScoreHeader>
-        <ScoreIcon icon={['fas', 'fa-thumbs-up']} />
-        <ScorePoints>{stats.hits}</ScorePoints>
-      </Metric>
+        <Metric bgColor="#0091EA">
+          <ScoreHeader>{t('lbl_score')}</ScoreHeader>
+          <ScoreIcon icon={['fas', 'fa-star']} />
+          <ScorePoints>{stats.score}</ScorePoints>
+        </Metric>
+      </Wrapper>
 
-      <Metric bgColor='red'>
-        <ScoreHeader>{t('lbl_missed_notes')}</ScoreHeader>
-        <ScoreIcon icon={['fas', 'fa-times']} />
-        <ScorePoints>{stats.miss}</ScorePoints>
-      </Metric>
-
-      <Metric bgColor='#0091EA'>
-        <ScoreHeader>{t('lbl_score')}</ScoreHeader>
-        <ScoreIcon icon={['fas', 'fa-star']} />
-        <ScorePoints>{stats.score}</ScorePoints>
-      </Metric>
-
-    </Wrapper>
-
-    <ButtonArea>
-      <Button btnSize='lg' btnStyle='primary' label={t('btn_close')} onClick={onClose}/>
-    </ButtonArea>
-
-  </FloatingPanel>;
-
+      <ButtonArea>
+        <Button
+          btnSize="lg"
+          btnStyle="primary"
+          label={t('btn_close')}
+          onClick={onClose}
+        />
+      </ButtonArea>
+    </FloatingPanel>
+  );
 };
 
+export default FinishedPanel;

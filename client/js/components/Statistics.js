@@ -1,6 +1,6 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Icon, Span, Paragraph } from 'components/shared';
 
@@ -23,11 +23,13 @@ const Badge = styled.div`
   flex-basis: 33.33%;
   margin-left: 5px;
   padding: 10px;
-  background-color: ${props => props.bgColor};
+  background-color: ${(props) => props.bgColor};
   box-shadow: 1px 1px 1px 0 #ddd;
   border-radius: 3px;
 
-  &:first-child { margin-left: 0; }
+  &:first-child {
+    margin-left: 0;
+  }
 `;
 
 const ScoreHeader = styled(Paragraph)`
@@ -54,37 +56,37 @@ const ScorePoints = styled(Span)`
   color: #fff;
 `;
 
-export default () => {
-
-  const stats = useSelector(state => state.stats);
+const Statistics = () => {
+  const stats = useSelector((state) => state.stats);
   const { t } = useTranslation();
 
-  return <Board>
+  return (
+    <Board>
+      <Badge bgColor="green">
+        <ScoreHeader>{t('lbl_correct_notes')}</ScoreHeader>
+        <ScoreContent>
+          <ScoreIcon icon={['fas', 'fa-thumbs-up']} />
+          <ScorePoints>{stats.hits}</ScorePoints>
+        </ScoreContent>
+      </Badge>
 
-    <Badge bgColor='green'>
-      <ScoreHeader>{t('lbl_correct_notes')}</ScoreHeader>
-      <ScoreContent>
-        <ScoreIcon icon={['fas', 'fa-thumbs-up']} />
-        <ScorePoints>{stats.hits}</ScorePoints>
-      </ScoreContent>
-    </Badge>
+      <Badge bgColor="red">
+        <ScoreHeader>{t('lbl_missed_notes')}</ScoreHeader>
+        <ScoreContent>
+          <ScoreIcon icon={['fas', 'fa-times']} />
+          <ScorePoints>{stats.miss}</ScorePoints>
+        </ScoreContent>
+      </Badge>
 
-    <Badge bgColor='red'>
-      <ScoreHeader>{t('lbl_missed_notes')}</ScoreHeader>
-      <ScoreContent>
-        <ScoreIcon icon={['fas', 'fa-times']} />
-        <ScorePoints>{stats.miss}</ScorePoints>
-      </ScoreContent>
-    </Badge>
-
-    <Badge bgColor='#0091EA'>
-      <ScoreHeader>{t('lbl_score')}</ScoreHeader>
-      <ScoreContent>
-        <ScoreIcon icon={['fas', 'fa-star']} />
-        <ScorePoints>{stats.score}</ScorePoints>
-      </ScoreContent>
-    </Badge>
-
-  </Board>;
-
+      <Badge bgColor="#0091EA">
+        <ScoreHeader>{t('lbl_score')}</ScoreHeader>
+        <ScoreContent>
+          <ScoreIcon icon={['fas', 'fa-star']} />
+          <ScorePoints>{stats.score}</ScorePoints>
+        </ScoreContent>
+      </Badge>
+    </Board>
+  );
 };
+
+export default Statistics;

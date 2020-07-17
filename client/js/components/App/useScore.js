@@ -1,10 +1,8 @@
-import React from 'react';
 import { useSelector } from 'react-redux';
 import { notesThatMatch } from 'app/utils';
 
 export default () => {
-
-  const userHasScored = useSelector(state => {
+  const userHasScored = useSelector((state) => {
     const matchNotes = notesThatMatch(state.midi, state.notes);
     return (
       state.status === 'running' &&
@@ -14,7 +12,7 @@ export default () => {
     );
   });
 
-  const userHasMissed = useSelector(state => {
+  const userHasMissed = useSelector((state) => {
     const matchNotes = notesThatMatch(state.midi, state.notes);
     return (
       state.status === 'running' &&
@@ -26,5 +24,4 @@ export default () => {
   });
 
   return [userHasScored, userHasMissed];
-
 };

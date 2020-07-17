@@ -75,15 +75,18 @@ const notesTable = {
 
 export default notesTable;
 
-export const lowerNoteFromTable = () => Math.min(...Object.keys(notesTable).map(note => parseInt(note)));
+export const lowerNoteFromTable = () =>
+  Math.min(...Object.keys(notesTable).map((note) => parseInt(note)));
 
-export const upperNoteFromTable = () => Math.max(...Object.keys(notesTable).map(note => parseInt(note)));
+export const upperNoteFromTable = () =>
+  Math.max(...Object.keys(notesTable).map((note) => parseInt(note)));
 
 export const findMidiNote = (noteName) => {
   for (let k in notesTable) {
-    if (notesTable[k].some(note => note === noteName)) return parseInt(k);
+    if (notesTable[k].some((note) => note === noteName)) return parseInt(k);
   }
   return null;
 };
 
-export const findNotes = midiNote => notesTable[Number.isInteger(midiNote) ? midiNote.toString() : midiNote];
+export const findNotes = (midiNote) =>
+  notesTable[Number.isInteger(midiNote) ? midiNote.toString() : midiNote];

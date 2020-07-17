@@ -1,9 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-import Countdown from 'react-countdown';
-import { Span, Icon } from 'components/shared';
-
-import { useSelector, useDispatch } from 'react-redux';
+import ReactCountDown from 'react-countdown';
+import { Span } from 'components/shared';
 
 import styled from 'styled-components';
 
@@ -20,9 +18,7 @@ const CountdownLabel = styled(Span)`
   letter-spacing: -3px;
 `;
 
-export default ({ onCountdown }) => {
-
-  const dispatch = useDispatch();
+const Countdown = ({ onCountdown }) => {
   const [date, setDate] = useState(Date.now());
 
   useEffect(() => {
@@ -30,17 +26,23 @@ export default ({ onCountdown }) => {
   }, []);
 
   const renderer = ({ formatted: { minutes, seconds }, completed }) => {
-    return <CountdownLabel>{minutes}:{seconds}</CountdownLabel>;
+    return (
+      <CountdownLabel>
+        {minutes}:{seconds}
+      </CountdownLabel>
+    );
   };
 
-  return <Area>
-    <Countdown
-      autoStart={true}
-      date={date}
-      renderer={renderer}
-      onComplete={onCountdown}
-    />
-  </Area>;
-
+  return (
+    <Area>
+      <ReactCountDown
+        autoStart={true}
+        date={date}
+        renderer={renderer}
+        onComplete={onCountdown}
+      />
+    </Area>
+  );
 };
 
+export default Countdown;

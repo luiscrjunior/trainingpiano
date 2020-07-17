@@ -1,30 +1,24 @@
 module.exports = {
-  'extends': [
+  extends: [
     'standard',
+    'plugin:react/recommended',
     'plugin:react-hooks/recommended',
+    'prettier',
+    'prettier/react',
   ],
-  'env': {
-    'es6': true,
+  env: {
+    es6: true,
   },
-  'parserOptions': {
-    'ecmaVersion': 6,
+  parserOptions: {
+    ecmaVersion: 6,
   },
-  'parser': 'babel-eslint',
-  'rules': {
-    'strict': 0,
-    'semi': ['error', 'always'],
-    'no-var': 'error',
-    'quotes': ['error', 'single'],
-    'indent': ['error', 2],
-    'no-unused-vars': 'off',
-    'padded-blocks': 'off',
-    'comma-dangle': ['error', 'always-multiline'],
-    'spaced-comment': 'off',
-    'handle-callback-err': 'off',
+  rules: {
+    'react/prop-types': 'off',
   },
-  'globals': {
-    'chrome': true,
-    'PRODUCTION': true,
-    'DEVELOPMENT': true,
+  parser: 'babel-eslint',
+  globals: {
+    chrome: true,
+    PRODUCTION: true,
+    DEVELOPMENT: true,
   },
 };
