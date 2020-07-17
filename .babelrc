@@ -6,17 +6,14 @@
         "useBuiltIns": "usage",
         "corejs": 3,
         "targets": {
-          "browsers": [
-              "last 5 versions",
-              "ie >= 9"
-          ]
-        }        
-       }
-      ],      
+          "browsers": ["last 5 versions", "ie >= 9"]
+        }
+      }
+    ],
     "@babel/react"
   ],
   "plugins": [
-    "transform-object-rest-spread",
+    "@babel/plugin-proposal-object-rest-spread",
     "babel-plugin-styled-components"
   ]
 }
