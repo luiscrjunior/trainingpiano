@@ -8,6 +8,10 @@ Feel free to contribute or to add features.
 
 Hosted in https://www.trainingpiano.com/
 
+### Credits
+
+Virtual Piano design adapted from [Pure CSS3 Piano](https://codepen.io/airpwn/pen/JycBg/) by Taufik Nurrohman.
+
 ### License
 
 MIT.
