@@ -17,7 +17,7 @@ function render(ui, state = {}, { ...renderOptions } = {}) {
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({ t: (key) => key }),
-  Trans: ({ children }) => children,
+  Trans: ({ i18nKey }) => i18nKey,
 }));
 
 // re-export everything
