@@ -8,11 +8,6 @@ import {
 } from './test-utils';
 import ConfigArea from 'components/ConfigArea';
 
-jest.mock('react-i18next', () => ({
-  useTranslation: () => ({ t: (key) => key }),
-  Trans: ({ children }) => children,
-}));
-
 const getOctavesButtons = (container) => [
   ...container.querySelectorAll('img[src="images/piano_octave.png"]'),
 ];

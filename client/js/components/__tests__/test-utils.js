@@ -15,6 +15,11 @@ function render(ui, state = {}, { ...renderOptions } = {}) {
   return rtlRender(ui, { wrapper: Wrapper, ...renderOptions });
 }
 
+jest.mock('react-i18next', () => ({
+  useTranslation: () => ({ t: (key) => key }),
+  Trans: ({ children }) => children,
+}));
+
 // re-export everything
 export * from '@testing-library/react';
 // override render method
