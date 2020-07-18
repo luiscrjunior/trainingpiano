@@ -1,7 +1,7 @@
 import React from 'react';
 import LanguageSelector from 'components/LanguageSelector';
 import ShareBar from 'components/ShareBar';
-import { Trans } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import { Paragraph } from 'components/shared';
 
 import styled from 'styled-components';
@@ -31,6 +31,8 @@ const Line = styled.div`
 `;
 
 const Footer = () => {
+  const { t } = useTranslation();
+
   return (
     <Wrapper>
       <Line>
@@ -54,6 +56,9 @@ const Footer = () => {
 
       <Line>
         <Paragraph color={'#aaa'}>© Copyright 2020</Paragraph>
+        <a href="https://github.com/luiscrjunior/trainingpiano">
+          <Paragraph color={'#aaa'}>{t('msg_footer_source_code')}</Paragraph>
+        </a>
       </Line>
     </Wrapper>
   );

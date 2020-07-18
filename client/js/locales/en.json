@@ -1,6 +1,7 @@
 {
   "msg_welcome": "Click below to start the exercise. Try to hit maximum notes in 30 seconds. The greater the difficulty, the higher the score.",
   "msg_footer": "App still in <1>beta</1>. Feedback? <3>contact@trainingpiano.com</3>",
+  "msg_footer_source_code": "Source code (github)",
   "btn_cancel": "Cancel",
   "btn_start_exercise": "Start exercise...",
   "btn_close": "Close",

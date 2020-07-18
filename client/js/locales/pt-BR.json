@@ -1,6 +1,7 @@
 {
   "msg_welcome": "Clique abaixo para iniciar o exercício. Tente acertar o máximo de notas em 30 segundos. Quanto maior a dificuldade, maior a pontuação.",
   "msg_footer": "Aplicativo ainda em <1>beta</1>. Contato: <3>contact@trainingpiano.com</3>",
+  "msg_footer_source_code": "Código-Fonte (github)",
   "btn_cancel": "Cancelar",
   "btn_start_exercise": "Iniciar exercício...",
   "btn_close": "Fechar",
