@@ -5,7 +5,6 @@ import {
   waitFor,
   fireEvent,
   queryAllByText,
-  screen,
 } from './test-utils';
 import VirtualPiano from 'components/VirtualPiano';
 
