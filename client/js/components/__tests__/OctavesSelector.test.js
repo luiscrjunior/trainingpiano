@@ -9,17 +9,17 @@ it('render correct note range', () => {
     <OctavesSelector onChange={jest.fn()} />,
     state
   );
-  expect(queryByText('C/3', { selector: 'span' })).toBeDefined();
-  expect(queryByText('C/4', { selector: 'span' })).toBeDefined();
-  expect(queryByText('C/5', { selector: 'span' })).toBeDefined();
-  expect(queryByText('C/6', { selector: 'span' })).toBeDefined();
+  expect(queryByText('C/3', { selector: 'span' })).not.toBeNull();
+  expect(queryByText('C/4', { selector: 'span' })).not.toBeNull();
+  expect(queryByText('C/5', { selector: 'span' })).not.toBeNull();
+  expect(queryByText('C/6', { selector: 'span' })).not.toBeNull();
   expect(queryByText('C/1', { selector: 'span' })).toBeNull();
   state.config.clef = 'bass';
   rerender(<OctavesSelector onChange={jest.fn()} />, state);
-  expect(queryByText('C/1', { selector: 'span' })).toBeDefined();
-  expect(queryByText('C/2', { selector: 'span' })).toBeDefined();
-  expect(queryByText('C/3', { selector: 'span' })).toBeDefined();
-  expect(queryByText('C/4', { selector: 'span' })).toBeDefined();
+  expect(queryByText('C/1', { selector: 'span' })).not.toBeNull();
+  expect(queryByText('C/2', { selector: 'span' })).not.toBeNull();
+  expect(queryByText('C/3', { selector: 'span' })).not.toBeNull();
+  expect(queryByText('C/4', { selector: 'span' })).not.toBeNull();
   expect(queryByText('C/5', { selector: 'span' })).toBeNull();
 });
 
