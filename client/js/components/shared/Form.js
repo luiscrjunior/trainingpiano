@@ -1,9 +1,9 @@
 import React from 'react';
-import { Paragraph } from 'components/shared';
+import { Paragraph, Span } from 'components/shared';
 import ReactToggle from 'react-toggle';
 
 export const FormItem = (props) => {
-  const { label, children } = props;
+  const { label, hint, children } = props;
 
   return (
     <div css="margin-bottom: 20px;">
@@ -13,6 +13,11 @@ export const FormItem = (props) => {
         </Paragraph>
         {children}
       </label>
+      {hint && (
+        <Span size={11} css="margin-left: 10px">
+          <em>{hint}</em>
+        </Span>
+      )}
     </div>
   );
 };

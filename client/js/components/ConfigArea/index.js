@@ -59,19 +59,24 @@ const ConfigArea = () => {
 
   return (
     <Area>
-      <FormItem label={t('lbl_config_input_device')}>
-        <select
-          value={config.midiInput ? config.midiInput.id : ''}
-          onChange={onSelectMidiInput}
+      {isSupported() && (
+        <FormItem
+          label={t('lbl_config_input_device')}
+          hint={t('lbl_config_input_device_hint')}
         >
-          <option value={-1}>{t('lbl_config_choose_device')}</option>
-          {midiInputs.map((midiInput) => (
-            <option key={midiInput.id} value={midiInput.id}>
-              {midiInput.name}
-            </option>
-          ))}
-        </select>
-      </FormItem>
+          <select
+            value={config.midiInput ? config.midiInput.id : ''}
+            onChange={onSelectMidiInput}
+          >
+            <option value={-1}>{t('lbl_config_choose_device')}</option>
+            {midiInputs.map((midiInput) => (
+              <option key={midiInput.id} value={midiInput.id}>
+                {midiInput.name}
+              </option>
+            ))}
+          </select>
+        </FormItem>
+      )}
 
       <FormItem label={t('lbl_config_clef')}>
         <select

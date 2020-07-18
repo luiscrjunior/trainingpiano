@@ -6,6 +6,7 @@
   "btn_start_exercise": "Iniciar exercício...",
   "btn_close": "Fechar",
   "lbl_config_input_device": "Dispositivo de entrada",
+  "lbl_config_input_device_hint": "(opcional, você pude usar o piano virtual)",
   "lbl_config_clef": "Clave",
   "lbl_config_clef_treble": "Clave de Sol",
   "lbl_config_clef_bass": "Clave de Fá",
