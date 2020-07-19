@@ -55,7 +55,6 @@ const Footer = () => {
       </Line>
 
       <Line>
-        <Paragraph color={'#aaa'}>© Copyright 2020</Paragraph>
         <a href="https://github.com/luiscrjunior/trainingpiano">
           <Paragraph color={'#aaa'}>{t('msg_footer_source_code')}</Paragraph>
         </a>
