@@ -13,7 +13,7 @@
   0% {
     opacity: 1;
   }
- 
+
   100% {
     opacity: 0;
   }
@@ -24,8 +24,16 @@
   animation-duration: 1s;
 }
 
-.ghost_notes.hit { animation-name: flying_away; }
-.ghost_notes.miss { animation-name: show_and_hide; }
+.ghost_notes.hit {
+  animation-name: flying_away;
+}
+.ghost_notes.miss {
+  animation-name: show_and_hide;
+}
 
-.ghost_notes * { fill: green; }
-.ghost_notes.miss * { fill: red; }
+.ghost_notes * {
+  fill: green;
+}
+.ghost_notes.miss * {
+  fill: red;
+}

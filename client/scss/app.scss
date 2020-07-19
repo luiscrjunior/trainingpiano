@@ -25,7 +25,11 @@ body {
   box-sizing: border-box;
 }
 
-a, a:link, a:visited, a:hover, a:active {
+a,
+a:link,
+a:visited,
+a:hover,
+a:active {
   text-decoration: none;
   font-weight: normal;
 }
@@ -42,7 +46,8 @@ li {
   list-style-type: none;
 }
 
-input, textarea {
+input,
+textarea {
   display: inline-block;
   width: auto;
   margin: 0;
