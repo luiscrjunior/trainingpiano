@@ -6,7 +6,7 @@ Built with react.
 
 Feel free to contribute or to add features.
 
-Hosted in https://www.trainingpiano.com/
+Hosted in https://luiscrjunior.github.io/trainingpiano/
 
 ### Credits
 
