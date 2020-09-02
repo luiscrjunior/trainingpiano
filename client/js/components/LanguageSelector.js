@@ -13,7 +13,7 @@ const LanguageSelector = () => {
   const { i18n } = useTranslation();
 
   const changeLanguage = (e) => {
-    window.location.href = `/?lang=${e.target.value}`;
+    window.location.href = `${window.location.origin}${window.location.pathname}?lang=${e.target.value}`;
   };
 
   return (
