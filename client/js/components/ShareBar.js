@@ -38,7 +38,7 @@ import {
   WhatsappIcon,
 } from 'react-share';
 
-const url = 'https://www.trainingpiano.com/';
+const url = 'https://luiscrjunior.github.io/trainingpiano/';
 
 const ShareBar = () => {
   return (

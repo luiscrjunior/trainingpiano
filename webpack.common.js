@@ -2,7 +2,7 @@ const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const outputPath = path.resolve(__dirname, 'output');
+const outputPath = path.resolve(__dirname, 'docs');
 
 module.exports = {
   entry: {
